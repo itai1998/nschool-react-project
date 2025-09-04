@@ -1,12 +1,20 @@
-import './App.css'
-import Test from './components/Test'
+import Footer from './components/Footer'
+import Intro from './components/Intro'
+import Links from './components/Links'
+import NavBar from './components/NavBar'
+import NewProducts from './components/NewProducts'
+import Products from './components/Products'
 
 function App() {
   return (
-    <>
-      <h1>Hello World</h1>
-      <Test />
-    </>
+    <div className="App">
+      <NavBar />
+      <Intro />
+      <Products />
+      <NewProducts />
+      <Links />
+      <Footer />
+    </div>
   )
 }
 
