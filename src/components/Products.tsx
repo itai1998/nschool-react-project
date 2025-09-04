@@ -10,16 +10,6 @@ export default function Products() {
     slidesToScroll: 1,
     slidesToShow: 4,
     arrows: true,
-    prevArrow: (
-      <button type="button" className="slick-prev">
-        Previous
-      </button>
-    ),
-    nextArrow: (
-      <button type="button" className="slick-next">
-        Next
-      </button>
-    ),
   }
   return (
     <div className="productsContainer">

@@ -2,3 +2,8 @@
   position: relative;
   box-sizing: border-box;
 }
+
+.slick-prev:before,
+.slick-next:before {
+  color: grey !important;
+}
