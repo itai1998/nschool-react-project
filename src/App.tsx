@@ -1,3 +1,4 @@
+import './App.scss'
 import Footer from './components/Footer'
 import Intro from './components/Intro'
 import Links from './components/Links'
