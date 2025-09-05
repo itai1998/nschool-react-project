@@ -4,7 +4,7 @@
 }
 
 .container {
-  padding: 0 5rem;
+  padding: 0 15rem;
   position: relative;
 }
 
@@ -15,4 +15,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  span {
+    font-size: 10px;
+    white-space: nowrap;
+    min-width: fit-content;
+    cursor: pointer;
+  }
+  img {
+    height: 16px;
+    cursor: pointer;
+  }
 }
