@@ -20,6 +20,10 @@
     white-space: nowrap;
     min-width: fit-content;
     cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC',
+      'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    text-rendering: optimizeLegibility;
   }
   img {
     height: 16px;
