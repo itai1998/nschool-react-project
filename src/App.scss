@@ -6,6 +6,30 @@
 .slick-prev:before,
 .slick-next:before {
   color: grey !important;
+  font-size: 50px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+// Ensure arrows are on top of images
+.slick-prev,
+.slick-next {
+  z-index: 10 !important;
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.slick-prev {
+  left: 10px !important;
+}
+
+.slick-next {
+  right: 10px !important;
+}
+
+// Hide disabled arrows
+.slick-prev.slick-disabled,
+.slick-next.slick-disabled {
+  display: none !important;
 }
 
 body {
