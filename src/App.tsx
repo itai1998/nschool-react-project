@@ -1,5 +1,6 @@
 import './App.scss'
 import Footer from './components/Footer'
+import HelperOptions from './components/HelperOptions'
 import Intro from './components/Intro'
 import Links from './components/Links'
 import NavBar from './components/NavBar'
@@ -13,6 +14,7 @@ function App() {
       <Intro />
       <Products />
       <NewProducts />
+      <HelperOptions />
       <Links />
       <Footer />
     </div>

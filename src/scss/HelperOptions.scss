@@ -1,0 +1,11 @@
+.helperOptionsContainer {
+  border: 1px solid black;
+  position: relative;
+  .helperOptionsTitle {
+    padding-left: 10%;
+  }
+  .slick-track {
+    display: flex;
+    gap: -0.5rem;
+  }
+}

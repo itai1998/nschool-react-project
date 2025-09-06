@@ -1,4 +1,3 @@
-import iphoneProImg from '../img/newProductsImg/iphonePro.jpg'
 import '../scss/NewProductCard.scss'
 
 interface NewProductCardProps {
@@ -7,6 +6,8 @@ interface NewProductCardProps {
   subtitle?: string
   description?: string
   textColor?: string
+  label?: string
+  width?: string
 }
 
 export default function NewProductCard({
@@ -15,9 +16,12 @@ export default function NewProductCard({
   subtitle = '',
   description = '',
   textColor = 'black',
+  label = '',
+  width = '400px',
 }: NewProductCardProps) {
   return (
-    <div className="newProductCardContainer">
+    <div className="newProductCardContainer" style={{ maxWidth: width }}>
+      <p className="label">{label}</p>
       <div className="cardContent" style={{ color: textColor }}>
         <h2>{title}</h2>
         <h3>{subtitle}</h3>

@@ -3,47 +3,22 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import NewProductCard from './NewProductCard'
-import iphoneProImg from '../img/newProductsImg/iphonePro.jpg'
-import ipadAirImg from '../img/newProductsImg/ipadAir.jpg'
+import { newProducts } from '../NewProductList'
 export default function NewProducts() {
   const settings = {
     infinite: false,
     speed: 500,
     slidesToScroll: 1,
-    slidesToShow: 4,
+    slidesToShow: 3.55,
     arrows: true,
   }
 
-  const newProducts = [
-    {
-      img: iphoneProImg,
-      title: 'iPhone 16 Pro',
-      subtitle: 'iPhone 的極致。',
-      description: 'NT$36,900 起',
-      textColor: 'white',
-    },
-    {
-      img: ipadAirImg,
-      title: 'iPad Air',
-      subtitle: '飛之速',
-      description: 'NT$36,900 起',
-    },
-    {
-      img: iphoneProImg,
-      title: 'iPhone 16 Pro',
-      subtitle: 'iPhone 的極致。',
-      description: 'NT$36,900 起',
-    },
-    {
-      img: iphoneProImg,
-      title: 'iPhone 16 Pro',
-      subtitle: 'iPhone 的極致。',
-      description: 'NT$36,900 起',
-    },
-  ]
   return (
     <div className="newProductsContainer">
-      <h3 className="newProductsTitle">NewProducts</h3>
+      <h2 className="newProductsTitle">
+        最新登場。
+        <span style={{ color: 'grey' }}>現在就來看看有哪些新品推薦。</span>
+      </h2>
       <div className="sliderContainer">
         <Slider {...settings}>
           {newProducts.map((product) => (
@@ -54,6 +29,7 @@ export default function NewProducts() {
               subtitle={product.subtitle}
               description={product.description}
               textColor={product.textColor}
+              label={product.label}
             />
           ))}
         </Slider>
