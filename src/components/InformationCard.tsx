@@ -1,6 +1,6 @@
-import '../scss/NewProductCard.scss'
+import '../scss/InformationCard.scss'
 
-interface NewProductCardProps {
+interface InformationCardProps {
   img: string
   title: string
   subtitle?: string
@@ -10,7 +10,7 @@ interface NewProductCardProps {
   width?: string
 }
 
-export default function NewProductCard({
+export default function InformationCard({
   img,
   title,
   subtitle = '',
@@ -18,9 +18,9 @@ export default function NewProductCard({
   textColor = 'black',
   label = '',
   width = '400px',
-}: NewProductCardProps) {
+}: InformationCardProps) {
   return (
-    <div className="newProductCardContainer" style={{ maxWidth: width }}>
+    <div className="informationCardContainer" style={{ maxWidth: width }}>
       <p className="label">{label}</p>
       <div className="cardContent" style={{ color: textColor }}>
         <h2>{title}</h2>

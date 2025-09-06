@@ -2,7 +2,7 @@ import '../scss/NewProducts.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
-import NewProductCard from './NewProductCard'
+import InformationCard from './InformationCard'
 import { newProducts } from '../NewProductList'
 export default function NewProducts() {
   const settings = {
@@ -22,7 +22,7 @@ export default function NewProducts() {
       <div className="sliderContainer">
         <Slider {...settings}>
           {newProducts.map((product) => (
-            <NewProductCard
+            <InformationCard
               key={product.title}
               img={product.img}
               title={product.title}

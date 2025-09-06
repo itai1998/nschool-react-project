@@ -2,7 +2,7 @@ import '../scss/HelperOptions.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
-import NewProductCard from './NewProductCard'
+import InformationCard from './InformationCard'
 import { helperOptions } from '../helperOptionList'
 export default function HelperOptions() {
   const settings = {
@@ -22,7 +22,7 @@ export default function HelperOptions() {
       <div className="sliderContainer">
         <Slider {...settings}>
           {helperOptions.map((option) => (
-            <NewProductCard
+            <InformationCard
               key={option.title}
               img={option.img}
               title={option.title}
