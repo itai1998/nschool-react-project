@@ -3,7 +3,6 @@ import Footer from './components/Footer'
 import Intro from './components/Intro'
 import Links from './components/Links'
 import NavBar from './components/NavBar'
-import NewProductCard from './components/NewProductCard'
 import NewProducts from './components/NewProducts'
 import Products from './components/Products'
 
@@ -15,7 +14,6 @@ function App() {
       <Products />
       <NewProducts />
       <Links />
-      <NewProductCard />
       <Footer />
     </div>
   )

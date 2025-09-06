@@ -1,17 +1,11 @@
 .newProductsContainer {
   border: 1px solid black;
   position: relative;
-  h3 {
+  .newProductsTitle {
     padding-left: 10%;
   }
-}
-
-.sliderContainer {
-  padding-top: 2rem;
-  img {
-    max-width: 100px;
-    height: auto;
-    display: block;
-    margin: 0 auto;
+  .slick-track {
+    display: flex;
+    gap: 1rem;
   }
 }
