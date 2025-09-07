@@ -1,4 +1,4 @@
-import '../scss/Product.scss'
+import '../scss/ProductCategory.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
@@ -85,7 +85,7 @@ export default function Products() {
     },
   ]
   return (
-    <div className="productsContainer">
+    <div className="productCategoryContainer">
       <Slider {...settings}>
         {products.map((product) => (
           <div key={product.displayName}>

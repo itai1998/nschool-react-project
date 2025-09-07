@@ -2,13 +2,13 @@ import '../scss/Products.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
-import { deviceProductList } from './lists/deviceProductList'
 import ProductCard from './ProductCard'
 import InformationCard from './InformationCard'
 import iphoneWatchImg from '../img/productImg/iphonWatch.jpg'
-import iphone2Img from '../img/productImg/iphone2.jpg'
+import { speakerProductLists } from './lists/speakerProductLists'
+import appleMusic from '../img/productImg/music.jpg'
 
-export default function DeviceProducts() {
+export default function SpeakerProducts() {
   const settings = {
     infinite: false,
     speed: 500,
@@ -21,27 +21,21 @@ export default function DeviceProducts() {
   return (
     <div className="productContainer">
       <h2 className="productTitle">
-        周邊配件。
+        清亮動聽。
         <span style={{ color: 'grey' }}>
-          精彩配件，款款都是心愛裝置的必搭絕配。
+          層次豐富的高音質，款款都是好選擇。
         </span>
       </h2>
       <div className="sliderContainer">
         <Slider {...settings}>
           <div className="slideItem">
             <InformationCard
-              img={iphoneWatchImg}
-              title={'跟緊潮流新色。'}
-              description={
-                <>
-                  你喜愛的配件，
-                  <br />
-                  新色上身。
-                </>
-              }
+              img={appleMusic}
+              title={'免費試用 Apple Music 3 個‍月。'}
+              description={'購買特定 Apple 裝置即可獲享。'}
             />
           </div>
-          {deviceProductList.map((option) => (
+          {speakerProductLists.map((option) => (
             <div key={option.title} className="slideItem">
               <ProductCard
                 img={option.img}
@@ -51,9 +45,6 @@ export default function DeviceProducts() {
               />
             </div>
           ))}
-          <div className="slideItem">
-            <InformationCard img={iphone2Img} title={'探索所有配件。'} />
-          </div>
         </Slider>
       </div>
     </div>
