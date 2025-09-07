@@ -1,11 +1,10 @@
 .productCardContainer {
   background-color: white;
   width: 313px;
-  height: auto;
+  height: 498px;
   border: 1px solid white;
   display: flex;
   flex-direction: column;
-
   padding: 30px;
   border-radius: 16px;
   transition: transform 0.5s ease;
@@ -13,7 +12,7 @@
   img {
     width: 100%;
     height: auto;
-    padding-bottom: 20px;
+    padding-bottom: 85px;
   }
 
   * {
@@ -27,6 +26,9 @@
   }
 
   .label {
+    position: absolute;
+    top: 355px;
+    left: 30px;
     font-size: 10px;
     color: #7d5f26;
   }
@@ -36,6 +38,9 @@
   }
 
   .price {
-    padding-top: 45px;
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
   }
 }

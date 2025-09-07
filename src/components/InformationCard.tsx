@@ -4,7 +4,7 @@ interface InformationCardProps {
   img: string
   title: string
   subtitle?: string
-  description?: string
+  description?: string | React.ReactNode
   textColor?: string
   label?: string
   width?: string

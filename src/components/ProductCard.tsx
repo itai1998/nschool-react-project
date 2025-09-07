@@ -17,7 +17,7 @@ export default function ProductCard({
     <div className="productCardContainer">
       <img src={img} alt="product" />
       <p className="label">{label}</p>
-      <h3 className="title">{title}</h3>
+      <h4 className="title">{title}</h4>
       <h4 className="price">{price}</h4>
     </div>
   )
