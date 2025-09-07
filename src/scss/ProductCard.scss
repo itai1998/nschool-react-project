@@ -1,0 +1,41 @@
+.productCardContainer {
+  background-color: white;
+  width: 313px;
+  height: auto;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: column;
+
+  padding: 30px;
+  border-radius: 16px;
+  transition: transform 0.5s ease;
+
+  img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+  }
+
+  * {
+    margin: 0;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+  }
+
+  .label {
+    font-size: 10px;
+    color: #7d5f26;
+  }
+
+  .title {
+    padding-top: 5px;
+  }
+
+  .price {
+    padding-top: 45px;
+  }
+}
