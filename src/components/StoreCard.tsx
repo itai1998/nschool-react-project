@@ -10,7 +10,7 @@ export default function StoreCard({ img, text }: StoreCardProps) {
   return (
     <div className="storeCardContainer">
       <img src={img} alt="laptop" />
-      <h3>{text}</h3>
+      {text}
     </div>
   )
 }
