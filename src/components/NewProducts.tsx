@@ -1,4 +1,4 @@
-import '../scss/NewProducts.scss'
+import '../scss/SlickMedium.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
@@ -14,8 +14,8 @@ export default function NewProducts() {
   }
 
   return (
-    <div className="newProductsContainer">
-      <h2 className="newProductsTitle">
+    <div className="slickMediumContainer">
+      <h2 className="slickMediumTitle">
         最新登場。
         <span style={{ color: 'grey' }}>現在就來看看有哪些新品推薦。</span>
       </h2>
@@ -30,6 +30,7 @@ export default function NewProducts() {
               description={product.description}
               textColor={product.textColor}
               label={product.label}
+              labelColor={product.labelColor}
             />
           ))}
         </Slider>

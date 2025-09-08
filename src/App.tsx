@@ -10,6 +10,7 @@ import Products from './components/Products'
 import ServiceInformation from './components/ServiceInformation'
 import SpeakerProducts from './components/SpeakerProducts'
 import StoreInfo from './components/StoreInfo'
+import DiscountInfo from './components/DiscountInfo'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <DeviceProducts />
       <SpeakerProducts />
       <ServiceInformation />
+      <DiscountInfo />
       <Links />
       <Footer />
     </div>

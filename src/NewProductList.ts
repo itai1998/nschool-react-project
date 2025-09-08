@@ -22,6 +22,7 @@ export const newProducts = [
     img: macIpadImg,
     title: '買 Mac 或 iPad 優惠組合上大專，搭配 AirPods 或指定配件省多多。',
     label: '限時優惠',
+    labelColor: '#b64400',
   },
   {
     img: ipadAirImg,

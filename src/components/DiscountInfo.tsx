@@ -1,11 +1,10 @@
-import '../scss/SlickLarge.scss'
+import '../scss/SlickMedium.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import InformationCard from './InformationCard'
-import { serviceInfoList } from './lists/serviceInfoList'
-
-export default function ServiceInformation() {
+import { discountList } from './lists/discountList'
+export default function DiscountInfo() {
   const settings = {
     infinite: false,
     speed: 500,
@@ -15,26 +14,28 @@ export default function ServiceInformation() {
   }
 
   return (
-    <div className="slickLargeContainer">
-      <h2 className="slickLargeTitle">
-        盡情體驗 Apple。
+    <div className="slickMediumContainer">
+      <h2 className="slickMediumTitle">
+        優惠與折扣。
         <span style={{ color: 'grey' }}>
-          Apple 各種產品和服務，助你更能全面發揮。
+          獨家優惠、專屬商店，以及更多精彩。
         </span>
       </h2>
       <div className="sliderContainer">
+        <div className="discountListContainer">
         <Slider {...settings}>
-          {serviceInfoList.map((option) => (
+          {discountList.map((option) => (
             <InformationCard
               key={option.title}
               img={option.img}
               title={option.title}
-              description={option.description}
               label={option.label}
-              width="480px"
+              labelColor={option.labelColor}
+              textColor={option.textColor}
             />
-          ))}
-        </Slider>
+            ))}
+          </Slider>
+        </div>
       </div>
     </div>
   )

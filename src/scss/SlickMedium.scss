@@ -1,0 +1,13 @@
+.slickMediumContainer {
+  border: 1px solid black;
+  position: relative;
+  .slickMediumTitle {
+    padding-left: 10%;
+  }
+  .discountListContainer {
+    .slick-track {
+      display: flex !important;
+      justify-content: center !important;
+    }
+  }
+}

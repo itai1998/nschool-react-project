@@ -6,6 +6,7 @@ interface InformationCardProps {
   subtitle?: string
   description?: string | React.ReactNode
   textColor?: string
+  labelColor?: string
   label?: string
   width?: string
 }
@@ -16,12 +17,15 @@ export default function InformationCard({
   subtitle = '',
   description = '',
   textColor = 'black',
+  labelColor = 'black',
   label = '',
   width = '400px',
 }: InformationCardProps) {
   return (
     <div className="informationCardContainer" style={{ maxWidth: width }}>
-      <p className="label">{label}</p>
+      <p className="label" style={{ color: labelColor }}>
+        {label}
+      </p>
       <div className="cardContent" style={{ color: textColor }}>
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
