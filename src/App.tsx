@@ -7,6 +7,7 @@ import Links from './components/Links'
 import NavBar from './components/NavBar'
 import NewProducts from './components/NewProducts'
 import Products from './components/Products'
+import ServiceInformation from './components/ServiceInformation'
 import SpeakerProducts from './components/SpeakerProducts'
 import StoreInfo from './components/StoreInfo'
 
@@ -21,6 +22,7 @@ function App() {
       <StoreInfo />
       <DeviceProducts />
       <SpeakerProducts />
+      <ServiceInformation />
       <Links />
       <Footer />
     </div>

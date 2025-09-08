@@ -3,8 +3,9 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import InformationCard from './InformationCard'
-import { helperOptions } from '../helperOptionList'
-export default function HelperOptions() {
+import { serviceInfoList } from './lists/serviceInfoList'
+
+export default function ServiceInformation() {
   const settings = {
     infinite: false,
     speed: 500,
@@ -21,7 +22,7 @@ export default function HelperOptions() {
       </h2>
       <div className="sliderContainer">
         <Slider {...settings}>
-          {helperOptions.map((option) => (
+          {serviceInfoList.map((option) => (
             <InformationCard
               key={option.title}
               img={option.img}

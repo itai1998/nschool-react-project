@@ -4,7 +4,6 @@ import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import ProductCard from './ProductCard'
 import InformationCard from './InformationCard'
-import iphoneWatchImg from '../img/productImg/iphonWatch.jpg'
 import { speakerProductLists } from './lists/speakerProductLists'
 import appleMusic from '../img/productImg/music.jpg'
 
