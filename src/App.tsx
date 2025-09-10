@@ -11,6 +11,7 @@ import ServiceInformation from './components/ServiceInformation'
 import SpeakerProducts from './components/SpeakerProducts'
 import StoreInfo from './components/StoreInfo'
 import DiscountInfo from './components/DiscountInfo'
+import Statement from './components/Statement'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <ServiceInformation />
       <DiscountInfo />
       <Links />
+      <Statement />
       <Footer />
     </div>
   )

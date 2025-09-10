@@ -1,0 +1,14 @@
+.footerContainer {
+  display: flex;
+  border: 1px solid black;
+  padding: 10px 20%;
+  p {
+    font-size: 12px;
+  }
+  .listContainer {
+    border: 1px solid blue;
+    width: 200px;
+    height: 100%;
+    flex-shrink: 0; /* prevents shrinking */
+  }
+}
