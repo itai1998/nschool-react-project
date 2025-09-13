@@ -1,5 +1,8 @@
+.linksWrapper {
+  padding: 0 5% 27px 5%;
+}
+
 .linksContainer {
-  border: 1px solid black;
   padding: 0 50px;
   h2 {
     padding-bottom: 20px;
@@ -7,7 +10,6 @@
 }
 
 .links {
-  border: 1px solid blue;
   display: flex;
   gap: 1rem;
   button {

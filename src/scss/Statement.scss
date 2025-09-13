@@ -1,6 +1,10 @@
+.ContainerWrapper {
+  padding: 0 20% 0 20%;
+}
+
 .statementContainer {
-  border: 1px solid black;
-  padding: 17px 20% 11px 20%;
+  border-bottom: 1px solid black;
+  padding: 17px 0 11px 0;
   font-size: 12px;
   p {
     margin-top: 1em;
