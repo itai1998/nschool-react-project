@@ -30,8 +30,10 @@
       border: 1px solid red;
       display: flex;
       gap: 30px;
+      flex-shrink: 0;
       .copyrightList {
         display: flex;
+        flex-shrink: 0;
         p {
           padding: 0 9px;
           border-right: 1px solid grey;
@@ -45,6 +47,12 @@
       border: 1px solid yellow;
       display: flex;
       justify-content: space-between;
+      flex-shrink: 0;
+
+      > div:last-child {
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
     }
   }
 }

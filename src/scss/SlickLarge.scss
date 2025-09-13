@@ -1,8 +1,12 @@
 .slickLargeContainer {
   border: 1px solid black;
+  padding-bottom: 80px;
   position: relative;
   .slickLargeTitle {
     padding-left: 10%;
+  }
+  .sliderContainer {
+    padding-top: 24px;
   }
   .slick-track {
     display: flex;

@@ -1,5 +1,6 @@
 .slickMediumContainer {
   border: 1px solid black;
+  padding-bottom: 80px;
   position: relative;
   .slickMediumTitle {
     padding-left: 10%;
@@ -9,5 +10,8 @@
       display: flex !important;
       justify-content: center !important;
     }
+  }
+  .sliderContainer {
+    padding-top: 24px;
   }
 }
