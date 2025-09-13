@@ -15,7 +15,11 @@
   }
 
   .copyrightContainer {
+    * {
+      margin: 0;
+    }
     border: 1px solid black;
+    padding: 37px 0 11px 0;
 
     .copyrightContact {
       border: 1px solid green;
