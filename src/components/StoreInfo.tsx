@@ -1,4 +1,4 @@
-import '../scss/StoreInfo.scss'
+import styles from '../scss/StoreInfo.module.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
@@ -15,12 +15,12 @@ export default function StoreInfo() {
   }
 
   return (
-    <div className="storeInfoContainer">
-      <h2 className="storeInfoTitle">
+    <div className={styles.storeInfoContainer}>
+      <h2 className={styles.storeInfoTitle}>
         Apple Store 就是不同。
         <span style={{ color: 'grey' }}>有更多好理由，吸引你在這選購。</span>
       </h2>
-      <div className="sliderContainer">
+      <div className={styles.sliderContainer}>
         <Slider {...settings}>
           {storeInfoList.map((option, index) => (
             <StoreCard key={index} img={option.img} text={option.text} />

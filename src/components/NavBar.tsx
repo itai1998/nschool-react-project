@@ -1,4 +1,4 @@
-import '../scss/NavBar.scss'
+import styles from '../scss/NavBar.module.scss'
 import appleLogo from '../img/apple-logo.png'
 import searchIcon from '../img/search-interface-symbol.png'
 import marketIcon from '../img/market.png'
@@ -22,8 +22,8 @@ export default function NavBar() {
   ]
 
   return (
-    <div className="container">
-      <div className="iconContain">
+    <div className={styles.container}>
+      <div className={styles.iconContain}>
         {navOptions.map((item, idx) =>
           item.type === 'icon' ? (
             <img key={idx} src={item.src} alt={item.alt} />

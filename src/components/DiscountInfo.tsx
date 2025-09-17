@@ -22,7 +22,6 @@ export default function DiscountInfo() {
         </span>
       </h2>
       <div className="sliderContainer">
-        <div className="discountListContainer">
         <Slider {...settings}>
           {discountList.map((option) => (
             <InformationCard
@@ -33,9 +32,8 @@ export default function DiscountInfo() {
               labelColor={option.labelColor}
               textColor={option.textColor}
             />
-            ))}
-          </Slider>
-        </div>
+          ))}
+        </Slider>
       </div>
     </div>
   )

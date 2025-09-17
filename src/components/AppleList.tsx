@@ -11,7 +11,7 @@ export default function AppleList({ listTitle, list }: AppleListProp) {
       <h3 className="listTitle">{listTitle}</h3>
       <ul>
         {list.map((item) => (
-          <li>{item}</li>
+          <li key={item}>{item}</li>
         ))}
       </ul>
     </div>

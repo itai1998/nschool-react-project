@@ -7,33 +7,3 @@
     padding-top: 24px;
   }
 }
-
-.sliderContainer {
-  // Make Slick's track a flex row so we can use gap
-  .slick-track {
-    display: flex !important;
-    gap: 16px; // 👈 your constant gutter
-  }
-
-  // Ensure slides don't bring their own implicit width/gap
-  .slick-slide {
-    width: auto !important; // let content define width
-    float: none !important; // avoid float gaps
-    display: block;
-  }
-
-  // Slick wraps your content in an extra <div>, keep it auto
-  .slick-slide > div {
-    width: auto;
-  }
-
-  // Remove any default side offsets that can visually look like “extra gap”
-  .slick-list {
-    margin: 0 !important;
-  }
-
-  // Optional: if your cards set their own margins, zero them out
-  .slideItem {
-    margin: 0; // no margins; gap controls spacing
-  }
-}

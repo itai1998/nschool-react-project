@@ -1,9 +1,9 @@
-import '../scss/Statement.scss'
+import styles from '../scss/Statement.module.scss'
 
 export default function Statement() {
   return (
-    <div className="ContainerWrapper">
-      <div className="statementContainer">
+    <div className={styles.containerWrapper}>
+      <div className={styles.statementContainer}>
         <p>價格皆含稅與運送費用。</p>
         <p>
           ◊◊

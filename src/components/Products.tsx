@@ -1,4 +1,4 @@
-import '../scss/ProductCategory.scss'
+import styles from '../scss/ProductCategory.module.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
@@ -21,12 +21,12 @@ export default function Products() {
     slidesToShow: 9,
     arrows: true,
     prevArrow: (
-      <button type="button" className="slick-prev">
+      <button type="button" className={styles.slickPrev}>
         Previous
       </button>
     ),
     nextArrow: (
-      <button type="button" className="slick-next">
+      <button type="button" className={styles.slickNext}>
         Next
       </button>
     ),
@@ -122,7 +122,7 @@ export default function Products() {
     },
   ]
   return (
-    <div className="productCategoryContainer">
+    <div className={styles.productCategoryContainer}>
       <Slider {...settings}>
         {products.map((product) => (
           <div key={product.displayName}>
