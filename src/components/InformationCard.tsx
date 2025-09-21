@@ -1,4 +1,4 @@
-import '../scss/InformationCard.scss'
+import styles from '../scss/InformationCard.module.scss'
 
 interface InformationCardProps {
   img: string
@@ -22,11 +22,14 @@ export default function InformationCard({
   width = '400px',
 }: InformationCardProps) {
   return (
-    <div className="informationCardContainer" style={{ maxWidth: width }}>
-      <p className="label" style={{ color: labelColor }}>
+    <div
+      className={styles.informationCardContainer}
+      style={{ maxWidth: width }}
+    >
+      <p className={styles.label} style={{ color: labelColor }}>
         {label}
       </p>
-      <div className="cardContent" style={{ color: textColor }}>
+      <div className={styles.cardContent} style={{ color: textColor }}>
         <h2>{title}</h2>
         <h3>{subtitle}</h3>
         <h4>{description}</h4>

@@ -1,4 +1,4 @@
-import '../scss/ProductCard.scss'
+import styles from '../scss/ProductCard.module.scss'
 
 interface ProductCardProps {
   img: string
@@ -14,11 +14,11 @@ export default function ProductCard({
   price,
 }: ProductCardProps) {
   return (
-    <div className="productCardContainer">
+    <div className={styles.productCardContainer}>
       <img src={img} alt="product" />
-      <p className="label">{label}</p>
-      <h4 className="title">{title}</h4>
-      <h4 className="price">{price}</h4>
+      <p className={styles.label}>{label}</p>
+      <h4 className={styles.title}>{title}</h4>
+      <h4 className={styles.price}>{price}</h4>
     </div>
   )
 }
