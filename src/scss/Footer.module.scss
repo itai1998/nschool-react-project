@@ -4,9 +4,11 @@
 
   .footerTableContainer {
     display: flex;
+    width: fit-content;
+    margin: 0 auto;
 
     .listContainer {
-      width: 200px;
+      width: 180px;
       height: 100%;
       flex-shrink: 0; /* prevents shrinking */
     }
@@ -15,6 +17,7 @@
   .copyrightContainer {
     padding: 37px 0 11px 0;
     width: 897px;
+    margin: 0 auto;
     .copyrightContact {
       padding-bottom: 19px;
       margin-bottom: 16px;
