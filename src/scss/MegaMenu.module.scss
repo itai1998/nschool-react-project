@@ -1,7 +1,13 @@
 .navbar {
-  position: relative;
-  background-color: #fff;
-  border-bottom: 1px solid #e5e5e7;
+  border: 1px solid red;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  //   background-color: #fff;
+  //   border-bottom: 1px solid #e5e5e7;
   padding: 0;
 
   ul {
@@ -17,6 +23,7 @@
       height: 100%;
       display: flex;
       align-items: center;
+      gap: 1rem; // Add gap between buttons
     }
   }
 

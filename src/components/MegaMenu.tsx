@@ -1,17 +1,63 @@
 import { useState, useRef } from 'react'
 import styles from '../scss/MegaMenu.module.scss'
+import { productOneOptions } from './lists/menuOptions'
+
+// TypeScript interfaces
+interface LinkGroup {
+  [key: string]: string
+}
+
+interface ProductOption {
+  product: string
+  [key: string]: any
+}
 
 function MegaMenu() {
   const [open, setOpen] = useState(false)
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
   const menuRef = useRef<HTMLLIElement>(null)
 
-  console.log('menuRef', menuRef)
+  // Helper function to get menu data for a specific product
+  const getProductMenuData = (productName: string) => {
+    return productOneOptions.find((option) => option.product === productName)
+  }
+
+  // Helper function to render menu columns dynamically
+  const renderMenuColumns = (menuData: ProductOption | undefined) => {
+    if (!menuData) return null
+
+    // Get all category keys dynamically (category1, category2, category3, etc.)
+    const categoryKeys = Object.keys(menuData).filter((key) =>
+      key.startsWith('category')
+    )
+
+    return categoryKeys.map((categoryKey, index) => {
+      const category = menuData[categoryKey]
+      if (!category) return null
+
+      return (
+        <div key={index} className={styles.megaColumn}>
+          <h4>{category.title}</h4>
+          {category.links?.map((linkGroup: LinkGroup, linkIndex: number) => (
+            <div key={linkIndex}>
+              {/* Dynamically render all links in the linkGroup */}
+              {Object.values(linkGroup).map(
+                (link: string, linkItemIndex: number) => (
+                  <a key={linkItemIndex} href="#">
+                    {link}
+                  </a>
+                )
+              )}
+            </div>
+          ))}
+        </div>
+      )
+    })
+  }
 
   const handleProductMouseEnter = (productName: string) => {
     setHoveredProduct(productName)
     setOpen(true)
-    console.log(`Hovering over: ${productName}`)
   }
 
   const handleMouseLeave = () => {
@@ -23,70 +69,23 @@ function MegaMenu() {
     <nav className={styles.navbar}>
       <ul>
         <li onMouseLeave={handleMouseLeave} ref={menuRef}>
-          <button
-            className={styles.navButton}
-            onMouseEnter={() => handleProductMouseEnter('Product 1')}
-          >
-            Product 1 ▾
-          </button>
-          <button
-            className={styles.navButton}
-            onMouseEnter={() => handleProductMouseEnter('Product 2')}
-          >
-            Product 2 ▾
-          </button>
-          <button
-            className={styles.navButton}
-            onMouseEnter={() => handleProductMouseEnter('Product 3')}
-          >
-            Product 3 ▾
-          </button>
+          {productOneOptions.map((product, index) => (
+            <button
+              key={index}
+              className={styles.navButton}
+              onMouseEnter={() => handleProductMouseEnter(product.product)}
+            >
+              {product.product}
+            </button>
+          ))}
 
-          {open && hoveredProduct === 'Product 1' && (
+          {open && hoveredProduct && (
             <div
               className={styles.megaMenu}
               onMouseEnter={() => setOpen(true)}
               onMouseLeave={handleMouseLeave}
             >
-              <div className={styles.megaColumn}>
-                <h4>p1 - Category 1</h4>
-                <a href="#">p1 Item 1</a>
-                <a href="#">p1 Item 2</a>
-              </div>
-              <div className={styles.megaColumn}>
-                <h4>p1 - Category 2</h4>
-                <a href="#">p1 Item 3</a>
-                <a href="#">p1 Item 4</a>
-              </div>
-              <div className={styles.megaColumn}>
-                <h4>p1 - Category 3</h4>
-                <a href="#">p1 Item 5</a>
-                <a href="#">p1 Item 6</a>
-              </div>
-            </div>
-          )}
-
-          {open && hoveredProduct === 'Product 2' && (
-            <div
-              className={styles.megaMenu}
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <div className={styles.megaColumn}>
-                <h4>p2 - Category 1</h4>
-                <a href="#">p2 Item 1</a>
-                <a href="#">p2 Item 2</a>
-              </div>
-              <div className={styles.megaColumn}>
-                <h4>p2 - Category 2</h4>
-                <a href="#">p2 Item 3</a>
-                <a href="#">p2 Item 4</a>
-              </div>
-              <div className={styles.megaColumn}>
-                <h4>p2 - Category 3</h4>
-                <a href="#">p2 Item 5</a>
-                <a href="#">p2 Item 6</a>
-              </div>
+              {renderMenuColumns(getProductMenuData(hoveredProduct))}
             </div>
           )}
         </li>
