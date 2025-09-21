@@ -72,3 +72,39 @@ body {
   min-width: 320px; // Prevent extreme squeezing on very small screens
   overflow-x: auto; // Enable horizontal scroll when content is wider than viewport
 }
+
+.productContainer {
+  padding-bottom: 80px;
+  .productTitle {
+    padding-left: 10%;
+  }
+  .sliderContainer {
+    padding-top: 24px;
+  }
+}
+
+.slickLargeContainer {
+  padding-bottom: 80px;
+  position: relative;
+  .slickLargeTitle {
+    padding-left: 10%;
+  }
+  .sliderContainer {
+    padding-top: 24px;
+  }
+  .slick-track {
+    display: flex;
+    gap: -0.5rem;
+  }
+}
+
+.slickMediumContainer {
+  padding-bottom: 80px;
+  position: relative;
+  .slickMediumTitle {
+    padding-left: 10%;
+  }
+  .sliderContainer {
+    padding-top: 24px;
+  }
+}
