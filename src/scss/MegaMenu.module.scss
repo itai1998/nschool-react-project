@@ -52,15 +52,15 @@
   }
 
   .megaMenu {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 44px; // Position below the navbar height
     left: 0;
+    width: 100vw;
     background-color: #fff;
     border: 1px solid #e5e5e7;
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    min-width: 600px;
+    padding: 20px 25%;
     z-index: 1000;
     display: flex;
     gap: 40px;
