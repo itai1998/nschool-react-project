@@ -1,6 +1,9 @@
 import { useState, useRef } from 'react'
 import styles from '../scss/MegaMenu.module.scss'
 import { productOneOptions } from './lists/menuOptions'
+import searchIcon from '../img/search-interface-symbol.png'
+import marketIcon from '../img/market.png'
+import appleLogo from '../img/apple-logo.png'
 
 // TypeScript interfaces
 interface LinkGroup {
@@ -69,6 +72,7 @@ function MegaMenu() {
     <nav className={styles.navbar}>
       <ul>
         <li onMouseLeave={handleMouseLeave} ref={menuRef}>
+          <img src={appleLogo} alt={'appleLogo'} />
           {productOneOptions.map((product, index) => (
             <button
               key={index}
@@ -78,6 +82,14 @@ function MegaMenu() {
               {product.product}
             </button>
           ))}
+          <button className={styles.navButton}> Vision</button>
+          <button className={styles.navButton}> AirPods</button>
+          <button className={styles.navButton}> TV 和家庭</button>
+          <button className={styles.navButton}> 娛樂</button>
+          <button className={styles.navButton}> 配件</button>
+          <button className={styles.navButton}> 支援服務</button>
+          <img src={searchIcon} alt={'search'} />
+          <img src={marketIcon} alt={'market'} />
 
           {open && hoveredProduct && (
             <div

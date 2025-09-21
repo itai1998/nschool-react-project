@@ -91,59 +91,90 @@ export const productOneOptions: ProductOption[] = [
     },
   },
   {
-    product: 'Product 3',
+    product: 'iPad',
     category1: {
-      title: 'p3 - Category 1',
+      title: '探索 iPad',
       links: [
         {
-          link1: 'p3 Item 1',
-          link2: 'p3 Item 2',
-          link3: 'p3 Item 3', // More than 2 links
+          link1: '探索所有 iPad',
+          link2: 'iPad Pro',
+          link3: 'iPad Air',
+          link4: 'iPad',
+          link5: 'iPad mini',
+          link6: 'Apple Pencil',
+          link7: '鍵盤',
         },
       ],
     },
     category2: {
-      title: 'p3 - Category 2',
+      title: '選購 iPad',
       links: [
         {
-          link1: 'p3 Item 4',
-          link2: 'p3 Item 5',
-        },
-        {
-          link1: 'p3 Item 6', // Multiple link groups
-          link2: 'p3 Item 7',
+          link1: '選購 iPad',
+          link2: 'iPad 配件',
+          link3: 'Apple Trade In 換購方案',
+          link4: '信用卡分期付款',
+          link6: '大專學生優惠活動',
         },
       ],
     },
     category3: {
-      title: 'p3 - Category 3',
+      title: 'iPad 相關',
       links: [
         {
-          link1: 'p3 Item 8',
-          link2: 'p3 Item 9',
-        },
-      ],
-    },
-    category4: {
-      title: 'p3 - Category 4', // More than 3 categories
-      links: [
-        {
-          link1: 'p3 Item 10',
-          link2: 'p3 Item 11',
+          link1: 'iPad 支援服務',
+          link2: 'Apple Care',
+          link3: 'iPadOS 26',
+          link4: 'Apple intelligence',
+          link5: 'Apple 出品的 App',
+          link6: 'iCloud+',
+          link7: 'iPad 商務應用',
+          link8: '教育',
         },
       ],
     },
   },
   {
-    product: 'Product 4',
+    product: 'Watch',
     category1: {
-      title: 'p4 - Single Category',
+      title: '探索 Watch',
       links: [
         {
-          link1: 'p4 Item 1',
-          link2: 'p4 Item 2',
-          link3: 'p4 Item 3',
-          link4: 'p4 Item 4', // Many links
+          link1: '探索所有 Apple Watch',
+          link2: 'Apple Watch Series 11',
+          link3: 'Apple Watch SE 3',
+          link4: 'Apple Watch Ultra 3',
+          link5: 'Apple Watch Nike',
+          link6: 'Apple Watch Hermes',
+          link7: 'Apple Watch 錶帶',
+        },
+      ],
+    },
+    category2: {
+      title: '選購 Watch',
+      links: [
+        {
+          link1: '選購 Watch',
+          link2: 'Watch 配件',
+          link3: 'Apple Trade In 換購方案',
+          link4: '信用卡分期付款',
+          link5: '個人化設定服務',
+          link6: '大專學生優惠活動',
+        },
+      ],
+    },
+    category3: {
+      title: 'Watch 相關',
+      links: [
+        {
+          link1: 'Watch 支援服務',
+          link2: 'Apple Care',
+          link3: 'WatchOS 26',
+          link4: 'Apple intelligence',
+          link5: 'Apple 出品的 App',
+          link6: 'iCloud+',
+          link7: 'Watch 商務應用',
+          link8: '教育',
         },
       ],
     },
