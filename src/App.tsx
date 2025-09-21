@@ -4,7 +4,6 @@ import Footer from './components/Footer'
 import HelperOptions from './components/HelperOptions'
 import Intro from './components/Intro'
 import Links from './components/Links'
-import NavBar from './components/NavBar'
 import NewProducts from './components/NewProducts'
 import Products from './components/Products'
 import ServiceInformation from './components/ServiceInformation'
@@ -18,7 +17,6 @@ function App() {
   return (
     <div className="App">
       <MegaMenu />
-      <NavBar />
       <Intro />
       <Products />
       <NewProducts />

@@ -1,13 +1,10 @@
 .navbar {
-  border: 1px solid red;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
-  //   background-color: #fff;
-  //   border-bottom: 1px solid #e5e5e7;
-  padding: 0;
+  white-space: nowrap;
+  min-width: fit-content;
 
   ul {
     list-style: none;
@@ -15,14 +12,14 @@
     padding: 0;
     display: flex;
     align-items: center;
-    height: 44px; // Apple's standard nav height
+    height: 44px;
 
     li {
       position: relative;
       height: 100%;
       display: flex;
       align-items: center;
-      gap: 1rem; // Add gap between buttons
+      gap: 1rem;
     }
   }
 
@@ -52,7 +49,7 @@
 
   .megaMenu {
     position: fixed;
-    top: 44px; // Position below the navbar height
+    top: 44px;
     left: 0;
     width: 100vw;
     background-color: #fff;
