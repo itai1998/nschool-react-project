@@ -12,10 +12,12 @@ import SpeakerProducts from './components/SpeakerProducts'
 import StoreInfo from './components/StoreInfo'
 import DiscountInfo from './components/DiscountInfo'
 import Statement from './components/Statement'
+import MegaMenu from './components/MegaMenu'
 
 function App() {
   return (
     <div className="App">
+      <MegaMenu />
       <NavBar />
       <Intro />
       <Products />
