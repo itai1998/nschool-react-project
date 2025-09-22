@@ -10,7 +10,7 @@ export default function StoreInfo() {
     infinite: false,
     speed: 500,
     slidesToScroll: 1,
-    slidesToShow: 4.5,
+    slidesToShow: 5.5,
     arrows: true,
   }
 
