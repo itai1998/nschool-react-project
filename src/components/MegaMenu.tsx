@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from '../scss/MegaMenu.module.scss'
 import { productOneOptions } from './lists/menuOptions'
 import searchIcon from '../img/search-interface-symbol.png'
@@ -19,6 +20,7 @@ function MegaMenu() {
   const [open, setOpen] = useState(false)
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
   const menuRef = useRef<HTMLLIElement>(null)
+  const navigate = useNavigate()
 
   // Helper function to get menu data for a specific product
   const getProductMenuData = (productName: string) => {
@@ -88,8 +90,16 @@ function MegaMenu() {
           <button className={styles.navButton}> 娛樂</button>
           <button className={styles.navButton}> 配件</button>
           <button className={styles.navButton}> 支援服務</button>
-          <img src={searchIcon} alt={'search'} />
-          <img src={marketIcon} alt={'market'} />
+          <img
+            src={searchIcon}
+            alt={'search'}
+            onClick={() => navigate('/search')}
+          />
+          <img
+            src={marketIcon}
+            alt={'market'}
+            onClick={() => navigate('/shopping-cart')}
+          />
 
           {open && hoveredProduct && (
             <div

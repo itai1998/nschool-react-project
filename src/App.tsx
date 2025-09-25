@@ -1,3 +1,4 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.scss'
 import DeviceProducts from './components/DeviceProducts'
 import Footer from './components/Footer'
@@ -12,24 +13,37 @@ import StoreInfo from './components/StoreInfo'
 import DiscountInfo from './components/DiscountInfo'
 import Statement from './components/Statement'
 import MegaMenu from './components/MegaMenu'
+import Search from './components/Search'
+import ShoppingCart from './components/ShoppingCart'
 
 function App() {
   return (
-    <div className="App">
-      <MegaMenu />
-      <Intro />
-      <Products />
-      <NewProducts />
-      <HelperOptions />
-      <StoreInfo />
-      <DeviceProducts />
-      <SpeakerProducts />
-      <ServiceInformation />
-      <DiscountInfo />
-      <Links />
-      <Statement />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="App">
+              <MegaMenu />
+              <Intro />
+              <Products />
+              <NewProducts />
+              <HelperOptions />
+              <StoreInfo />
+              <DeviceProducts />
+              <SpeakerProducts />
+              <ServiceInformation />
+              <DiscountInfo />
+              <Links />
+              <Statement />
+              <Footer />
+            </div>
+          }
+        />
+        <Route path="/search" element={<Search />} />
+        <Route path="/shopping-cart" element={<ShoppingCart />} />
+      </Routes>
+    </Router>
   )
 }
 
