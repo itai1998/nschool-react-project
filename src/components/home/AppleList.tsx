@@ -1,4 +1,4 @@
-import styles from '../scss/AppleList.module.scss'
+import styles from '../../scss/AppleList.module.scss'
 
 interface AppleListProp {
   listTitle: string

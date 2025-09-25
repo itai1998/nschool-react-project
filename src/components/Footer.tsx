@@ -1,5 +1,5 @@
 import styles from '../scss/Footer.module.scss'
-import AppleList from './AppleList'
+import AppleList from './home/AppleList'
 import {
   productList,
   wallet,

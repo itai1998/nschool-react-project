@@ -1,11 +1,11 @@
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
-import { deviceProductList } from './lists/deviceProductList'
-import ProductCard from './ProductCard'
-import InformationCard from './InformationCard'
-import iphoneWatchImg from '../img/productImg/iphonWatch.jpg'
-import iphone2Img from '../img/productImg/iphone2.jpg'
+import { deviceProductList } from '../lists/deviceProductList'
+import ProductCard from '../ProductCard'
+import InformationCard from '../InformationCard'
+import iphoneWatchImg from '../../img/productImg/iphonWatch.jpg'
+import iphone2Img from '../../img/productImg/iphone2.jpg'
 
 export default function DeviceProducts() {
   const settings = {
