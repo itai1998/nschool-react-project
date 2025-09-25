@@ -1,8 +1,8 @@
-import styles from '../scss/StoreInfo.module.scss'
+import styles from '../../scss/StoreInfo.module.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
-import { storeInfoList } from './lists/storeInfoList'
+import { storeInfoList } from '../lists/storeInfoList'
 import StoreCard from './StoreCard'
 
 export default function StoreInfo() {

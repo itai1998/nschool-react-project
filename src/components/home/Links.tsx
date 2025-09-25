@@ -1,4 +1,4 @@
-import styles from '../scss/Links.module.scss'
+import styles from '../../scss/Links.module.scss'
 
 export default function Links() {
   return (

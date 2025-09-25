@@ -1,4 +1,4 @@
-import styles from '../scss/ProductCard.module.scss'
+import styles from '../../scss/ProductCard.module.scss'
 
 interface ProductCardProps {
   img: string

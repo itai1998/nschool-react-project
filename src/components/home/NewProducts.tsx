@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Slider from 'react-slick'
 import InformationCard from './InformationCard'
-import { newProducts } from '../NewProductList'
+import { newProducts } from '../../NewProductList'
 export default function NewProducts() {
   const settings = {
     infinite: false,

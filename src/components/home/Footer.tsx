@@ -1,5 +1,5 @@
-import styles from '../scss/Footer.module.scss'
-import AppleList from './home/AppleList'
+import styles from '../../scss/Footer.module.scss'
+import AppleList from './AppleList'
 import {
   productList,
   wallet,
@@ -10,7 +10,7 @@ import {
   education,
   appleValues,
   aboutApple,
-} from './lists/helperList'
+} from '../lists/helperList'
 
 export default function Footer() {
   return (

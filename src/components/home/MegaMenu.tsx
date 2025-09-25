@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import styles from '../scss/MegaMenu.module.scss'
-import { productOneOptions } from './lists/menuOptions'
-import searchIcon from '../img/search-interface-symbol.png'
-import marketIcon from '../img/market.png'
-import appleLogo from '../img/apple-logo.png'
+import styles from '../../scss/MegaMenu.module.scss'
+import { productOneOptions } from '../lists/menuOptions'
+import searchIcon from '../../img/search-interface-symbol.png'
+import marketIcon from '../../img/market.png'
+import appleLogo from '../../img/apple-logo.png'
 
 // TypeScript interfaces
 interface LinkGroup {

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.scss'
 import Search from './components/Search'
 import ShoppingCart from './components/ShoppingCart'
-import Home from './components/Home'
+import Home from './components/home/Home'
 
 function App() {
   return (

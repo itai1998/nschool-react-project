@@ -1,4 +1,4 @@
-import DeviceProducts from './home/DeviceProducts'
+import DeviceProducts from './DeviceProducts'
 import DiscountInfo from './DiscountInfo'
 import Footer from './Footer'
 import HelperOptions from './HelperOptions'

@@ -1,4 +1,4 @@
-import styles from '../scss/Statement.module.scss'
+import styles from '../../scss/Statement.module.scss'
 
 export default function Statement() {
   return (

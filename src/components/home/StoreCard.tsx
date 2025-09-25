@@ -1,4 +1,4 @@
-import styles from '../scss/StoreCard.module.scss'
+import styles from '../../scss/StoreCard.module.scss'
 import type { ReactNode } from 'react'
 
 interface StoreCardProps {

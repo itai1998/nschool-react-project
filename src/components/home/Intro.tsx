@@ -1,6 +1,6 @@
-import styles from '../scss/Intro.module.scss'
-import avatar from '../img/avatar.jpg'
-import contactIcon from '../img/communication.png'
+import styles from '../../scss/Intro.module.scss'
+import avatar from '../../img/avatar.jpg'
+import contactIcon from '../../img/communication.png'
 
 export default function Intro() {
   return (

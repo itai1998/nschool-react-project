@@ -1,4 +1,4 @@
-import styles from '../scss/InformationCard.module.scss'
+import styles from '../../scss/InformationCard.module.scss'
 
 interface InformationCardProps {
   img: string
