@@ -1,0 +1,22 @@
+.flexContainer {
+  padding: 0 10%;
+  border: 1px solid #e51e1e;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  .productBox {
+    padding: 85px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border: 1px solid #000;
+    width: 400px;
+    height: 400px;
+  }
+
+  h2 {
+    text-align: center;
+  }
+}
