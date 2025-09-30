@@ -28,6 +28,7 @@ interface MockData {
 
 export default function Search() {
   const [data, setData] = useState<MockData | null>(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const asyncData = async () => {
@@ -40,15 +41,24 @@ export default function Search() {
   return (
     <div>
       <h1>This is the search component</h1>
-      <input type="text" placeholder="Search" />
+      <input
+        type="text"
+        placeholder="Search"
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <h3>{search}</h3>
       <div className={styles.flexContainer}>
-        {data?.macbooks.map((item) => (
-          <div key={item.name} className={styles.productBox}>
-            <h2>{item.name}</h2>
-            <h3>{item.price}</h3>
-            <h4>{item.type}</h4>
-          </div>
-        ))}
+        {data?.macbooks
+          .filter((item) =>
+            item.name.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((item) => (
+            <div key={item.name} className={styles.productBox}>
+              <h2>{item.name}</h2>
+              <h3>{item.price}</h3>
+              <h4>{item.type}</h4>
+            </div>
+          ))}
       </div>
     </div>
   );
