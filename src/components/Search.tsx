@@ -29,14 +29,22 @@ interface MockData {
 export default function Search() {
   const [data, setData] = useState<MockData | null>(null);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   useEffect(() => {
-    const asyncData = async () => {
+    const debounce = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 500);
+    return () => clearTimeout(debounce);
+  }, [search]);
+
+  useEffect(() => {
+    const fetchData = async () => {
       const res = await axios.get<MockData>("/src/data/macbookMock.json");
       setData(res.data);
     };
-    asyncData();
-  }, []);
+    fetchData();
+  }, [debouncedSearch]);
 
   return (
     <div>
@@ -46,11 +54,10 @@ export default function Search() {
         placeholder="Search"
         onChange={(e) => setSearch(e.target.value)}
       />
-      <h3>{search}</h3>
       <div className={styles.flexContainer}>
         {data?.macbooks
           .filter((item) =>
-            item.name.toLowerCase().includes(search.toLowerCase())
+            item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
           )
           .map((item) => (
             <div key={item.name} className={styles.productBox}>
