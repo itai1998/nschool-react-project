@@ -96,7 +96,7 @@ export default function ShoppingCart() {
     }
   };
 
-  const logout = async () => {
+  const handleLogout = async () => {
     setLoading(true);
     setErrorMsg(null);
     try {
@@ -166,7 +166,7 @@ export default function ShoppingCart() {
           <button
             type="button"
             className={styles.logoutButton}
-            onClick={logout}
+            onClick={handleLogout}
             disabled={loading}
           >
             {loading ? "處理中…" : "登出"}
