@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 import styles from "../scss/ShoppingCart.module.scss";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
@@ -7,7 +8,7 @@ import {
   setPersistence,
   browserLocalPersistence,
   browserSessionPersistence,
-  onAuthStateChanged,
+  // onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 
@@ -34,13 +35,28 @@ export default function ShoppingCart() {
   });
 
   useEffect(() => {
-    // Keep UI in sync with Firebase session
-    const unsub = onAuthStateChanged(auth, (user) => {
-      setIsLoggedIn(!!user);
-      setEmailDisplay(user?.email || undefined);
-    });
-    return () => unsub();
+    const token = Cookies.get("token");
+    if (token) {
+      try {
+        // Decode JWT token to get email
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        setIsLoggedIn(true);
+        setEmailDisplay(payload.email);
+      } catch (error) {
+        console.error("Failed to decode token:", error);
+        Cookies.remove("token");
+      }
+    }
   }, []);
+
+  // useEffect(() => {
+  //   // Keep UI in sync with Firebase session
+  //   const unsub = onAuthStateChanged(auth, (user) => {
+  //     setIsLoggedIn(!!user);
+  //     setEmailDisplay(user?.email || undefined);
+  //   });
+  //   return () => unsub();
+  // }, []);
 
   const onSubmit = async (data: LoginData) => {
     setErrorMsg(null);
@@ -59,17 +75,10 @@ export default function ShoppingCart() {
         data.password
       );
 
-      // Optional: get the JWT (ID token) for your backend
-      const idToken = await cred.user.getIdToken(); // <-- JWT
-
-      // Log JWT for testing purposes
-      console.log("Firebase JWT Token:", idToken);
-      console.log(
-        "JWT Token (decoded payload):",
-        JSON.parse(atob(idToken.split(".")[1]))
-      );
-
-      // onAuthStateChanged will flip isLoggedIn; no need to set here
+      setIsLoggedIn(true);
+      setEmailDisplay(cred.user.email || undefined);
+      const idToken = await cred.user.getIdToken();
+      Cookies.set("token", idToken);
     } catch (err: any) {
       // Friendly messages for common cases
       const code = err?.code as string | undefined;
@@ -87,11 +96,14 @@ export default function ShoppingCart() {
     }
   };
 
-  const doLogout = async () => {
+  const logout = async () => {
     setLoading(true);
     setErrorMsg(null);
     try {
       await signOut(auth);
+      Cookies.remove("token");
+      setIsLoggedIn(false);
+      setEmailDisplay(undefined);
     } catch {
       setErrorMsg("登出失敗，請稍後再試。");
     } finally {
@@ -154,7 +166,7 @@ export default function ShoppingCart() {
           <button
             type="button"
             className={styles.logoutButton}
-            onClick={doLogout}
+            onClick={logout}
             disabled={loading}
           >
             {loading ? "處理中…" : "登出"}
