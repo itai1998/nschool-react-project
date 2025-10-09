@@ -29,7 +29,6 @@ export default function ShoppingCart() {
   );
 
   const state = useAppSelector((state) => state.user);
-  console.log(state);
   const dispatch = useAppDispatch();
 
   const { register, handleSubmit } = useForm<LoginData>({
@@ -48,12 +47,21 @@ export default function ShoppingCart() {
         const payload = JSON.parse(atob(token.split(".")[1]));
         setIsLoggedIn(true);
         setEmailDisplay(payload.email);
+
+        // Restore Redux state from cookie
+        dispatch(
+          setLogin({
+            email: payload.email,
+            rememberMe: true, // If token exists in cookie, user chose to be remembered
+            loggedIn: true,
+          })
+        );
       } catch (error) {
         console.error("Failed to decode token:", error);
         Cookies.remove("token");
       }
     }
-  }, []);
+  }, [dispatch]);
 
   // useEffect(() => {
   //   // Keep UI in sync with Firebase session
