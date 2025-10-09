@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Cookies from "js-cookie";
 import styles from "../scss/ShoppingCart.module.scss";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import {
   // onAuthStateChanged,
   signOut,
 } from "firebase/auth";
+import { setLogin, setLogout } from "../store/userSlice";
 
 interface LoginData {
   email: string;
@@ -25,6 +27,10 @@ export default function ShoppingCart() {
   const [emailDisplay, setEmailDisplay] = useState<string | undefined>(
     undefined
   );
+
+  const state = useAppSelector((state) => state.user);
+  console.log(state);
+  const dispatch = useAppDispatch();
 
   const { register, handleSubmit } = useForm<LoginData>({
     defaultValues: {
@@ -79,6 +85,14 @@ export default function ShoppingCart() {
       setEmailDisplay(cred.user.email || undefined);
       const idToken = await cred.user.getIdToken();
       Cookies.set("token", idToken);
+
+      dispatch(
+        setLogin({
+          email: data.email,
+          rememberMe: data.rememberMe,
+          loggedIn: true,
+        })
+      );
     } catch (err: any) {
       // Friendly messages for common cases
       const code = err?.code as string | undefined;
@@ -104,6 +118,7 @@ export default function ShoppingCart() {
       Cookies.remove("token");
       setIsLoggedIn(false);
       setEmailDisplay(undefined);
+      dispatch(setLogout());
     } catch {
       setErrorMsg("登出失敗，請稍後再試。");
     } finally {
@@ -114,6 +129,11 @@ export default function ShoppingCart() {
   return (
     <div className={styles.shoppingCartContainer}>
       <h1>登入以加快結帳速度。</h1>
+      {state.profile.loggedIn ? (
+        <h4>{state.profile.email}</h4>
+      ) : (
+        <h4>not logged in</h4>
+      )}
 
       {!isLoggedIn && (
         <div className={styles.loginContainer}>
