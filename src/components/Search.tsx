@@ -35,12 +35,6 @@ export default function Search() {
 
   useEffect(() => {
     const debounce = setTimeout(() => {
-      if (search.length > 0) {
-        setOpen(true);
-      } else {
-        setOpen(false);
-      }
-
       setDebouncedSearch(search);
     }, 500);
     return () => clearTimeout(debounce);
@@ -51,18 +45,20 @@ export default function Search() {
       const res = await axios.get<MockData>("/src/data/macbookMock.json");
       setData(res.data);
 
-      // Show all macbooks initially
       if (!results) {
         setResults(res.data.macbooks);
       }
 
-      const filteredSuggestions = res.data.macbooks
-        .filter((item) =>
-          item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
-        )
-        .map((item) => item.name);
-      setSuggestions(filteredSuggestions);
+      if (debouncedSearch.length !== 0) {
+        const filteredSuggestions = res.data.macbooks
+          .filter((item) =>
+            item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+          )
+          .map((item) => item.name);
+        setSuggestions(filteredSuggestions);
+      }
     };
+
     fetchData();
   }, [debouncedSearch]);
 
@@ -71,6 +67,12 @@ export default function Search() {
       item.name.toLowerCase().includes(inputText.toLowerCase())
     );
     setResults(filteredResults || []);
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setSearch(suggestion);
+    handleSearch(suggestion);
+    setOpen(false);
   };
 
   return (
@@ -82,14 +84,27 @@ export default function Search() {
           <input
             type="text"
             placeholder="Search"
-            onChange={(e) => setSearch(e.target.value)}
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              if (e.target.value.length > 0) {
+                setOpen(true);
+              } else {
+                setOpen(false);
+              }
+            }}
+            onFocus={() => {
+              if (search.length > 0) {
+                setOpen(true);
+              }
+            }}
           />
           <button
             className={styles.searchButton}
             type="button"
             onClick={() => {
               handleSearch(search);
-              setSearch("");
+              setOpen(false);
             }}
           >
             <svg
@@ -112,7 +127,13 @@ export default function Search() {
             <div className={styles.suggestions}>
               <ul>
                 {suggestions.map((suggestion) => (
-                  <li key={suggestion}>{suggestion}</li>
+                  <li
+                    key={suggestion}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {suggestion}
+                  </li>
                 ))}
               </ul>
             </div>
