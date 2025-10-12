@@ -1,5 +1,4 @@
 .inputWrapper {
-  border: 1px solid #0c6ff0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -71,8 +70,7 @@
 }
 
 .flexContainer {
-  padding: 0 10%;
-  border: 1px solid #e51e1e;
+  padding: 20px 10%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
