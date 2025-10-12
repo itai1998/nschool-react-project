@@ -1,6 +1,5 @@
 import axios from "axios";
 import styles from "../scss/Search.module.scss";
-// import { macbookList } from "./lists/macbookList";
 import { useState, useEffect } from "react";
 interface Product {
   id: number;
@@ -50,7 +49,14 @@ export default function Search() {
     const fetchData = async () => {
       const res = await axios.get<MockData>("/src/data/macbookMock.json");
       setData(res.data);
-      setSuggestions(res.data.macbooks.map((item) => item.name));
+
+      const filteredSuggestions = res.data.macbooks
+        .filter((item) =>
+          item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+        )
+        .map((item) => item.name);
+
+      setSuggestions(filteredSuggestions);
     };
     fetchData();
   }, [debouncedSearch]);
