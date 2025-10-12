@@ -28,11 +28,19 @@ interface MockData {
 
 export default function Search() {
   const [data, setData] = useState<MockData | null>(null);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
+  const [open, setOpen] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   useEffect(() => {
     const debounce = setTimeout(() => {
+      if (search.length > 0) {
+        setOpen(true);
+      } else {
+        setOpen(false);
+      }
+
       setDebouncedSearch(search);
     }, 500);
     return () => clearTimeout(debounce);
@@ -42,6 +50,7 @@ export default function Search() {
     const fetchData = async () => {
       const res = await axios.get<MockData>("/src/data/macbookMock.json");
       setData(res.data);
+      setSuggestions(res.data.macbooks.map((item) => item.name));
     };
     fetchData();
   }, [debouncedSearch]);
@@ -49,11 +58,43 @@ export default function Search() {
   return (
     <div>
       <h1>This is the search component</h1>
-      <input
-        type="text"
-        placeholder="Search"
-        onChange={(e) => setSearch(e.target.value)}
-      />
+
+      <div className={styles.inputWrapper}>
+        <div className={styles.inputContainer}>
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <button className={styles.searchButton} type="button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+
+          {open && (
+            <div className={styles.suggestions}>
+              <ul>
+                {suggestions.map((suggestion) => (
+                  <li key={suggestion}>{suggestion}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className={styles.flexContainer}>
         {data?.macbooks
           .filter((item) =>
