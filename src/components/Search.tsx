@@ -76,9 +76,7 @@ export default function Search() {
   };
 
   return (
-    <div>
-      <h1>This is the search component</h1>
-
+    <div className={styles.searchContainer}>
       <div className={styles.inputWrapper}>
         <div className={styles.inputContainer}>
           <input
