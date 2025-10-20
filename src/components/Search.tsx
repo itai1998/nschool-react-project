@@ -1,37 +1,15 @@
 import styles from "../scss/Search.module.scss";
 import { useState, useEffect } from "react";
 import { getProducts } from "../api";
-export interface Product {
-  id: number;
-  name: string;
-  price: string;
-  type: string;
-  description: string;
-  image: string;
-  availability: boolean;
-  rating: number;
-  specs?: {
-    chip: string;
-    cpu: string;
-    gpu: string;
-    memory: string;
-    storage: string;
-    display: string;
-    color: string;
-  };
-}
-
-interface MockData {
-  macbooks: Product[];
-}
+import { type Macbook } from "../api/constants/macbook";
 
 export default function Search() {
-  const [data, setData] = useState<MockData | null>(null);
+  const [data, setData] = useState<Macbook[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState(search);
   const [open, setOpen] = useState(false);
-  const [results, setResults] = useState<Product[]>();
+  const [results, setResults] = useState<Macbook[]>();
 
   useEffect(() => {
     const debounce = setTimeout(() => {
@@ -42,16 +20,15 @@ export default function Search() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const res = await axios.get<MockData>("/src/data/macbookMock.json");
       const res = await getProducts();
       setData(res.data);
 
       if (!results) {
-        setResults(res.data.macbooks);
+        setResults(res.data);
       }
 
       if (debouncedSearch.length !== 0) {
-        const filteredSuggestions = res.data.macbooks
+        const filteredSuggestions = res.data
           .filter((item) =>
             item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
           )
@@ -64,7 +41,7 @@ export default function Search() {
   }, [debouncedSearch]);
 
   const handleSearch = (inputText: string) => {
-    const filteredResults = data?.macbooks.filter((item) =>
+    const filteredResults = data?.filter((item) =>
       item.name.toLowerCase().includes(inputText.toLowerCase())
     );
     setResults(filteredResults || []);

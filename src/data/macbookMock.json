@@ -1,138 +1,90 @@
-{
-  "macbooks": [
-    {
-      "id": 1,
-      "name": "Bellroy Caddy，適用於 13 吋和 14 吋 Mac 筆電",
-      "price": "NT$2,890",
-      "type": "case",
-      "description": "高品質筆電保護套，專為 13 吋和 14 吋 Mac 筆電設計",
-      "image": "bellroy-caddy-13-14.jpg",
-      "availability": true,
-      "rating": 4.5
-    },
-    {
-      "id": 2,
-      "name": "Bellroy Caddy，適用於 15 吋和 16 吋 Mac 筆電",
-      "price": "NT$2,890",
-      "type": "case",
-      "description": "高品質筆電保護套，專為 15 吋和 16 吋 Mac 筆電設計",
-      "image": "bellroy-caddy-15-16.jpg",
-      "availability": true,
-      "rating": 4.5
-    },
-    {
-      "id": 3,
-      "name": "96W USB-C 電源轉接器",
-      "price": "NT$2,290",
-      "type": "power",
-      "description": "高效能 USB-C 電源轉接器，支援快速充電",
-      "image": "96w-usb-c-adapter.jpg",
-      "availability": true,
-      "rating": 4.7
-    },
-    {
-      "id": 4,
-      "name": "Apple 85W MagSafe 2 電源轉換器 (適用於配備 Retina 顯示器的 MacBook Pro)",
-      "price": "NT$2,290",
-      "type": "power",
-      "description": "專為配備 Retina 顯示器的 MacBook Pro 設計的 MagSafe 2 電源轉換器",
-      "image": "85w-magsafe2-adapter.jpg",
-      "availability": false,
-      "rating": 4.3
-    },
-    {
-      "id": 5,
-      "name": "Apple 60W MagSafe 電源轉換器 (適用於 MacBook 與 13 吋 MacBook Pro)",
-      "price": "NT$1,690",
-      "type": "power",
-      "description": "適用於 MacBook 與 13 吋 MacBook Pro 的 MagSafe 電源轉換器",
-      "image": "60w-magsafe-adapter.jpg",
-      "availability": true,
-      "rating": 4.4
-    },
-    {
-      "id": 6,
-      "name": "13 吋 MacBook Air Apple M4 晶片配備 10 核心 CPU 與 10 核心 GPU - 銀色 (整修品)",
-      "price": "NT$41,590",
-      "type": "macbook",
-      "description": "配備強大 M4 晶片的 13 吋 MacBook Air，10 核心 CPU 與 10 核心 GPU，整修品",
-      "image": "macbook-air-m4-10core-silver-refurb.jpg",
-      "availability": true,
-      "rating": 4.8,
-      "specs": {
-        "chip": "Apple M4",
-        "cpu": "10-core",
-        "gpu": "10-core",
-        "memory": "8GB",
-        "storage": "256GB SSD",
-        "display": "13.6-inch Liquid Retina",
-        "color": "銀色"
-      }
-    },
-    {
-      "id": 7,
-      "name": "13 吋 MacBook Air Apple M4 晶片配備 10 核心 CPU 與 8 核心 GPU - 銀色 (整修品)",
-      "price": "NT$29,690",
-      "type": "macbook",
-      "description": "配備 M4 晶片的 13 吋 MacBook Air，10 核心 CPU 與 8 核心 GPU，整修品",
-      "image": "macbook-air-m4-8core-silver-refurb.jpg",
-      "availability": true,
-      "rating": 4.6,
-      "specs": {
-        "chip": "Apple M4",
-        "cpu": "10-core",
-        "gpu": "8-core",
-        "memory": "8GB",
-        "storage": "256GB SSD",
-        "display": "13.6-inch Liquid Retina",
-        "color": "銀色"
-      }
-    },
-    {
-      "id": 8,
-      "name": "14 吋 MacBook Pro Apple M4 Pro 晶片配備 14 核心 CPU 與 20 核心 GPU - 太空黑色",
-      "price": "NT$111,190",
-      "type": "macbook",
-      "description": "頂級 14 吋 MacBook Pro，配備 M4 Pro 晶片，14 核心 CPU 與 20 核心 GPU",
-      "image": "macbook-pro-m4pro-14inch-spaceblack.jpg",
-      "availability": true,
-      "rating": 4.9,
-      "specs": {
-        "chip": "Apple M4 Pro",
-        "cpu": "14-core",
-        "gpu": "20-core",
-        "memory": "16GB",
-        "storage": "512GB SSD",
-        "display": "14.2-inch Liquid Retina XDR",
-        "color": "太空黑色"
-      }
-    }
-  ],
-  "categories": [
-    {
-      "id": "case",
-      "name": "保護套",
-      "description": "Mac 筆電保護套與收納配件"
-    },
-    {
-      "id": "power",
-      "name": "電源配件",
-      "description": "電源轉接器與充電配件"
-    },
-    {
-      "id": "macbook",
-      "name": "MacBook",
-      "description": "MacBook Air 與 MacBook Pro 筆記型電腦"
-    }
-  ],
-  "filters": {
-    "types": ["case", "power", "macbook"],
-    "priceRanges": [
-      { "min": 0, "max": 5000, "label": "NT$0 - NT$5,000" },
-      { "min": 5000, "max": 50000, "label": "NT$5,000 - NT$50,000" },
-      { "min": 50000, "max": 150000, "label": "NT$50,000+" }
-    ],
-    "availability": ["available", "out_of_stock"],
-    "ratings": [4.0, 4.5, 4.8, 5.0]
+[
+  {
+    "id": 1,
+    "name": "Bellroy Caddy，適用於 13 吋和 14 吋 Mac 筆電",
+    "price": "NT$2,890",
+    "type": "case",
+    "description": "高品質筆電保護套，專為 13 吋和 14 吋 Mac 筆電設計",
+    "image": "bellroy-caddy-13-14.jpg",
+    "availability": true,
+    "rating": 4.5,
+    "categories": "case"
+  },
+  {
+    "id": 2,
+    "name": "Bellroy Caddy，適用於 15 吋和 16 吋 Mac 筆電",
+    "price": "NT$2,890",
+    "type": "case",
+    "description": "高品質筆電保護套，專為 15 吋和 16 吋 Mac 筆電設計",
+    "image": "bellroy-caddy-15-16.jpg",
+    "availability": true,
+    "rating": 4.5,
+    "categories": "case"
+  },
+  {
+    "id": 3,
+    "name": "96W USB-C 電源轉接器",
+    "price": "NT$2,290",
+    "type": "power",
+    "description": "高效能 USB-C 電源轉接器，支援快速充電",
+    "image": "96w-usb-c-adapter.jpg",
+    "availability": true,
+    "rating": 4.7,
+    "categories": "power"
+  },
+  {
+    "id": 4,
+    "name": "Apple 85W MagSafe 2 電源轉換器 (適用於配備 Retina 顯示器的 MacBook Pro)",
+    "price": "NT$2,290",
+    "type": "power",
+    "description": "專為配備 Retina 顯示器的 MacBook Pro 設計的 MagSafe 2 電源轉換器",
+    "image": "85w-magsafe2-adapter.jpg",
+    "availability": false,
+    "rating": 4.3,
+    "categories": "power"
+  },
+  {
+    "id": 5,
+    "name": "Apple 60W MagSafe 電源轉換器 (適用於 MacBook 與 13 吋 MacBook Pro)",
+    "price": "NT$1,690",
+    "type": "power",
+    "description": "適用於 MacBook 與 13 吋 MacBook Pro 的 MagSafe 電源轉換器",
+    "image": "60w-magsafe-adapter.jpg",
+    "availability": true,
+    "rating": 4.4,
+    "categories": "power"
+  },
+  {
+    "id": 6,
+    "name": "13 吋 MacBook Air Apple M4 晶片配備 10 核心 CPU 與 10 核心 GPU - 銀色 (整修品)",
+    "price": "NT$41,590",
+    "type": "macbook",
+    "description": "配備強大 M4 晶片的 13 吋 MacBook Air，10 核心 CPU 與 10 核心 GPU，整修品",
+    "image": "macbook-air-m4-10core-silver-refurb.jpg",
+    "availability": true,
+    "rating": 4.8,
+    "categories": "macbook"
+  },
+  {
+    "id": 7,
+    "name": "13 吋 MacBook Air Apple M4 晶片配備 10 核心 CPU 與 8 核心 GPU - 銀色 (整修品)",
+    "price": "NT$29,690",
+    "type": "macbook",
+    "description": "配備 M4 晶片的 13 吋 MacBook Air，10 核心 CPU 與 8 核心 GPU，整修品",
+    "image": "macbook-air-m4-8core-silver-refurb.jpg",
+    "availability": true,
+    "rating": 4.6,
+    "categories": "macbook"
+  },
+  {
+    "id": 8,
+    "name": "14 吋 MacBook Pro Apple M4 Pro 晶片配備 14 核心 CPU 與 20 核心 GPU - 太空黑色",
+    "price": "NT$111,190",
+    "type": "macbook",
+    "description": "頂級 14 吋 MacBook Pro，配備 M4 Pro 晶片，14 核心 CPU 與 20 核心 GPU",
+    "image": "macbook-pro-m4pro-14inch-spaceblack.jpg",
+    "availability": true,
+    "rating": 4.9,
+    "categories": "macbook"
   }
-}
+]
