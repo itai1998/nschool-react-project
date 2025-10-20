@@ -134,10 +134,5 @@
     ],
     "availability": ["available", "out_of_stock"],
     "ratings": [4.0, 4.5, 4.8, 5.0]
-  },
-  "metadata": {
-    "totalProducts": 8,
-    "lastUpdated": "2024-12-19T10:30:00Z",
-    "version": "1.0.0"
   }
 }

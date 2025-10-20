@@ -6,9 +6,6 @@ import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
 import {
   signInWithEmailAndPassword,
-  setPersistence,
-  browserLocalPersistence,
-  browserSessionPersistence,
   // onAuthStateChanged,
   signOut,
 } from "firebase/auth";
@@ -63,25 +60,10 @@ export default function ShoppingCart() {
     }
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   // Keep UI in sync with Firebase session
-  //   const unsub = onAuthStateChanged(auth, (user) => {
-  //     setIsLoggedIn(!!user);
-  //     setEmailDisplay(user?.email || undefined);
-  //   });
-  //   return () => unsub();
-  // }, []);
-
   const onSubmit = async (data: LoginData) => {
     setErrorMsg(null);
     setLoading(true);
     try {
-      // Choose persistence based on Remember Me
-      await setPersistence(
-        auth,
-        data.rememberMe ? browserLocalPersistence : browserSessionPersistence
-      );
-
       // Sign in
       const cred = await signInWithEmailAndPassword(
         auth,
@@ -125,7 +107,7 @@ export default function ShoppingCart() {
       await signOut(auth);
       Cookies.remove("token");
       setIsLoggedIn(false);
-      setEmailDisplay(undefined);
+      setEmailDisplay("");
       dispatch(setLogout());
     } catch {
       setErrorMsg("登出失敗，請稍後再試。");

@@ -1,7 +1,7 @@
-import axios from "axios";
 import styles from "../scss/Search.module.scss";
 import { useState, useEffect } from "react";
-interface Product {
+import { getProducts } from "../api";
+export interface Product {
   id: number;
   name: string;
   price: string;
@@ -29,8 +29,8 @@ export default function Search() {
   const [data, setData] = useState<MockData | null>(null);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false);
   const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const [open, setOpen] = useState(false);
   const [results, setResults] = useState<Product[]>();
 
   useEffect(() => {
@@ -42,7 +42,8 @@ export default function Search() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get<MockData>("/src/data/macbookMock.json");
+      // const res = await axios.get<MockData>("/src/data/macbookMock.json");
+      const res = await getProducts();
       setData(res.data);
 
       if (!results) {

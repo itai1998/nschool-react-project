@@ -5,6 +5,7 @@ export interface Profile {
     email: string;
     rememberMe: boolean;
     loggedIn: boolean;
+    // store token
   };
 }
 
