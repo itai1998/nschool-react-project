@@ -29,10 +29,10 @@ export default function Search() {
 
       if (debouncedSearch.length !== 0) {
         const filteredSuggestions = res.data
-          .filter((item) =>
+          .filter((item: Macbook) =>
             item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
           )
-          .map((item) => item.name);
+          .map((item: Macbook) => item.name);
         setSuggestions(filteredSuggestions);
       }
     };
