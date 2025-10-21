@@ -1,44 +1,44 @@
-import { useState, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
-import styles from '../../scss/MegaMenu.module.scss'
-import { productOneOptions } from '../lists/menuOptions'
-import searchIcon from '../../img/search-interface-symbol.png'
-import marketIcon from '../../img/market.png'
-import appleLogo from '../../img/apple-logo.png'
+import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../../scss/MegaMenu.module.scss";
+import { productOneOptions } from "../lists/menuOptions";
+import searchIcon from "../../img/search-interface-symbol.png";
+import marketIcon from "../../img/market.png";
+import appleLogo from "../../img/apple-logo.png";
 
 // TypeScript interfaces
 interface LinkGroup {
-  [key: string]: string
+  [key: string]: string;
 }
 
 interface ProductOption {
-  product: string
-  [key: string]: any
+  product: string;
+  [key: string]: any;
 }
 
 function MegaMenu() {
-  const [open, setOpen] = useState(false)
-  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
-  const menuRef = useRef<HTMLLIElement>(null)
-  const navigate = useNavigate()
+  const [open, setOpen] = useState(false);
+  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
+  const menuRef = useRef<HTMLLIElement>(null);
+  const navigate = useNavigate();
 
   // Helper function to get menu data for a specific product
   const getProductMenuData = (productName: string) => {
-    return productOneOptions.find((option) => option.product === productName)
-  }
+    return productOneOptions.find((option) => option.product === productName);
+  };
 
   // Helper function to render menu columns dynamically
   const renderMenuColumns = (menuData: ProductOption | undefined) => {
-    if (!menuData) return null
+    if (!menuData) return null;
 
     // Get all category keys dynamically (category1, category2, category3, etc.)
     const categoryKeys = Object.keys(menuData).filter((key) =>
-      key.startsWith('category')
-    )
+      key.startsWith("category")
+    );
 
     return categoryKeys.map((categoryKey, index) => {
-      const category = menuData[categoryKey]
-      if (!category) return null
+      const category = menuData[categoryKey];
+      if (!category) return null;
 
       return (
         <div key={index} className={styles.megaColumn}>
@@ -56,25 +56,25 @@ function MegaMenu() {
             </div>
           ))}
         </div>
-      )
-    })
-  }
+      );
+    });
+  };
 
   const handleProductMouseEnter = (productName: string) => {
-    setHoveredProduct(productName)
-    setOpen(true)
-  }
+    setHoveredProduct(productName);
+    setOpen(true);
+  };
 
   const handleMouseLeave = () => {
-    setOpen(false)
-    setHoveredProduct(null)
-  }
+    setOpen(false);
+    setHoveredProduct(null);
+  };
 
   return (
     <nav className={styles.navbar}>
       <ul>
         <li onMouseLeave={handleMouseLeave} ref={menuRef}>
-          <img src={appleLogo} alt={'appleLogo'} />
+          <img src={appleLogo} alt={"appleLogo"} />
           {productOneOptions.map((product, index) => (
             <button
               key={index}
@@ -92,13 +92,15 @@ function MegaMenu() {
           <button className={styles.navButton}> 支援服務</button>
           <img
             src={searchIcon}
-            alt={'search'}
-            onClick={() => navigate('/search')}
+            alt={"search"}
+            onClick={() => navigate("/search")}
+            onMouseEnter={() => handleMouseLeave()}
           />
           <img
             src={marketIcon}
-            alt={'market'}
-            onClick={() => navigate('/shopping-cart')}
+            alt={"market"}
+            onClick={() => navigate("/shopping-cart")}
+            onMouseEnter={() => handleMouseLeave()}
           />
 
           {open && hoveredProduct && (
@@ -110,10 +112,15 @@ function MegaMenu() {
               {renderMenuColumns(getProductMenuData(hoveredProduct))}
             </div>
           )}
+
+          <div className={styles.searchMenu}>
+            <img src={searchIcon} alt="search" className={styles.searchIcon} />
+            <input type="text" placeholder="Search apple.com" />
+          </div>
         </li>
       </ul>
     </nav>
-  )
+  );
 }
 
-export default MegaMenu
+export default MegaMenu;
