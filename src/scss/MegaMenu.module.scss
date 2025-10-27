@@ -112,8 +112,9 @@
     padding: 20px 13%;
     z-index: 1000;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 5px;
+    flex-direction: column;
 
     .searchIcon {
       height: 15px;
@@ -128,9 +129,29 @@
       height: 100%;
       border: none;
       outline: none;
-      padding: 0 10px;
+      padding-left: 10px;
       font-size: 20px;
       font-weight: 500;
+    }
+
+    .searchBar {
+      padding: 30px 0px;
+
+      width: 100%;
+    }
+
+    .quickLinks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      span {
+        color: gray;
+        padding-right: 5px;
+      }
+      .quickLinksTitle {
+        color: grey;
+      }
     }
   }
 }

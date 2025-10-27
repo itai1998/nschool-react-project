@@ -114,8 +114,32 @@ function MegaMenu() {
           )}
 
           <div className={styles.searchMenu}>
-            <img src={searchIcon} alt="search" className={styles.searchIcon} />
-            <input type="text" placeholder="Search apple.com" />
+            <div className={styles.searchBar}>
+              <img
+                src={searchIcon}
+                alt="search"
+                className={styles.searchIcon}
+              />
+              <input type="text" placeholder="Search apple.com" />
+            </div>
+            <div className={styles.quickLinks}>
+              <h6 className={styles.quickLinksTitle}>快速連結</h6>
+              <h6>
+                <span>→</span> 尋找直營店
+              </h6>
+              <h6>
+                <span>→</span> Apple Vision Pro
+              </h6>
+              <h6>
+                <span>→</span> AirPods
+              </h6>
+              <h6>
+                <span>→</span> Apple Intelligence
+              </h6>
+              <h6>
+                <span>→</span> Apple Trade In 換購方案
+              </h6>
+            </div>
           </div>
         </li>
       </ul>
