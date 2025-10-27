@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../../scss/MegaMenu.module.scss";
 import { productOneOptions } from "../lists/menuOptions";
@@ -18,9 +18,24 @@ interface ProductOption {
 
 function MegaMenu() {
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const menuRef = useRef<HTMLLIElement>(null);
   const navigate = useNavigate();
+
+  // Close search when scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      setSearchOpen(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   // Helper function to get menu data for a specific product
   const getProductMenuData = (productName: string) => {
@@ -79,7 +94,10 @@ function MegaMenu() {
             <button
               key={index}
               className={styles.navButton}
-              onMouseEnter={() => handleProductMouseEnter(product.product)}
+              onMouseEnter={() => {
+                handleProductMouseEnter(product.product);
+                setSearchOpen(false);
+              }}
             >
               {product.product}
             </button>
@@ -93,7 +111,8 @@ function MegaMenu() {
           <img
             src={searchIcon}
             alt={"search"}
-            onClick={() => navigate("/search")}
+            onClick={() => setSearchOpen((prev) => !prev)}
+            // onClick={() => navigate("/search")}
             onMouseEnter={() => handleMouseLeave()}
           />
           <img
@@ -113,34 +132,39 @@ function MegaMenu() {
             </div>
           )}
 
-          <div className={styles.searchMenu}>
-            <div className={styles.searchBar}>
-              <img
-                src={searchIcon}
-                alt="search"
-                className={styles.searchIcon}
-              />
-              <input type="text" placeholder="Search apple.com" />
+          {searchOpen && (
+            <div
+              className={styles.searchMenu}
+              onMouseLeave={() => setSearchOpen(false)}
+            >
+              <div className={styles.searchBar}>
+                <img
+                  src={searchIcon}
+                  alt="search"
+                  className={styles.searchIcon}
+                />
+                <input type="text" placeholder="Search apple.com" />
+              </div>
+              <div className={styles.quickLinks}>
+                <h6 className={styles.quickLinksTitle}>快速連結</h6>
+                <h6>
+                  <span>→</span> 尋找直營店
+                </h6>
+                <h6>
+                  <span>→</span> Apple Vision Pro
+                </h6>
+                <h6>
+                  <span>→</span> AirPods
+                </h6>
+                <h6>
+                  <span>→</span> Apple Intelligence
+                </h6>
+                <h6>
+                  <span>→</span> Apple Trade In 換購方案
+                </h6>
+              </div>
             </div>
-            <div className={styles.quickLinks}>
-              <h6 className={styles.quickLinksTitle}>快速連結</h6>
-              <h6>
-                <span>→</span> 尋找直營店
-              </h6>
-              <h6>
-                <span>→</span> Apple Vision Pro
-              </h6>
-              <h6>
-                <span>→</span> AirPods
-              </h6>
-              <h6>
-                <span>→</span> Apple Intelligence
-              </h6>
-              <h6>
-                <span>→</span> Apple Trade In 換購方案
-              </h6>
-            </div>
-          </div>
+          )}
         </li>
       </ul>
     </nav>
