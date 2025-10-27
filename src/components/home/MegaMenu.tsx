@@ -112,7 +112,6 @@ function MegaMenu() {
             src={searchIcon}
             alt={"search"}
             onClick={() => setSearchOpen((prev) => !prev)}
-            // onClick={() => navigate("/search")}
             onMouseEnter={() => handleMouseLeave()}
           />
           <img
@@ -143,7 +142,20 @@ function MegaMenu() {
                   alt="search"
                   className={styles.searchIcon}
                 />
-                <input type="text" placeholder="Search apple.com" />
+                <input
+                  type="text"
+                  placeholder="Search apple.com"
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === "Enter" &&
+                      (e.target as HTMLInputElement).value.length > 0
+                    ) {
+                      navigate(
+                        `/search?query=${(e.target as HTMLInputElement).value}`
+                      );
+                    }
+                  }}
+                />
               </div>
               <div className={styles.quickLinks}>
                 <h6 className={styles.quickLinksTitle}>快速連結</h6>
