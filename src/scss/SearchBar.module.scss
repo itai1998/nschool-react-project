@@ -1,0 +1,55 @@
+.searchMenu {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  width: 100vw;
+  background-color: #fff;
+  border: 1px solid #e5e5e7;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px 13%;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  flex-direction: column;
+
+  .searchIcon {
+    height: 15px;
+    width: 15px;
+    opacity: 0.6;
+    padding: 0;
+    cursor: text;
+  }
+
+  input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .searchBar {
+    padding: 30px 0px;
+
+    width: 100%;
+  }
+
+  .quickLinks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 30px;
+
+    span {
+      color: gray;
+      padding-right: 5px;
+    }
+    .quickLinksTitle {
+      color: grey;
+    }
+  }
+}
