@@ -38,6 +38,10 @@ export default function SearchBar({ onMouseLeave }: SearchBarProps) {
     fetchData();
   }, [debouncedSearch]);
 
+  const handleSuggestionClick = (suggestion: string) => {
+    navigate(`/search?query=${suggestion}`);
+  };
+
   return (
     <div className={styles.searchMenu} onMouseLeave={onMouseLeave}>
       <div className={styles.searchBar}>
@@ -59,7 +63,11 @@ export default function SearchBar({ onMouseLeave }: SearchBarProps) {
         <div className={styles.suggestions}>
           <h6 className={styles.suggestionsTitle}>建議連結</h6>
           {suggestions.map((suggestion) => (
-            <h6 key={suggestion} className={styles.suggestion}>
+            <h6
+              key={suggestion}
+              className={styles.suggestion}
+              onClick={() => handleSuggestionClick(suggestion)}
+            >
               <span>→</span> {suggestion}
             </h6>
           ))}
