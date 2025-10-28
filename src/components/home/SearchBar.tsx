@@ -1,6 +1,7 @@
 import styles from "../../scss/MegaMenu.module.scss";
 import searchIcon from "../../img/search-interface-symbol.png";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface SearchBarProps {
   onMouseLeave: () => void;
@@ -8,6 +9,7 @@ interface SearchBarProps {
 
 export default function SearchBar({ onMouseLeave }: SearchBarProps) {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
   return (
     <div className={styles.searchMenu} onMouseLeave={onMouseLeave}>
       <div className={styles.searchBar}>
@@ -15,12 +17,11 @@ export default function SearchBar({ onMouseLeave }: SearchBarProps) {
         <input
           type="text"
           placeholder="Search apple.com"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => {
-            if (
-              e.key === "Enter" &&
-              (e.target as HTMLInputElement).value.length > 0
-            ) {
-              navigate(`/search?query=${(e.target as HTMLInputElement).value}`);
+            if (e.key === "Enter" && search.length > 0) {
+              navigate(`/search?query=${search}`);
             }
           }}
         />

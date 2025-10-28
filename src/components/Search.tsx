@@ -2,21 +2,15 @@ import styles from "../scss/Search.module.scss";
 import { useState, useEffect } from "react";
 import { getProducts } from "../api";
 import { type Macbook } from "../api/constants/macbook";
+import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
 
 export default function Search() {
   const [data, setData] = useState<Macbook[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState(search);
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState<Macbook[]>();
-
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, 500);
-    return () => clearTimeout(debounce);
-  }, [search]);
+  const { debouncedSearch } = useDebouncedSearch(search);
 
   useEffect(() => {
     const fetchData = async () => {
