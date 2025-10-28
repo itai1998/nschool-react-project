@@ -1,3 +1,25 @@
+@mixin listStyles {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 30px;
+  width: 100%;
+
+  h6 {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  span {
+    color: gray;
+    padding-right: 5px;
+  }
+
+  .quickLinksTitle {
+    color: grey;
+  }
+}
+
 .searchMenu {
   position: fixed;
   top: 44px;
@@ -33,23 +55,20 @@
   }
 
   .searchBar {
-    padding: 30px 0px;
-
+    padding: 30px 0;
     width: 100%;
   }
 
   .quickLinks {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding-bottom: 30px;
+    @include listStyles;
+  }
 
-    span {
-      color: gray;
-      padding-right: 5px;
-    }
-    .quickLinksTitle {
-      color: grey;
+  .suggestions {
+    @include listStyles;
+
+    .suggestion:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
     }
   }
 }

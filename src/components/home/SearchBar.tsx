@@ -1,7 +1,10 @@
-import styles from "../../scss/MegaMenu.module.scss";
+import styles from "../../scss/SearchBar.module.scss";
 import searchIcon from "../../img/search-interface-symbol.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import type { Macbook } from "../../api/constants/macbook";
+import { useDebouncedSearch } from "../../hooks/useDebouncedSearch";
+import { getProducts } from "../../api";
 
 interface SearchBarProps {
   onMouseLeave: () => void;
@@ -9,7 +12,32 @@ interface SearchBarProps {
 
 export default function SearchBar({ onMouseLeave }: SearchBarProps) {
   const navigate = useNavigate();
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
+  const [results, setResults] = useState<Macbook[]>();
+  const { debouncedSearch } = useDebouncedSearch(search);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getProducts();
+
+      if (!results) {
+        setResults(res.data);
+      }
+
+      if (debouncedSearch.length !== 0) {
+        const filteredSuggestions = res.data
+          .filter((item: Macbook) =>
+            item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+          )
+          .map((item: Macbook) => item.name);
+        setSuggestions(filteredSuggestions);
+      }
+    };
+
+    fetchData();
+  }, [debouncedSearch]);
+
   return (
     <div className={styles.searchMenu} onMouseLeave={onMouseLeave}>
       <div className={styles.searchBar}>
@@ -26,6 +54,18 @@ export default function SearchBar({ onMouseLeave }: SearchBarProps) {
           }}
         />
       </div>
+
+      {suggestions.length > 0 && (
+        <div className={styles.suggestions}>
+          <h6 className={styles.suggestionsTitle}>建議連結</h6>
+          {suggestions.map((suggestion) => (
+            <h6 key={suggestion} className={styles.suggestion}>
+              <span>→</span> {suggestion}
+            </h6>
+          ))}
+        </div>
+      )}
+
       <div className={styles.quickLinks}>
         <h6 className={styles.quickLinksTitle}>快速連結</h6>
         <h6>
