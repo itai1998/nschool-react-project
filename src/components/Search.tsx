@@ -1,16 +1,21 @@
 import styles from "../scss/Search.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getProducts } from "../api";
 import { type Macbook } from "../api/constants/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
+import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default function Search() {
+  const navigate = useNavigate();
   const [data, setData] = useState<Macbook[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState<Macbook[]>();
   const { debouncedSearch } = useDebouncedSearch(search);
+  const hasAppliedQueryRef = useRef(false);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +39,17 @@ export default function Search() {
     fetchData();
   }, [debouncedSearch]);
 
+  useEffect(() => {
+    const query = searchParams.get("query");
+
+    if (query && data.length > 0 && !hasAppliedQueryRef.current) {
+      setSearch(query);
+      handleSearch(query);
+      setOpen(false);
+      hasAppliedQueryRef.current = true;
+    }
+  }, [data, searchParams]);
+
   const handleSearch = (inputText: string) => {
     const filteredResults = data?.filter((item) =>
       item.name.toLowerCase().includes(inputText.toLowerCase())
@@ -42,6 +58,7 @@ export default function Search() {
   };
 
   const handleSuggestionClick = (suggestion: string) => {
+    navigate(`/search?query=${suggestion}`);
     setSearch(suggestion);
     handleSearch(suggestion);
     setOpen(false);
@@ -74,6 +91,7 @@ export default function Search() {
             type="button"
             onClick={() => {
               handleSearch(search);
+              navigate(`/search?query=${search}`);
               setOpen(false);
             }}
           >
