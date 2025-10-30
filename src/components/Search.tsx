@@ -1,5 +1,5 @@
 import styles from "../scss/Search.module.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { getProducts } from "../api";
 import { type Macbook } from "../api/constants/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
@@ -14,7 +14,6 @@ export default function Search() {
   const [open, setOpen] = useState(false);
   const [results, setResults] = useState<Macbook[]>();
   const { debouncedSearch } = useDebouncedSearch(search);
-  const hasAppliedQueryRef = useRef(false);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
@@ -42,13 +41,12 @@ export default function Search() {
   useEffect(() => {
     const query = searchParams.get("query");
 
-    if (query && data.length > 0 && !hasAppliedQueryRef.current) {
+    if (query) {
       setSearch(query);
       handleSearch(query);
       setOpen(false);
-      hasAppliedQueryRef.current = true;
     }
-  }, [data, searchParams]);
+  }, [searchParams]);
 
   const handleSearch = (inputText: string) => {
     const filteredResults = data?.filter((item) =>
@@ -90,8 +88,12 @@ export default function Search() {
             className={styles.searchButton}
             type="button"
             onClick={() => {
-              handleSearch(search);
-              navigate(`/search?query=${search}`);
+              if (search.length > 0) {
+                navigate(`/search?query=${search}`);
+              } else {
+                navigate(`/search`);
+                handleSearch("");
+              }
               setOpen(false);
             }}
           >
