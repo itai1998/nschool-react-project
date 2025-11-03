@@ -40,13 +40,14 @@ export default function Search() {
 
   useEffect(() => {
     const query = searchParams.get("query");
+    console.log(query);
 
     if (query) {
       setSearch(query);
       handleSearch(query);
       setOpen(false);
     }
-  }, [searchParams]);
+  }, [searchParams, data]);
 
   const handleSearch = (inputText: string) => {
     const filteredResults = data?.filter((item) =>
