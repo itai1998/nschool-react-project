@@ -5,11 +5,13 @@ import "./App.scss";
 import Search from "./components/Search";
 import ShoppingCart from "./components/ShoppingCart";
 import Home from "./components/home/Home";
+import MegaMenu from "./components/home/MegaMenu";
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
+        <MegaMenu />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />

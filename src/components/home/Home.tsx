@@ -7,7 +7,6 @@ import Footer from "./Footer";
 import HelperOptions from "./HelperOptions";
 import Intro from "./Intro";
 import Links from "./Links";
-import MegaMenu from "./MegaMenu";
 import NewProducts from "./NewProducts";
 import Products from "./Products";
 import ServiceInformation from "./ServiceInformation";
@@ -25,7 +24,6 @@ export default function Home() {
   return (
     <Provider store={store}>
       <div>
-        <MegaMenu />
         <Intro />
         <Products />
         <NewProducts />

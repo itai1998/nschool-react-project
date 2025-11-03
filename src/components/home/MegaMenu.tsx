@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../../scss/MegaMenu.module.scss";
 import { productOneOptions } from "../lists/menuOptions";
 import searchIcon from "../../img/search-interface-symbol.png";
@@ -23,6 +23,14 @@ function MegaMenu() {
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
   const menuRef = useRef<HTMLLIElement>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle search route - open search when on search page
+  useEffect(() => {
+    if (location.pathname.includes("search")) {
+      setSearchOpen(false);
+    }
+  }, [location.pathname]);
 
   // Close search when scrolling
   useEffect(() => {
@@ -90,7 +98,11 @@ function MegaMenu() {
     <nav className={styles.navbar}>
       <ul>
         <li onMouseLeave={handleMouseLeave} ref={menuRef}>
-          <img src={appleLogo} alt={"appleLogo"} />
+          <img
+            src={appleLogo}
+            alt={"appleLogo"}
+            onClick={() => navigate("/")}
+          />
           {productOneOptions.map((product, index) => (
             <button
               key={index}
@@ -109,12 +121,14 @@ function MegaMenu() {
           <button className={styles.navButton}> 娛樂</button>
           <button className={styles.navButton}> 配件</button>
           <button className={styles.navButton}> 支援服務</button>
-          <img
-            src={searchIcon}
-            alt={"search"}
-            onClick={() => setSearchOpen((prev) => !prev)}
-            onMouseEnter={() => handleMouseLeave()}
-          />
+          {!location.pathname.includes("search") && (
+            <img
+              src={searchIcon}
+              alt={"search"}
+              onClick={() => setSearchOpen((prev) => !prev)}
+              onMouseEnter={() => handleMouseLeave()}
+            />
+          )}
           <img
             src={marketIcon}
             alt={"market"}
