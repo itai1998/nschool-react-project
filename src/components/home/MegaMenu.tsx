@@ -101,7 +101,10 @@ function MegaMenu() {
           <img
             src={appleLogo}
             alt={"appleLogo"}
-            onClick={() => navigate("/")}
+            onClick={() => {
+              navigate("/");
+              setOpen(false);
+            }}
           />
           {productOneOptions.map((product, index) => (
             <button
