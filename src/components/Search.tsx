@@ -40,7 +40,6 @@ export default function Search() {
 
   useEffect(() => {
     const query = searchParams.get("query");
-    console.log(query);
 
     if (query) {
       setSearch(query);

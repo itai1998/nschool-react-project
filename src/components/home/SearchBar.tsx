@@ -14,16 +14,12 @@ export default function SearchBar({ onMouseLeave }: SearchBarProps) {
   const navigate = useNavigate();
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-  const [results, setResults] = useState<Macbook[]>();
+
   const { debouncedSearch } = useDebouncedSearch(search);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getProducts();
-
-      if (!results) {
-        setResults(res.data);
-      }
 
       if (debouncedSearch.length !== 0) {
         const filteredSuggestions = res.data
