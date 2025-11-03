@@ -1,5 +1,5 @@
 import styles from "../scss/Search.module.scss";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getProducts } from "../api";
 import { type Macbook } from "../api/constants/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
@@ -15,6 +15,7 @@ export default function Search() {
   const [results, setResults] = useState<Macbook[]>();
   const { debouncedSearch } = useDebouncedSearch(search);
   const [searchParams] = useSearchParams();
+  const lastProcessedQueryRef = useRef<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,10 +42,15 @@ export default function Search() {
   useEffect(() => {
     const query = searchParams.get("query");
 
-    if (query) {
+    // Only update if query actually changed and data is available
+    if (query && data.length > 0 && query !== lastProcessedQueryRef.current) {
+      lastProcessedQueryRef.current = query;
       setSearch(query);
       handleSearch(query);
       setOpen(false);
+    } else if (!query) {
+      // Reset the ref when query is removed
+      lastProcessedQueryRef.current = null;
     }
   }, [searchParams, data]);
 
