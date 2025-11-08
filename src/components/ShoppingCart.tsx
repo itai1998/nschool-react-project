@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch } from "../store/hooks";
 import Cookies from "js-cookie";
 import styles from "../scss/ShoppingCart.module.scss";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
+import arrowRightIcon from "../img/icons/arrow-right.png";
+import loadingIcon from "../img/icons/load.png";
 import {
   signInWithEmailAndPassword,
   // onAuthStateChanged,
@@ -24,8 +26,8 @@ export default function ShoppingCart() {
   const [emailDisplay, setEmailDisplay] = useState<string | undefined>(
     undefined
   );
+  const [isEmailExists, setIsEmailExists] = useState(false);
 
-  const state = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const { register, handleSubmit } = useForm<LoginData>({
@@ -119,11 +121,6 @@ export default function ShoppingCart() {
   return (
     <div className={styles.shoppingCartContainer}>
       <h1>登入以加快結帳速度。</h1>
-      {state.profile.loggedIn ? (
-        <h4>{state.profile.email}</h4>
-      ) : (
-        <h4>not logged in</h4>
-      )}
 
       {!isLoggedIn && (
         <div className={styles.loginContainer}>
@@ -131,18 +128,38 @@ export default function ShoppingCart() {
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.inputContainer}>
-              <input
-                {...register("email")}
-                type="email"
-                placeholder="電子郵件地址"
-                autoComplete="username"
-              />
-              <input
-                {...register("password")}
-                type="password"
-                placeholder="密碼"
-                autoComplete="current-password"
-              />
+              <div className={styles.inputWrapper}>
+                <input
+                  {...register("email")}
+                  type="email"
+                  placeholder="電子郵件地址"
+                  autoComplete="username"
+                />
+                {!isEmailExists && (
+                  <button type="button" onClick={() => setIsEmailExists(true)}>
+                    <img src={arrowRightIcon} alt="submitArrow" />
+                  </button>
+                )}
+              </div>
+
+              {isEmailExists && <div className={styles.inputDivider} />}
+              {isEmailExists && (
+                <div className={styles.inputWrapper}>
+                  <input
+                    {...register("password")}
+                    type="password"
+                    placeholder="密碼"
+                    autoComplete="current-password"
+                  />
+                  <button type="submit" disabled={loading}>
+                    {loading ? (
+                      <img src={loadingIcon} alt="loading" />
+                    ) : (
+                      <img src={arrowRightIcon} alt="submitArrow" />
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className={styles.checkboxContainer}>
@@ -155,14 +172,6 @@ export default function ShoppingCart() {
                 <h4>記住我的帳號</h4>
               </label>
             </div>
-
-            <button
-              type="submit"
-              className={styles.loginButton}
-              disabled={loading}
-            >
-              {loading ? "處理中…" : "登入"}
-            </button>
 
             {errorMsg && <p className={styles.error}>{errorMsg}</p>}
           </form>
