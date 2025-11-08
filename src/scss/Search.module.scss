@@ -1,5 +1,5 @@
 .searchContainer {
-  padding: 20px 10%;
+  padding: 20px;
 
   .inputWrapper {
     display: flex;
@@ -73,7 +73,6 @@
   }
 
   .flexContainer {
-    padding: 20px 10%;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -91,6 +90,25 @@
 
     h2 {
       text-align: center;
+    }
+  }
+
+  .searchContent {
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    gap: 10px;
+    align-items: stretch;
+    border: 1px solid #369adc;
+
+    .categoriesContainer {
+      .categoriesTitle {
+        padding-bottom: 35px;
+      }
+      padding: 0 35px;
+      border: 1px solid #000;
+      height: auto;
+      min-width: 224px;
     }
   }
 }

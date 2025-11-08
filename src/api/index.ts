@@ -7,6 +7,10 @@ export const getProducts = () => {
   return axios.get("/src/data/macbookMock.json");
 };
 
+export const getCategories = () => {
+  return axios.get("/src/data/category.json");
+};
+
 // use promise
 // export const getProducts = () => {
 //     return Promise.resolve({

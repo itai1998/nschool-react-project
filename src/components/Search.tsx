@@ -1,10 +1,11 @@
 import styles from "../scss/Search.module.scss";
 import { useState, useEffect, useRef } from "react";
-import { getProducts } from "../api";
+import { getProducts, getCategories } from "../api";
 import { type Macbook } from "../api/constants/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import type { Category } from "../api/constants/category";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -16,6 +17,15 @@ export default function Search() {
   const { debouncedSearch } = useDebouncedSearch(search);
   const [searchParams] = useSearchParams();
   const lastProcessedQueryRef = useRef<string | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const res = await getCategories();
+      setCategories(res.data);
+    };
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,19 +146,29 @@ export default function Search() {
           )}
         </div>
       </div>
-
-      <div className={styles.flexContainer}>
-        {results && results.length > 0 ? (
-          results.map((item) => (
-            <div key={item.name} className={styles.productBox}>
-              <h2>{item.name}</h2>
-              <h3>{item.price}</h3>
-              <h4>{item.type}</h4>
+      <div className={styles.searchContent}>
+        <div className={styles.categoriesContainer}>
+          <h3 className={styles.categoriesTitle}>產品類型</h3>
+          {categories.map((category) => (
+            <div key={category.id}>
+              <h3>{category.category}</h3>
             </div>
-          ))
-        ) : results && results.length === 0 ? (
-          <p>No products found</p>
-        ) : null}
+          ))}
+        </div>
+
+        <div className={styles.flexContainer}>
+          {results && results.length > 0 ? (
+            results.map((item) => (
+              <div key={item.name} className={styles.productBox}>
+                <h2>{item.name}</h2>
+                <h3>{item.price}</h3>
+                <h4>{item.type}</h4>
+              </div>
+            ))
+          ) : results && results.length === 0 ? (
+            <p>No products found</p>
+          ) : null}
+        </div>
       </div>
     </div>
   );
