@@ -165,13 +165,19 @@ export default function Search() {
 
         <div className={styles.flexContainer}>
           {results && results.length > 0 ? (
-            results.map((item) => (
-              <div key={item.name} className={styles.productBox}>
-                <h2>{item.name}</h2>
-                <h3>{item.price}</h3>
-                <h4>{item.type}</h4>
-              </div>
-            ))
+            results
+              .filter((item) =>
+                selectedCategory === "all"
+                  ? item
+                  : item.type === selectedCategory
+              )
+              .map((item) => (
+                <div key={item.name} className={styles.productBox}>
+                  <h2>{item.name}</h2>
+                  <h3>{item.price}</h3>
+                  <h4>{item.type}</h4>
+                </div>
+              ))
           ) : results && results.length === 0 ? (
             <p>No products found</p>
           ) : null}
