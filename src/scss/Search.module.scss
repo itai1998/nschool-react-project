@@ -102,13 +102,32 @@
     border: 1px solid #369adc;
 
     .categoriesContainer {
-      .categoriesTitle {
-        padding-bottom: 35px;
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
       padding: 0 35px;
       border: 1px solid #000;
       height: auto;
       min-width: 224px;
+
+      .categoriesTitle {
+        padding-bottom: 35px;
+      }
+
+      .categoryItem {
+        h3 {
+          padding: 0 10px;
+        }
+        cursor: pointer;
+        &:hover {
+          color: #0071e3;
+        }
+      }
+
+      .selectedCategory {
+        color: #0071e3;
+        background-color: #e6e6eb;
+      }
     }
   }
 }

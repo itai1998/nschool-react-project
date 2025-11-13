@@ -18,6 +18,7 @@ export default function Search() {
   const [searchParams] = useSearchParams();
   const lastProcessedQueryRef = useRef<string | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -150,8 +151,14 @@ export default function Search() {
         <div className={styles.categoriesContainer}>
           <h3 className={styles.categoriesTitle}>產品類型</h3>
           {categories.map((category) => (
-            <div key={category.id}>
-              <h3>{category.category}</h3>
+            <div className={styles.categoryItem} key={category.id}>
+              {selectedCategory === category.category ? (
+                <h3 className={styles.selectedCategory}>{category.category}</h3>
+              ) : (
+                <h3 onClick={() => setSelectedCategory(category.category)}>
+                  {category.category}
+                </h3>
+              )}
             </div>
           ))}
         </div>
