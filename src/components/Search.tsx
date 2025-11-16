@@ -1,11 +1,11 @@
 import styles from "../scss/Search.module.scss";
 import { useState, useEffect, useRef } from "react";
-import { getProducts, getCategories } from "../api";
 import { type Macbook } from "../api/constants/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import type { Category } from "../api/constants/category";
+import { useProducts } from "../hooks/useProducts";
+import { useCategories } from "../hooks/useCategories";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -17,38 +17,28 @@ export default function Search() {
   const { debouncedSearch } = useDebouncedSearch(search);
   const [searchParams] = useSearchParams();
   const lastProcessedQueryRef = useRef<string | null>(null);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { categories } = useCategories();
+  const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      const res = await getCategories();
-      setCategories(res.data);
-    };
-    fetchCategories();
-  }, []);
+    setData(products);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await getProducts();
-      setData(res.data);
+    if (!results || results.length === 0) {
+      setResults(products);
+    }
 
-      if (!results) {
-        setResults(res.data);
-      }
-
-      if (debouncedSearch.length !== 0) {
-        const filteredSuggestions = res.data
-          .filter((item: Macbook) =>
-            item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
-          )
-          .map((item: Macbook) => item.name);
-        setSuggestions(filteredSuggestions);
-      }
-    };
-
-    fetchData();
-  }, [debouncedSearch]);
+    if (debouncedSearch.length !== 0) {
+      const filteredSuggestions = products
+        .filter((item: Macbook) =>
+          item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
+        )
+        .map((item: Macbook) => item.name);
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  }, [products, debouncedSearch]);
 
   useEffect(() => {
     const query = searchParams.get("query");

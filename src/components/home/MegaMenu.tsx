@@ -6,8 +6,6 @@ import searchIcon from "../../img/search-interface-symbol.png";
 import marketIcon from "../../img/market.png";
 import appleLogo from "../../img/apple-logo.png";
 import SearchBar from "./SearchBar";
-
-// TypeScript interfaces
 interface LinkGroup {
   [key: string]: string;
 }
