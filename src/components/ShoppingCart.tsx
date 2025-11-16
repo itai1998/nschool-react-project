@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Cookies from "js-cookie";
 import styles from "../scss/ShoppingCart.module.scss";
 import { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import {
   // onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import { setLogin, setLogout } from "../store/userSlice";
+import { setLogin, setLogout, setToken } from "../store/userSlice";
 
 interface LoginData {
   email: string;
@@ -29,6 +29,7 @@ export default function ShoppingCart() {
   const [isEmailExists, setIsEmailExists] = useState(false);
 
   const dispatch = useAppDispatch();
+  const tokenRedux = useAppSelector((state) => state.user.profile.token);
 
   const { register, handleSubmit } = useForm<LoginData>({
     defaultValues: {
@@ -39,6 +40,7 @@ export default function ShoppingCart() {
   });
 
   useEffect(() => {
+    console.log("tokenRedux", tokenRedux);
     const token = Cookies.get("token");
     if (token) {
       try {
@@ -53,14 +55,16 @@ export default function ShoppingCart() {
             email: payload.email,
             rememberMe: true, // If token exists in cookie, user chose to be remembered
             loggedIn: true,
+            token: token,
           })
         );
       } catch (error) {
         console.error("Failed to decode token:", error);
         Cookies.remove("token");
+        dispatch(setLogout());
       }
     }
-  }, [dispatch]);
+  }, [dispatch, tokenRedux]);
 
   const onSubmit = async (data: LoginData) => {
     setErrorMsg(null);
@@ -75,14 +79,16 @@ export default function ShoppingCart() {
 
       setIsLoggedIn(true);
       setEmailDisplay(cred.user.email || undefined);
-      const idToken = await cred.user.getIdToken();
-      Cookies.set("token", idToken);
+      const token = await cred.user.getIdToken();
+      dispatch(setToken(token));
+      Cookies.set("token", token);
 
       dispatch(
         setLogin({
           email: data.email,
           rememberMe: data.rememberMe,
           loggedIn: true,
+          token: token,
         })
       );
     } catch (err: any) {

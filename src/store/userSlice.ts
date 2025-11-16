@@ -5,7 +5,7 @@ export interface Profile {
     email: string;
     rememberMe: boolean;
     loggedIn: boolean;
-    // store token
+    token: string;
   };
 }
 
@@ -14,6 +14,7 @@ const initialState: Profile = {
     email: "",
     rememberMe: false,
     loggedIn: false,
+    token: "",
   },
 };
 
@@ -27,8 +28,11 @@ const userSlice = createSlice({
     setLogout: (state) => {
       state.profile = initialState.profile;
     },
+    setToken: (state, action) => {
+      state.profile.token = action.payload;
+    },
   },
 });
 
-export const { setLogin, setLogout } = userSlice.actions;
+export const { setLogin, setLogout, setToken } = userSlice.actions;
 export default userSlice.reducer;

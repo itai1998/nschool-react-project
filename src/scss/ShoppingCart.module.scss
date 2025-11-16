@@ -2,7 +2,6 @@
   padding: 20px;
   height: 100vh;
   margin: 0 15% 0 15%;
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   white-space: nowrap;
@@ -10,7 +9,6 @@
 
   .loginContainer,
   .loggedInContainer {
-    border: 1px solid blue;
     width: 100%;
     padding-top: 4px;
     display: flex;
