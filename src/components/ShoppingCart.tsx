@@ -31,7 +31,7 @@ export default function ShoppingCart() {
   const dispatch = useAppDispatch();
   const tokenRedux = useAppSelector((state) => state.user.profile.token);
 
-  const { register, handleSubmit } = useForm<LoginData>({
+  const { register, handleSubmit, watch } = useForm<LoginData>({
     defaultValues: {
       email: "",
       password: "",
@@ -139,6 +139,16 @@ export default function ShoppingCart() {
                   type="email"
                   placeholder="電子郵件地址"
                   autoComplete="username"
+                  onKeyDown={(e) => {
+                    if (
+                      e.key === "Enter" &&
+                      !isEmailExists &&
+                      watch("email").length > 0
+                    ) {
+                      e.preventDefault();
+                      setIsEmailExists(true);
+                    }
+                  }}
                 />
                 {!isEmailExists && (
                   <button type="button" onClick={() => setIsEmailExists(true)}>
