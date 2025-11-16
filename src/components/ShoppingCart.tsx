@@ -40,7 +40,6 @@ export default function ShoppingCart() {
   });
 
   useEffect(() => {
-    console.log("tokenRedux", tokenRedux);
     const token = Cookies.get("token");
     if (token) {
       try {
