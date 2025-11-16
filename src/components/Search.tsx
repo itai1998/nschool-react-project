@@ -100,6 +100,20 @@ export default function Search() {
                 setOpen(true);
               }
             }}
+            onBlur={() => {
+              setOpen(false);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (search.length > 0) {
+                  navigate(`/search?query=${search}`);
+                } else {
+                  navigate(`/search`);
+                  handleSearch("");
+                }
+                setOpen(false);
+              }
+            }}
           />
           <button
             className={styles.searchButton}
@@ -136,7 +150,7 @@ export default function Search() {
                 {suggestions.map((suggestion) => (
                   <li
                     key={suggestion}
-                    onClick={() => handleSuggestionClick(suggestion)}
+                    onMouseDown={() => handleSuggestionClick(suggestion)}
                     style={{ cursor: "pointer" }}
                   >
                     {suggestion}
