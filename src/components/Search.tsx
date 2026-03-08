@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import styles from "../scss/Search.module.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
@@ -10,14 +10,11 @@ import type { Product } from "../model/product";
 
 export default function Search() {
   const navigate = useNavigate();
-  const [data, setData] = useState<Product[]>([]);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false);
-  const [results, setResults] = useState<Product[]>([]);
+  const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
   const { debouncedSearch } = useDebouncedSearch(search);
   const [searchParams] = useSearchParams();
-  const lastProcessedQueryRef = useRef<string | null>(null);
+  const lastSyncedUrlQueryRef = useRef<string | null>(null);
   const { categories } = useCategories();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
@@ -29,52 +26,52 @@ export default function Search() {
     },
   });
 
-  useEffect(() => {
-    setData(products || []);
+  const productList = products ?? [];
 
-    if (!results || results.length === 0) {
-      setResults(products || []);
-    }
+  const suggestionNames = useMemo(() => {
+    if (!debouncedSearch.trim()) return [];
+    const lower = debouncedSearch.toLowerCase();
+    return productList
+      .filter((item: Product) => item.name.toLowerCase().includes(lower))
+      .map((item: Product) => item.name);
+  }, [productList, debouncedSearch]);
 
-    if (debouncedSearch.length !== 0) {
-      const filteredSuggestions = products
-        ?.filter((item: Product) =>
-          item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
-        )
-        .map((item: Product) => item.name);
-      setSuggestions(filteredSuggestions || []);
-    } else {
-      setSuggestions([]);
-    }
-  }, [products, debouncedSearch]);
+  const urlQuery = searchParams.get("query") ?? "";
+  const searchResults = useMemo(() => {
+    if (!urlQuery.trim()) return productList;
+    const lower = urlQuery.toLowerCase();
+    return productList.filter((item: Product) =>
+      item.name.toLowerCase().includes(lower)
+    );
+  }, [productList, urlQuery]);
+
+  const displayedProducts = useMemo(() => {
+    if (selectedCategory === "all") return searchResults;
+    return searchResults.filter(
+      (item: Product) => item.category === selectedCategory
+    );
+  }, [searchResults, selectedCategory]);
 
   useEffect(() => {
     const query = searchParams.get("query");
 
-    // Only update if query actually changed and data is available
-    if (query && data.length > 0 && query !== lastProcessedQueryRef.current) {
-      lastProcessedQueryRef.current = query;
+    if (
+      query &&
+      productList.length > 0 &&
+      query !== lastSyncedUrlQueryRef.current
+    ) {
+      lastSyncedUrlQueryRef.current = query;
       setSearch(query);
-      handleSearch(query);
-      setOpen(false);
+      setIsSuggestionsOpen(false);
     } else if (!query) {
-      // Reset the ref when query is removed
-      lastProcessedQueryRef.current = null;
+      lastSyncedUrlQueryRef.current = null;
     }
-  }, [searchParams, data]);
+  }, [searchParams, productList.length]);
 
-  const handleSearch = (inputText: string) => {
-    const filteredResults = data?.filter((item) =>
-      item.name.toLowerCase().includes(inputText.toLowerCase())
-    );
-    setResults(filteredResults || []);
-  };
-
-  const handleSuggestionClick = (suggestion: string) => {
-    navigate(`/search?query=${suggestion}`);
+  const handleSuggestionSelect = (suggestion: string) => {
+    navigate(`/search?query=${encodeURIComponent(suggestion)}`);
     setSearch(suggestion);
-    handleSearch(suggestion);
-    setOpen(false);
+    setIsSuggestionsOpen(false);
   };
 
   if (isLoading) {
@@ -92,18 +89,18 @@ export default function Search() {
             onChange={(e) => {
               setSearch(e.target.value);
               if (e.target.value.length > 0) {
-                setOpen(true);
+                setIsSuggestionsOpen(true);
               } else {
-                setOpen(false);
+                setIsSuggestionsOpen(false);
               }
             }}
             onFocus={() => {
               if (search.length > 0) {
-                setOpen(true);
+                setIsSuggestionsOpen(true);
               }
             }}
             onBlur={() => {
-              setOpen(false);
+              setIsSuggestionsOpen(false);
             }}
             onKeyDown={(e) => {
               if (e.key === "Enter") {
@@ -111,9 +108,8 @@ export default function Search() {
                   navigate(`/search?query=${search}`);
                 } else {
                   navigate(`/search`);
-                  handleSearch("");
                 }
-                setOpen(false);
+                setIsSuggestionsOpen(false);
               }
             }}
           />
@@ -125,9 +121,8 @@ export default function Search() {
                 navigate(`/search?query=${search}`);
               } else {
                 navigate(`/search`);
-                handleSearch("");
               }
-              setOpen(false);
+              setIsSuggestionsOpen(false);
             }}
           >
             <svg
@@ -146,13 +141,13 @@ export default function Search() {
             </svg>
           </button>
 
-          {open && (
+          {isSuggestionsOpen && (
             <div className={styles.suggestions}>
               <ul>
-                {suggestions.map((suggestion) => (
+                {suggestionNames.map((suggestion) => (
                   <li
                     key={suggestion}
-                    onMouseDown={() => handleSuggestionClick(suggestion)}
+                    onMouseDown={() => handleSuggestionSelect(suggestion)}
                     style={{ cursor: "pointer" }}
                   >
                     {suggestion}
@@ -180,23 +175,17 @@ export default function Search() {
         </div>
 
         <div className={styles.flexContainer}>
-          {results && results.length > 0 ? (
-            results
-              .filter((item) =>
-                selectedCategory === "all"
-                  ? item
-                  : item.category === selectedCategory
-              )
-              .map((item) => (
-                <div key={item.name} className={styles.productBox}>
-                  <h2>{item.name}</h2>
-                  <h3>{item.price}</h3>
-                  <h4>{item.category}</h4>
-                </div>
-              ))
-          ) : results && results.length === 0 ? (
+          {displayedProducts.length > 0 ? (
+            displayedProducts.map((item) => (
+              <div key={item.name} className={styles.productBox}>
+                <h2>{item.name}</h2>
+                <h3>{item.price}</h3>
+                <h4>{item.category}</h4>
+              </div>
+            ))
+          ) : productList.length === 0 ? null : (
             <p>No products found</p>
-          ) : null}
+          )}
         </div>
       </div>
     </div>
