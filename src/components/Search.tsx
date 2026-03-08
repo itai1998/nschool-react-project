@@ -1,29 +1,27 @@
 import { useQuery } from "@tanstack/react-query";
 import styles from "../scss/Search.module.scss";
 import { useState, useEffect, useRef } from "react";
-import { type Macbook } from "../model/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
-import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../hooks/useCategories";
 import { getProducts } from "../api/productApi";
+import type { Product } from "../model/product";
 
 export default function Search() {
   const navigate = useNavigate();
-  const [data, setData] = useState<Macbook[]>([]);
+  const [data, setData] = useState<Product[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
-  const [results, setResults] = useState<Macbook[]>();
+  const [results, setResults] = useState<Product[]>([]);
   const { debouncedSearch } = useDebouncedSearch(search);
   const [searchParams] = useSearchParams();
   const lastProcessedQueryRef = useRef<string | null>(null);
   const { categories } = useCategories();
-  const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
 
-  const { data: productsTest, isLoading } = useQuery({
+  const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
       const response = await getProducts();
@@ -32,25 +30,19 @@ export default function Search() {
   });
 
   useEffect(() => {
-    if (productsTest) {
-      console.log("productsTest", productsTest);
-    }
-  }, [productsTest]);
-
-  useEffect(() => {
-    setData(products);
+    setData(products || []);
 
     if (!results || results.length === 0) {
-      setResults(products);
+      setResults(products || []);
     }
 
     if (debouncedSearch.length !== 0) {
       const filteredSuggestions = products
-        .filter((item: Macbook) =>
+        ?.filter((item: Product) =>
           item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
         )
-        .map((item: Macbook) => item.name);
-      setSuggestions(filteredSuggestions);
+        .map((item: Product) => item.name);
+      setSuggestions(filteredSuggestions || []);
     } else {
       setSuggestions([]);
     }
@@ -193,13 +185,13 @@ export default function Search() {
               .filter((item) =>
                 selectedCategory === "all"
                   ? item
-                  : item.type === selectedCategory
+                  : item.category === selectedCategory
               )
               .map((item) => (
                 <div key={item.name} className={styles.productBox}>
                   <h2>{item.name}</h2>
                   <h3>{item.price}</h3>
-                  <h4>{item.type}</h4>
+                  <h4>{item.category}</h4>
                 </div>
               ))
           ) : results && results.length === 0 ? (
