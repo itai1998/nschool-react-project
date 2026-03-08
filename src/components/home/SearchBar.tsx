@@ -2,7 +2,7 @@ import styles from "../../scss/SearchBar.module.scss";
 import searchIcon from "../../img/search-interface-symbol.png";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import type { Macbook } from "../../api/model/macbook";
+import type { Macbook } from "../../model/macbook";
 import { useDebouncedSearch } from "../../hooks/useDebouncedSearch";
 import { getProducts } from "../../api";
 

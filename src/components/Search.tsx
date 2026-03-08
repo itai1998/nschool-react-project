@@ -1,11 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 import styles from "../scss/Search.module.scss";
 import { useState, useEffect, useRef } from "react";
-import { type Macbook } from "../api/model/macbook";
+import { type Macbook } from "../model/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import { useProducts } from "../hooks/useProducts";
 import { useCategories } from "../hooks/useCategories";
+import { getProducts } from "../api/productApi";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -20,6 +22,20 @@ export default function Search() {
   const { categories } = useCategories();
   const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+
+  const { data: productsTest, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await getProducts();
+      return response.data;
+    },
+  });
+
+  useEffect(() => {
+    if (productsTest) {
+      console.log("productsTest", productsTest);
+    }
+  }, [productsTest]);
 
   useEffect(() => {
     setData(products);
@@ -68,6 +84,10 @@ export default function Search() {
     handleSearch(suggestion);
     setOpen(false);
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.searchContainer}>

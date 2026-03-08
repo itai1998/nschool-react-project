@@ -6,19 +6,26 @@ import Search from "./components/Search";
 import ShoppingCart from "./components/ShoppingCart";
 import Home from "./components/home/Home";
 import MegaMenu from "./components/home/MegaMenu";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Provider store={store}>
-      <Router>
-        <MegaMenu />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/shopping-cart" element={<ShoppingCart />} />
-        </Routes>
-      </Router>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools />
+      <Provider store={store}>
+        <Router>
+          <MegaMenu />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/shopping-cart" element={<ShoppingCart />} />
+          </Routes>
+        </Router>
+      </Provider>
+    </QueryClientProvider>
   );
 }
 
