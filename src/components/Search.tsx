@@ -1,6 +1,6 @@
 import styles from "../scss/Search.module.scss";
 import { useState, useEffect, useRef } from "react";
-import { type Macbook } from "../api/constants/macbook";
+import { type Macbook } from "../api/model/macbook";
 import { useDebouncedSearch } from "../hooks/useDebouncedSearch";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";

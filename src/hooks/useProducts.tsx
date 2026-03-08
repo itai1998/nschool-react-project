@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Macbook } from "../api/constants/macbook";
+import type { Macbook } from "../api/model/macbook";
 import { getProducts } from "../api";
 
 export const useProducts = () => {

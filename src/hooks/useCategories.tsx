@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Category } from "../api/constants/category";
+import type { Category } from "../api/model/category";
 import { getCategories } from "../api";
 
 export const useCategories = () => {
