@@ -8,6 +8,8 @@ import { useCategories } from "../hooks/useCategories";
 import { getProducts } from "../api/productApi";
 import type { Product } from "../model/product";
 import { map, trim, toLower, includes, filter } from "lodash";
+import AvailableProducts from "./AvailableProducts";
+import ProductCategories from "./ProductCategories";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -166,34 +168,12 @@ export default function Search() {
         </div>
       </div>
       <div className={styles.searchContent}>
-        <div className={styles.categoriesContainer}>
-          <h3 className={styles.categoriesTitle}>產品類型</h3>
-          {categories.map((category) => (
-            <div className={styles.categoryItem} key={category.id}>
-              {selectedCategory === category.category ? (
-                <h3 className={styles.selectedCategory}>{category.category}</h3>
-              ) : (
-                <h3 onClick={() => setSelectedCategory(category.category)}>
-                  {category.category}
-                </h3>
-              )}
-            </div>
-          ))}
-        </div>
-
-        <div className={styles.flexContainer}>
-          {displayedProducts.length > 0 ? (
-            displayedProducts.map((item) => (
-              <div key={item.name} className={styles.productBox}>
-                <h2>{item.name}</h2>
-                <h3>{item.price}</h3>
-                <h4>{item.category}</h4>
-              </div>
-            ))
-          ) : productList.length === 0 ? null : (
-            <p>No products found</p>
-          )}
-        </div>
+        <ProductCategories
+          categories={categories}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+        <AvailableProducts products={displayedProducts} />
       </div>
     </div>
   );
