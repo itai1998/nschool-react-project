@@ -7,6 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import { useCategories } from "../hooks/useCategories";
 import { getProducts } from "../api/productApi";
 import type { Product } from "../model/product";
+import { map, trim, toLower, includes, filter } from "lodash";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -29,25 +30,31 @@ export default function Search() {
   const productList = products ?? [];
 
   const suggestionNames = useMemo(() => {
-    if (!debouncedSearch.trim()) return [];
-    const lower = debouncedSearch.toLowerCase();
-    return productList
-      .filter((item: Product) => item.name.toLowerCase().includes(lower))
-      .map((item: Product) => item.name);
+    const q = trim(debouncedSearch);
+    if (!q) return [];
+    const lower = toLower(q);
+    return map(
+      filter(productList, (item: Product) =>
+        includes(toLower(item.name), lower)
+      ),
+      "name"
+    );
   }, [productList, debouncedSearch]);
 
   const urlQuery = searchParams.get("query") ?? "";
   const searchResults = useMemo(() => {
-    if (!urlQuery.trim()) return productList;
-    const lower = urlQuery.toLowerCase();
-    return productList.filter((item: Product) =>
-      item.name.toLowerCase().includes(lower)
+    const q = trim(urlQuery);
+    if (!q) return productList;
+    const lower = toLower(q);
+    return filter(productList, (item: Product) =>
+      includes(toLower(item.name), lower)
     );
   }, [productList, urlQuery]);
 
   const displayedProducts = useMemo(() => {
     if (selectedCategory === "all") return searchResults;
-    return searchResults.filter(
+    return filter(
+      searchResults,
       (item: Product) => item.category === selectedCategory
     );
   }, [searchResults, selectedCategory]);

@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import debounce from "lodash/debounce";
 
 export const useDebouncedSearch = (search: string, delay = 500) => {
   const [debouncedSearch, setDebouncedSearch] = useState(search);
 
+  const debouncedSet = useMemo(
+    () => debounce((v: string) => setDebouncedSearch(v), delay),
+    [delay]
+  );
+
   useEffect(() => {
-    const debounce = setTimeout(() => {
-      setDebouncedSearch(search);
-    }, delay);
-    return () => clearTimeout(debounce);
-  }, [search]);
+    debouncedSet(search);
+    return () => debouncedSet.cancel();
+  }, [search, debouncedSet]);
+
   return { debouncedSearch };
 };
