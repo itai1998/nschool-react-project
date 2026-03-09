@@ -10,6 +10,7 @@ import type { Product } from "../model/product";
 import { map, trim, toLower, includes, filter } from "lodash";
 import AvailableProducts from "./AvailableProducts";
 import ProductCategories from "./ProductCategories";
+import { SearchInput } from "./SearchInput";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -83,90 +84,30 @@ export default function Search() {
     setIsSuggestionsOpen(false);
   };
 
+  const handleSearchSubmit = () => {
+    if (search.length > 0) {
+      navigate(`/search?query=${search}`);
+    } else {
+      navigate(`/search`);
+    }
+    setIsSuggestionsOpen(false);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className={styles.searchContainer}>
-      <div className={styles.inputWrapper}>
-        <div className={styles.inputContainer}>
-          <input
-            type="text"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              if (e.target.value.length > 0) {
-                setIsSuggestionsOpen(true);
-              } else {
-                setIsSuggestionsOpen(false);
-              }
-            }}
-            onFocus={() => {
-              if (search.length > 0) {
-                setIsSuggestionsOpen(true);
-              }
-            }}
-            onBlur={() => {
-              setIsSuggestionsOpen(false);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                if (search.length > 0) {
-                  navigate(`/search?query=${search}`);
-                } else {
-                  navigate(`/search`);
-                }
-                setIsSuggestionsOpen(false);
-              }
-            }}
-          />
-          <button
-            className={styles.searchButton}
-            type="button"
-            onClick={() => {
-              if (search.length > 0) {
-                navigate(`/search?query=${search}`);
-              } else {
-                navigate(`/search`);
-              }
-              setIsSuggestionsOpen(false);
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.35-4.35"></path>
-            </svg>
-          </button>
-
-          {isSuggestionsOpen && (
-            <div className={styles.suggestions}>
-              <ul>
-                {suggestionNames.map((suggestion) => (
-                  <li
-                    key={suggestion}
-                    onMouseDown={() => handleSuggestionSelect(suggestion)}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {suggestion}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </div>
+      <SearchInput
+        search={search}
+        setSearch={setSearch}
+        isSuggestionsOpen={isSuggestionsOpen}
+        setIsSuggestionsOpen={setIsSuggestionsOpen}
+        suggestionNames={suggestionNames}
+        onSuggestionSelect={handleSuggestionSelect}
+        onSearchSubmit={handleSearchSubmit}
+      />
       <div className={styles.searchContent}>
         <ProductCategories
           categories={categories}
