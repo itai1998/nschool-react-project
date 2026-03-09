@@ -1,10 +1,12 @@
 import styles from "../../scss/SearchBar.module.scss";
 import searchIcon from "../../img/search-interface-symbol.png";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import type { Macbook } from "../../model/macbook";
+import { useMemo, useState } from "react";
 import { useDebouncedSearch } from "../../hooks/useDebouncedSearch";
-import { getProducts } from "../../api";
+import { useQuery } from "@tanstack/react-query";
+import type { Product } from "../../model/product";
+import { getProducts } from "../../api/productApi";
+import { map, toLower, includes, filter, trim } from "lodash";
 
 interface SearchBarProps {
   onMouseLeave: () => void;
@@ -12,27 +14,29 @@ interface SearchBarProps {
 
 export default function SearchBar({ onMouseLeave }: SearchBarProps) {
   const navigate = useNavigate();
-  const [suggestions, setSuggestions] = useState<string[]>([]);
   const [search, setSearch] = useState("");
-
   const { debouncedSearch } = useDebouncedSearch(search);
+  const { data: products } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await getProducts();
+      return response.data;
+    },
+    enabled: debouncedSearch.length !== 0,
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await getProducts();
+  const suggestions = useMemo(() => {
+    if (!products || debouncedSearch.length === 0) return [];
 
-      if (debouncedSearch.length !== 0) {
-        const filteredSuggestions = res.data
-          .filter((item: Macbook) =>
-            item.name.toLowerCase().includes(debouncedSearch.toLowerCase())
-          )
-          .map((item: Macbook) => item.name);
-        setSuggestions(filteredSuggestions);
-      }
-    };
+    const lowerSearch = toLower(trim(debouncedSearch));
 
-    fetchData();
-  }, [debouncedSearch]);
+    return map(
+      filter(products, (item: Product) =>
+        includes(toLower(item.name), lowerSearch)
+      ),
+      "name"
+    );
+  }, [products, debouncedSearch]);
 
   const handleSuggestionClick = (suggestion: string) => {
     navigate(`/search?query=${suggestion}`);
