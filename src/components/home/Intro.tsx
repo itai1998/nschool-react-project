@@ -1,12 +1,17 @@
-import styles from '../../scss/Intro.module.scss'
-import avatar from '../../img/avatar.jpg'
-import contactIcon from '../../img/communication.png'
+import styles from "../../scss/Intro.module.scss";
+import avatar from "../../img/avatar.jpg";
+import contactIcon from "../../img/communication.png";
+import { useAppSelector } from "../../store/hooks";
 
 export default function Intro() {
+  const email = useAppSelector((state) => state.user.profile.email);
+
   return (
     <div className={styles.introContainer}>
       <div className={styles.favorites}>
         <h1>
+          Hi, {email || "Guest"}
+          <br />
           <span>商店。</span> 購買你喜愛的產品，
           <br />
           這是最好的方式。
@@ -29,5 +34,5 @@ export default function Intro() {
         </div>
       </div>
     </div>
-  )
+  );
 }
