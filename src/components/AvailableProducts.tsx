@@ -27,7 +27,14 @@ export default function AvailableProducts({
                   <button className={styles.productQuantityOperation}>+</button>
                 </div>
               </div>
-              <button className={styles.addToCartButton}>Add to Cart</button>
+              <button
+                className={styles.addToCartButton}
+                onClick={() => {
+                  console.log(`${item.product_id} added to cart`);
+                }}
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         ))
