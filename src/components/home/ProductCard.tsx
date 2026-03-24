@@ -1,15 +1,15 @@
-import styles from '../../scss/ProductCard.module.scss'
+import styles from "../../scss/ProductCard.module.scss";
 
 interface ProductCardProps {
-  img: string
-  label?: string
-  title: string
-  price: string
+  img: string;
+  label?: string;
+  title: string;
+  price: string;
 }
 
 export default function ProductCard({
   img,
-  label = '',
+  label = "",
   title,
   price,
 }: ProductCardProps) {
@@ -20,5 +20,5 @@ export default function ProductCard({
       <h4 className={styles.title}>{title}</h4>
       <h4 className={styles.price}>{price}</h4>
     </div>
-  )
+  );
 }
