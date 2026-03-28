@@ -21,21 +21,13 @@ export default function AvailableProducts({
               <h4>{item.category}</h4>
             </div>
             <div className={styles.productAction}>
-              <div className={styles.productQuantityContainer}>
-                <h4>Quantity:</h4>
-                <div className={styles.productQuantity}>
-                  <button className={styles.productQuantityOperation}>-</button>
-                  <button className={styles.productQuantityNumber}>1</button>
-                  <button className={styles.productQuantityOperation}>+</button>
-                </div>
-              </div>
               <button
                 className={styles.addToCartButton}
                 onClick={() => {
                   onOpenModal(item);
                 }}
               >
-                Add to Cart
+                選購
               </button>
             </div>
           </div>
