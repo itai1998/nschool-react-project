@@ -1,0 +1,48 @@
+// Variables for easy theme management
+$modal-overlay-color: rgba(0, 0, 0, 0.5);
+$modal-bg: #ffffff;
+$modal-z-index: 1000;
+$border-radius: 8px;
+
+.modalOverlay {
+  position: fixed;
+  inset: 0; // Shorthand for top, left, right, bottom: 0
+  background: $modal-overlay-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: $modal-z-index;
+
+  // Nesting the container inside the overlay
+  .modalContainer {
+    background: $modal-bg;
+    padding: 2rem;
+    border-radius: $border-radius;
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    .closeButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      color: #333;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    .modalContent {
+      // Add any specific content styling here
+      margin-top: 10px;
+    }
+  }
+}

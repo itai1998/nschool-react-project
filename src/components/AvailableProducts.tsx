@@ -3,10 +3,12 @@ import styles from "../scss/Search.module.scss";
 
 interface AvailableProductsProps {
   products: Product[];
+  onOpenModal: () => void;
 }
 
 export default function AvailableProducts({
   products,
+  onOpenModal,
 }: AvailableProductsProps) {
   return (
     <div className={styles.flexContainer}>
@@ -31,6 +33,7 @@ export default function AvailableProducts({
                 className={styles.addToCartButton}
                 onClick={() => {
                   console.log(`${item.product_id} added to cart`);
+                  onOpenModal();
                 }}
               >
                 Add to Cart

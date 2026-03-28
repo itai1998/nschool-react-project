@@ -11,6 +11,7 @@ import { map, trim, toLower, includes, filter } from "lodash";
 import AvailableProducts from "./AvailableProducts";
 import ProductCategories from "./ProductCategories";
 import { SearchInput } from "./SearchInput";
+import Modal from "./Modal";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function Search() {
   const lastSyncedUrlQueryRef = useRef<string | null>(null);
   const { categories } = useCategories();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
@@ -114,8 +116,15 @@ export default function Search() {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
-        <AvailableProducts products={displayedProducts} />
+        <AvailableProducts
+          products={displayedProducts}
+          onOpenModal={() => setIsModalOpen(true)}
+        />
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h1>This is a test</h1>
+      </Modal>
     </div>
   );
 }
