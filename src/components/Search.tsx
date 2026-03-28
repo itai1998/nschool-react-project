@@ -11,7 +11,7 @@ import { map, trim, toLower, includes, filter } from "lodash";
 import AvailableProducts from "./AvailableProducts";
 import ProductCategories from "./ProductCategories";
 import { SearchInput } from "./SearchInput";
-import Modal from "./Modal";
+import ProductConfirmModal from "./ProductConfirmModal";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ export default function Search() {
   const { categories } = useCategories();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productDetail, setProductDetail] = useState<Product | null>(null);
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
@@ -95,6 +96,16 @@ export default function Search() {
     setIsSuggestionsOpen(false);
   };
 
+  const handleOpenModal = (product: Product) => {
+    setProductDetail(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setProductDetail(null);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -118,13 +129,16 @@ export default function Search() {
         />
         <AvailableProducts
           products={displayedProducts}
-          onOpenModal={() => setIsModalOpen(true)}
+          onOpenModal={handleOpenModal}
         />
       </div>
-
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h1>This is a test</h1>
-      </Modal>
+      <ProductConfirmModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        productId={productDetail?.product_id ?? 0}
+        productName={productDetail?.name ?? ""}
+        productPrice={productDetail?.price ?? "0"}
+      />
     </div>
   );
 }

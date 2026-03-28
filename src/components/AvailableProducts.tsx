@@ -3,7 +3,7 @@ import styles from "../scss/Search.module.scss";
 
 interface AvailableProductsProps {
   products: Product[];
-  onOpenModal: () => void;
+  onOpenModal: (product: Product) => void;
 }
 
 export default function AvailableProducts({
@@ -32,8 +32,7 @@ export default function AvailableProducts({
               <button
                 className={styles.addToCartButton}
                 onClick={() => {
-                  console.log(`${item.product_id} added to cart`);
-                  onOpenModal();
+                  onOpenModal(item);
                 }}
               >
                 Add to Cart
