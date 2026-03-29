@@ -1,6 +1,6 @@
 import Modal from "./Modal";
 import styles from "../scss/ProductConfirmModal.module.scss";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface ProductConfirmModalProps {
   isOpen: boolean;
@@ -20,10 +20,6 @@ export default function ProductConfirmModal({
   onAddToCart,
 }: ProductConfirmModalProps) {
   const [quantity, setQuantity] = useState(1);
-
-  useEffect(() => {
-    if (!isOpen) setQuantity(1);
-  }, [isOpen]);
 
   const handleQuantityChange = (value: number) => {
     setQuantity(value);

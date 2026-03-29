@@ -138,6 +138,7 @@ export default function Search() {
         />
       </div>
       <ProductConfirmModal
+        key={productDetail?.product_id}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         productId={productDetail?.product_id ?? 0}
