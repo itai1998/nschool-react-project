@@ -106,6 +106,11 @@ export default function Search() {
     setProductDetail(null);
   };
 
+  const handleAddToCart = (productId: number, quantity: number) => {
+    console.log("Product ID", productId);
+    console.log("Quantity", quantity);
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -138,6 +143,9 @@ export default function Search() {
         productId={productDetail?.product_id ?? 0}
         productName={productDetail?.name ?? ""}
         productPrice={productDetail?.price ?? "0"}
+        onAddToCart={(productId, quantity) =>
+          handleAddToCart(productId, quantity)
+        }
       />
     </div>
   );
