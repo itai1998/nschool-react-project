@@ -1,5 +1,6 @@
 import Modal from "./Modal";
 import styles from "../scss/ProductConfirmModal.module.scss";
+import { useState } from "react";
 
 interface ProductConfirmModalProps {
   isOpen: boolean;
@@ -16,6 +17,20 @@ export default function ProductConfirmModal({
   productName,
   productPrice,
 }: ProductConfirmModalProps) {
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (value: number) => {
+    setQuantity(value);
+  };
+
+  const handleQuantityIncrease = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const handleQuantityDecrease = () => {
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.container}>
@@ -26,9 +41,29 @@ export default function ProductConfirmModal({
         <div className={styles.productQuantityContainer}>
           <h4>數量:</h4>
           <div className={styles.productQuantity}>
-            <button className={styles.productQuantityOperation}>-</button>
-            <button className={styles.productQuantityNumber}>1</button>
-            <button className={styles.productQuantityOperation}>+</button>
+            <button
+              className={styles.productQuantityOperation}
+              onClick={handleQuantityDecrease}
+            >
+              -
+            </button>
+
+            <input
+              className={styles.productQuantityNumber}
+              value={quantity}
+              onChange={(e) => {
+                if (isNaN(Number(e.target.value))) {
+                  return;
+                }
+                handleQuantityChange(Number(e.target.value));
+              }}
+            />
+            <button
+              className={styles.productQuantityOperation}
+              onClick={handleQuantityIncrease}
+            >
+              +
+            </button>
           </div>
         </div>
         <button onClick={onClose} className={styles.addToCartButton}>
