@@ -1,4 +1,4 @@
-import styles from "../scss/Search.module.scss";
+import styles from "../../../scss/Search.module.scss";
 
 interface SearchInputProps {
   search: string;
@@ -89,4 +89,3 @@ export function SearchInput({
     </div>
   );
 }
-

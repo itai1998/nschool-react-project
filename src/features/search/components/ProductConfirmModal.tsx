@@ -1,5 +1,5 @@
-import Modal from "./Modal";
-import styles from "../scss/ProductConfirmModal.module.scss";
+import Modal from "../../../components/Modal";
+import styles from "../../../scss/ProductConfirmModal.module.scss";
 import { useState } from "react";
 
 interface ProductConfirmModalProps {

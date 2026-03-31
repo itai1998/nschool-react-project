@@ -1,5 +1,5 @@
-import type { Product } from "../model/product";
-import styles from "../scss/Search.module.scss";
+import type { Product } from "../../../model/product";
+import styles from "../../../scss/Search.module.scss";
 
 interface AvailableProductsProps {
   products: Product[];

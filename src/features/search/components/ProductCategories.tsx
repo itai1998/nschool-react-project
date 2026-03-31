@@ -1,5 +1,5 @@
-import type { Category } from "../model/category";
-import styles from "../scss/Search.module.scss";
+import type { Category } from "../../../model/category";
+import styles from "../../../scss/Search.module.scss";
 
 interface ProductCategoriesProps {
   categories: Category[];

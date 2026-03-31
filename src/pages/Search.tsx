@@ -8,10 +8,10 @@ import { useCategories } from "../hooks/useCategories";
 import { getProducts } from "../api/productApi";
 import type { Product } from "../model/product";
 import { map, trim, toLower, includes, filter } from "lodash";
-import AvailableProducts from "../components/AvailableProducts";
-import ProductCategories from "../components/ProductCategories";
-import { SearchInput } from "../components/SearchInput";
-import ProductConfirmModal from "../components/ProductConfirmModal";
+import AvailableProducts from "../features/search/components/AvailableProducts";
+import ProductCategories from "../features/search/components/ProductCategories";
+import { SearchInput } from "../features/search/components/SearchInput";
+import ProductConfirmModal from "../features/search/components/ProductConfirmModal";
 
 export default function Search() {
   const navigate = useNavigate();
