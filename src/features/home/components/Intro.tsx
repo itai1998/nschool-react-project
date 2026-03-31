@@ -1,7 +1,7 @@
-import styles from "../../scss/Intro.module.scss";
-import avatar from "../../img/avatar.jpg";
-import contactIcon from "../../img/communication.png";
-import { useAppSelector } from "../../store/hooks";
+import styles from "../../../scss/Intro.module.scss";
+import avatar from "../../../img/avatar.jpg";
+import contactIcon from "../../../img/communication.png";
+import { useAppSelector } from "../../../store/hooks";
 
 export default function Intro() {
   const email = useAppSelector((state) => state.user.profile.email);

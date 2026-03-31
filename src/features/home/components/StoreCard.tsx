@@ -1,9 +1,9 @@
-import styles from '../../scss/StoreCard.module.scss'
-import type { ReactNode } from 'react'
+import styles from "../../../scss/StoreCard.module.scss";
+import type { ReactNode } from "react";
 
 interface StoreCardProps {
-  img: string
-  text: ReactNode
+  img: string;
+  text: ReactNode;
 }
 
 export default function StoreCard({ img, text }: StoreCardProps) {
@@ -12,5 +12,5 @@ export default function StoreCard({ img, text }: StoreCardProps) {
       <img src={img} alt="laptop" />
       {text}
     </div>
-  )
+  );
 }

@@ -1,15 +1,15 @@
-import DeviceProducts from "../components/home/DeviceProducts";
-import DiscountInfo from "../components/home/DiscountInfo";
-import Footer from "../components/home/Footer";
-import HelperOptions from "../components/home/HelperOptions";
-import Intro from "../components/home/Intro";
-import Links from "../components/home/Links";
-import NewProducts from "../components/home/NewProducts";
-import Products from "../components/home/Products";
-import ServiceInformation from "../components/home/ServiceInformation";
-import SpeakerProducts from "../components/home/SpeakerProducts";
-import Statement from "../components/home/Statement";
-import StoreInfo from "../components/home/StoreInfo";
+import DeviceProducts from "../features/home/components/DeviceProducts";
+import DiscountInfo from "../features/home/components/DiscountInfo";
+import Footer from "../features/home/components/Footer";
+import HelperOptions from "../features/home/components/HelperOptions";
+import Intro from "../features/home/components/Intro";
+import Links from "../features/home/components/Links";
+import NewProducts from "../features/home/components/NewProducts";
+import Products from "../features/home/components/Products";
+import ServiceInformation from "../features/home/components/ServiceInformation";
+import SpeakerProducts from "../features/home/components/SpeakerProducts";
+import Statement from "../features/home/components/Statement";
+import StoreInfo from "../features/home/components/StoreInfo";
 
 export default function Home() {
   return (

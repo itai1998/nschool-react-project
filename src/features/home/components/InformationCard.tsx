@@ -1,25 +1,25 @@
-import styles from '../../scss/InformationCard.module.scss'
+import styles from "../../../scss/InformationCard.module.scss";
 
 interface InformationCardProps {
-  img: string
-  title: string
-  subtitle?: string
-  description?: string | React.ReactNode
-  textColor?: string
-  labelColor?: string
-  label?: string
-  width?: string
+  img: string;
+  title: string;
+  subtitle?: string;
+  description?: string | React.ReactNode;
+  textColor?: string;
+  labelColor?: string;
+  label?: string;
+  width?: string;
 }
 
 export default function InformationCard({
   img,
   title,
-  subtitle = '',
-  description = '',
-  textColor = 'black',
-  labelColor = 'black',
-  label = '',
-  width = '400px',
+  subtitle = "",
+  description = "",
+  textColor = "black",
+  labelColor = "black",
+  label = "",
+  width = "400px",
 }: InformationCardProps) {
   return (
     <div
@@ -36,5 +36,5 @@ export default function InformationCard({
       </div>
       <img src={img} />
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import styles from '../../scss/StoreInfo.module.scss'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import Slider from 'react-slick'
-import { storeInfoList } from '../lists/storeInfoList'
-import StoreCard from './StoreCard'
+import styles from "../../../scss/StoreInfo.module.scss";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { storeInfoList } from "../../../components/lists/storeInfoList";
+import StoreCard from "./StoreCard";
 
 export default function StoreInfo() {
   const settings = {
@@ -12,13 +12,13 @@ export default function StoreInfo() {
     slidesToScroll: 1,
     slidesToShow: 5.5,
     arrows: true,
-  }
+  };
 
   return (
     <div className={styles.storeInfoContainer}>
       <h2 className={styles.storeInfoTitle}>
         Apple Store 就是不同。
-        <span style={{ color: 'grey' }}>有更多好理由，吸引你在這選購。</span>
+        <span style={{ color: "grey" }}>有更多好理由，吸引你在這選購。</span>
       </h2>
       <div className={styles.sliderContainer}>
         <Slider {...settings}>
@@ -28,5 +28,5 @@ export default function StoreInfo() {
         </Slider>
       </div>
     </div>
-  )
+  );
 }

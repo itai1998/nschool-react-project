@@ -3,7 +3,7 @@ import "./App.scss";
 import Search from "./pages/Search";
 import ShoppingCart from "./pages/ShoppingCart";
 import Home from "./pages/Home";
-import MegaMenu from "./components/home/MegaMenu";
+import MegaMenu from "./features/home/components/MegaMenu";
 
 function App() {
   return (

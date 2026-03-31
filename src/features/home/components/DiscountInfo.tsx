@@ -1,8 +1,8 @@
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import Slider from 'react-slick'
-import InformationCard from './InformationCard'
-import { discountList } from '../lists/discountList'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import InformationCard from "./InformationCard";
+import { discountList } from "../../../components/lists/discountList";
 export default function DiscountInfo() {
   const settings = {
     infinite: false,
@@ -10,13 +10,13 @@ export default function DiscountInfo() {
     slidesToScroll: 1,
     slidesToShow: 3,
     arrows: true,
-  }
+  };
 
   return (
     <div className="slickMediumContainer">
       <h2 className="slickMediumTitle">
         優惠與折扣。
-        <span style={{ color: 'grey' }}>
+        <span style={{ color: "grey" }}>
           獨家優惠、專屬商店，以及更多精彩。
         </span>
       </h2>
@@ -35,5 +35,5 @@ export default function DiscountInfo() {
         </Slider>
       </div>
     </div>
-  )
+  );
 }

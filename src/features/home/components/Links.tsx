@@ -1,4 +1,4 @@
-import styles from '../../scss/Links.module.scss'
+import styles from "../../../scss/Links.module.scss";
 
 export default function Links() {
   return (
@@ -13,5 +13,5 @@ export default function Links() {
         </div>
       </div>
     </div>
-  )
+  );
 }

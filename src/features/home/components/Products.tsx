@@ -1,17 +1,17 @@
-import styles from '../../scss/ProductCategory.module.scss'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import Slider from 'react-slick'
-import mac from '../../img/mac.png'
-import iphone from '../../img/iphone.png'
-import ipad from '../../img/ipad.png'
-import appleWatch from '../../img/appleWatch.png'
-import appleVisionPro from '../../img/visionPro.png'
-import airPods from '../../img/airPods.png'
-import airTag from '../../img/airTag.png'
-import homePod from '../../img/homePod.png'
-import accessories from '../../img/others.png'
-import appleStoreGiftCard from '../../img/appleStore.png'
+import styles from "../../../scss/ProductCategory.module.scss";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import mac from "../../../img/mac.png";
+import iphone from "../../../img/iphone.png";
+import ipad from "../../../img/ipad.png";
+import appleWatch from "../../../img/appleWatch.png";
+import appleVisionPro from "../../../img/visionPro.png";
+import airPods from "../../../img/airPods.png";
+import airTag from "../../../img/airTag.png";
+import homePod from "../../../img/homePod.png";
+import accessories from "../../../img/others.png";
+import appleStoreGiftCard from "../../../img/appleStore.png";
 
 export default function Products() {
   const settings = {
@@ -67,60 +67,60 @@ export default function Products() {
         },
       },
     ],
-  }
+  };
 
   const products = [
     {
-      displayName: 'Mac',
+      displayName: "Mac",
       image: mac,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'iPhone',
+      displayName: "iPhone",
       image: iphone,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'iPad',
+      displayName: "iPad",
       image: ipad,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'Apple Watch',
+      displayName: "Apple Watch",
       image: appleWatch,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'Apple Vision Pro',
+      displayName: "Apple Vision Pro",
       image: appleVisionPro,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'AirPods',
+      displayName: "AirPods",
       image: airPods,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'AirTag',
+      displayName: "AirTag",
       image: airTag,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'HomePod',
+      displayName: "HomePod",
       image: homePod,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: '配件',
+      displayName: "配件",
       image: accessories,
-      url: '/',
+      url: "/",
     },
     {
-      displayName: 'Apple Store 禮品卡',
+      displayName: "Apple Store 禮品卡",
       image: appleStoreGiftCard,
-      url: '/',
+      url: "/",
     },
-  ]
+  ];
   return (
     <div className={styles.productCategoryContainer}>
       <Slider {...settings}>
@@ -132,5 +132,5 @@ export default function Products() {
         ))}
       </Slider>
     </div>
-  )
+  );
 }

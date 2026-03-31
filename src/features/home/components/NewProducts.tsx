@@ -1,8 +1,8 @@
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import Slider from 'react-slick'
-import InformationCard from './InformationCard'
-import { newProducts } from '../../NewProductList'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import InformationCard from "./InformationCard";
+import { newProducts } from "../../../NewProductList";
 export default function NewProducts() {
   const settings = {
     infinite: false,
@@ -10,13 +10,13 @@ export default function NewProducts() {
     slidesToScroll: 1,
     slidesToShow: 3.55,
     arrows: true,
-  }
+  };
 
   return (
     <div className="slickMediumContainer">
       <h2 className="slickMediumTitle">
         最新登場。
-        <span style={{ color: 'grey' }}>現在就來看看有哪些新品推薦。</span>
+        <span style={{ color: "grey" }}>現在就來看看有哪些新品推薦。</span>
       </h2>
       <div className="sliderContainer">
         <Slider {...settings}>
@@ -35,5 +35,5 @@ export default function NewProducts() {
         </Slider>
       </div>
     </div>
-  )
+  );
 }

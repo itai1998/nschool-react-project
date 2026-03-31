@@ -1,8 +1,8 @@
-import styles from '../../scss/AppleList.module.scss'
+import styles from "../../../scss/AppleList.module.scss";
 
 interface AppleListProp {
-  listTitle: string
-  list: string[]
+  listTitle: string;
+  list: string[];
 }
 
 export default function AppleList({ listTitle, list }: AppleListProp) {
@@ -15,5 +15,5 @@ export default function AppleList({ listTitle, list }: AppleListProp) {
         ))}
       </ul>
     </div>
-  )
+  );
 }

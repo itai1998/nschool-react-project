@@ -1,11 +1,11 @@
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import Slider from 'react-slick'
-import { deviceProductList } from '../lists/deviceProductList'
-import ProductCard from './ProductCard'
-import InformationCard from './InformationCard'
-import iphoneWatchImg from '../../img/productImg/iphonWatch.jpg'
-import iphone2Img from '../../img/productImg/iphone2.jpg'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+import { deviceProductList } from "../../../components/lists/deviceProductList";
+import ProductCard from "./ProductCard";
+import InformationCard from "./InformationCard";
+import iphoneWatchImg from "../../../img/productImg/iphonWatch.jpg";
+import iphone2Img from "../../../img/productImg/iphone2.jpg";
 
 export default function DeviceProducts() {
   const settings = {
@@ -15,13 +15,13 @@ export default function DeviceProducts() {
     slidesToShow: 4,
     arrows: true,
     variableWidth: true,
-  }
+  };
 
   return (
     <div className="productContainer">
       <h2 className="productTitle">
         周邊配件。
-        <span style={{ color: 'grey' }}>
+        <span style={{ color: "grey" }}>
           精彩配件，款款都是心愛裝置的必搭絕配。
         </span>
       </h2>
@@ -30,7 +30,7 @@ export default function DeviceProducts() {
           <div className="slideItem">
             <InformationCard
               img={iphoneWatchImg}
-              title={'跟緊潮流新色。'}
+              title={"跟緊潮流新色。"}
               description={
                 <>
                   你喜愛的配件，
@@ -51,10 +51,10 @@ export default function DeviceProducts() {
             </div>
           ))}
           <div className="slideItem">
-            <InformationCard img={iphone2Img} title={'探索所有配件。'} />
+            <InformationCard img={iphone2Img} title={"探索所有配件。"} />
           </div>
         </Slider>
       </div>
     </div>
-  )
+  );
 }

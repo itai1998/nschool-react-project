@@ -1,11 +1,11 @@
-import styles from "../../scss/SearchBar.module.scss";
-import searchIcon from "../../img/search-interface-symbol.png";
+import styles from "../../../scss/SearchBar.module.scss";
+import searchIcon from "../../../img/search-interface-symbol.png";
 import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
-import { useDebouncedSearch } from "../../hooks/useDebouncedSearch";
+import { useDebouncedSearch } from "../../../hooks/useDebouncedSearch";
 import { useQuery } from "@tanstack/react-query";
-import type { Product } from "../../model/product";
-import { getProducts } from "../../api/productApi";
+import type { Product } from "../../../model/product";
+import { getProducts } from "../../../api/productApi";
 import { map, toLower, includes, filter, trim } from "lodash";
 
 interface SearchBarProps {
