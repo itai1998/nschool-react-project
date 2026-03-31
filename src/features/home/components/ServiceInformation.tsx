@@ -2,7 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import InformationCard from "./InformationCard";
-import { serviceInfoList } from "../../../components/lists/serviceInfoList";
+import { serviceInfoList } from "../../../constants/serviceInfoList";
 
 export default function ServiceInformation() {
   const settings = {

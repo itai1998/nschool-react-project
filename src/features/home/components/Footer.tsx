@@ -10,7 +10,7 @@ import {
   education,
   appleValues,
   aboutApple,
-} from "../../../components/lists/helperList";
+} from "../../../constants/helperList";
 
 export default function Footer() {
   return (

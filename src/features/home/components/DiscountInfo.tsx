@@ -2,7 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import InformationCard from "./InformationCard";
-import { discountList } from "../../../components/lists/discountList";
+import { discountList } from "../../../constants/discountList";
 export default function DiscountInfo() {
   const settings = {
     infinite: false,

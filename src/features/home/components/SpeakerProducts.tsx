@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import ProductCard from "./ProductCard";
 import InformationCard from "./InformationCard";
-import { speakerProductLists } from "../../../components/lists/speakerProductLists";
+import { speakerProductLists } from "../../../constants/speakerProductLists";
 import appleMusic from "../../../img/productImg/music.jpg";
 
 export default function SpeakerProducts() {

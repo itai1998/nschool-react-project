@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../../../scss/MegaMenu.module.scss";
-import { productOneOptions } from "../../../components/lists/menuOptions";
+import { productOneOptions } from "../../../constants/menuOptions";
 import searchIcon from "../../../img/search-interface-symbol.png";
 import marketIcon from "../../../img/market.png";
 import appleLogo from "../../../img/apple-logo.png";

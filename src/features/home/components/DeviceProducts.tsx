@@ -1,7 +1,7 @@
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { deviceProductList } from "../../../components/lists/deviceProductList";
+import { deviceProductList } from "../../../constants/deviceProductList";
 import ProductCard from "./ProductCard";
 import InformationCard from "./InformationCard";
 import iphoneWatchImg from "../../../img/productImg/iphonWatch.jpg";
