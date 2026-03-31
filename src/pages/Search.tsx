@@ -12,6 +12,9 @@ import AvailableProducts from "../features/search/components/AvailableProducts";
 import ProductCategories from "../features/search/components/ProductCategories";
 import { SearchInput } from "../features/search/components/SearchInput";
 import ProductConfirmModal from "../features/search/components/ProductConfirmModal";
+import type { CartItem } from "../features/search/types";
+
+const LS_KEY = "shoppingCart";
 
 export default function Search() {
   const navigate = useNavigate();
@@ -24,6 +27,14 @@ export default function Search() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productDetail, setProductDetail] = useState<Product | null>(null);
+  const [shoppingCart, setShoppingCart] = useState<CartItem[]>(() => {
+    const savedCart = localStorage.getItem(LS_KEY);
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem(LS_KEY, JSON.stringify(shoppingCart));
+  }, [shoppingCart]);
 
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
@@ -107,8 +118,26 @@ export default function Search() {
   };
 
   const handleAddToCart = (productId: number, quantity: number) => {
-    console.log("Product ID", productId);
-    console.log("Quantity", quantity);
+    setShoppingCart((prevShoppingCart) => {
+      const existingItem = prevShoppingCart.find(
+        (item) => item.product_id === productId
+      );
+
+      if (existingItem) {
+        // If it exists, increment quantity
+        return prevShoppingCart.map((item) =>
+          item.product_id === productId
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      }
+      // If it's new, add to array
+      return [
+        ...prevShoppingCart,
+        { product_id: productId, quantity: quantity },
+      ];
+    });
+    setIsModalOpen(false);
   };
 
   if (isLoading) {
