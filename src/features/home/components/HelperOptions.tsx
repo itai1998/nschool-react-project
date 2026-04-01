@@ -2,7 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import InformationCard from "./InformationCard";
-import { helperOptions } from "../../../helperOptionList";
+import { helperOptions } from "../../../constants/helperOptionList";
 export default function HelperOptions() {
   const settings = {
     infinite: false,

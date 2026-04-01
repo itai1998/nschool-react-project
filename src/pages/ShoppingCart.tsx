@@ -12,6 +12,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { setLogin, setLogout, setToken } from "../store/userSlice";
+import ShippingCartItem from "../features/shoppingCart/components/ShippingCartItem";
 
 interface LoginData {
   email: string;
@@ -207,6 +208,7 @@ export default function ShoppingCart() {
           </button>
         </div>
       )}
+      <ShippingCartItem />
     </div>
   );
 }
