@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../../../scss/ShoppingCart.module.scss";
+import styles from "../../../scss/loginForm.module.scss";
 import { useForm } from "react-hook-form";
 import arrowRightIcon from "../../../img/icons/arrow-right.png";
 import loadingIcon from "../../../img/icons/load.png";

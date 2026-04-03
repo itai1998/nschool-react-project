@@ -1,0 +1,94 @@
+.loginContainer,
+.loggedInContainer {
+  width: 100%;
+  padding-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  height: 100%;
+
+  h2 {
+    text-align: center;
+    margin: 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+}
+
+.checkboxContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.loginButton {
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+}
+
+.logoutButton {
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+  border: 1px solid black;
+  border-radius: 10px;
+
+  .inputDivider {
+    border-bottom: 1px solid black;
+    width: 100%;
+  }
+
+  .inputWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 480px;
+    height: 56px;
+    font-size: 16px;
+    padding: 0 8px;
+    outline: none;
+
+    img {
+      width: 35px;
+      height: 35px;
+    }
+
+    button {
+      margin: 0;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+
+  input {
+    font-size: 20px;
+    border: none;
+    width: 100%;
+    padding: 0 8px;
+    outline: none;
+    background-color: transparent;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
