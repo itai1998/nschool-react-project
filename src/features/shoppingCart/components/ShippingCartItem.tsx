@@ -43,7 +43,9 @@ export default function ShippingCartItem() {
             <div className={styles.gridItem}>{item.price}</div>
             <div className={styles.gridItem}>{item.quantity}</div>
             <div className={styles.gridItem}>{item.total}</div>
-            <div className={styles.gridItem}>{item.actions}</div>
+            <div className={styles.gridItem}>
+              <button className={styles.deleteButton}> Delete </button>
+            </div>
           </div>
         ))}
       </div>

@@ -4,28 +4,43 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 20px 0;
 
   .gridContainer {
     display: grid;
     grid-template-columns: 3fr repeat(5, 2.5fr);
     gap: 10px;
     .gridItem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       overflow-wrap: break-word;
       padding: 15px 0;
     }
   }
-
   .cartHeader,
   .cartBody {
     background-color: white;
     border-radius: 10px;
   }
-
   .cartBody {
+    .deleteButton {
+      background-color: rgba(240, 3, 3);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 90%;
+      height: 100%;
+      padding: 15px;
+      &:hover {
+        background-color: rgba(240, 3, 3, 0.5);
+      }
+    }
     .gridContainer {
       border-bottom: 1px solid #e5e5e7;
-      padding: 10px 0;
+      // padding: 10px 0;
     }
     .gridContainer:last-child {
       border-bottom: none;
