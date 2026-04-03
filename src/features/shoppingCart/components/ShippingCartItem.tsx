@@ -51,8 +51,9 @@ export default function ShippingCartItem() {
     <div className={styles.shippingCartItemContainer}>
       <div className={styles.cartHeader}>
         <div className={styles.gridContainer}>
-          <div className={styles.gridItem}>Product Name</div>
-          <div className={styles.gridItem}></div>
+          <div className={styles.gridItem}>
+            <span className={styles.cellEllipsis}>Product Name</span>
+          </div>
           <div className={styles.gridItem}>Product Price</div>
           <div className={styles.gridItem}>Product Quantity</div>
           <div className={styles.gridItem}>Product Total</div>
@@ -62,13 +63,19 @@ export default function ShippingCartItem() {
       <div className={styles.cartBody}>
         {shippingCartProducts.map((item, index) => (
           <div className={styles.gridContainer} key={index}>
-            <div className={styles.gridItem}>{item.name}</div>
-            <div className={styles.gridItem}></div>
+            <div className={styles.gridItem} title={item.name}>
+              <span className={styles.cellEllipsis}>{item.name}</span>
+            </div>
             <div className={styles.gridItem}>{item.price}</div>
             <div className={styles.gridItem}>{item.quantity}</div>
             <div className={styles.gridItem}>{item.total}</div>
             <div className={styles.gridItem}>
-              <button className={styles.deleteButton}> Delete </button>
+              <button
+                className={styles.deleteButton}
+                onClick={() => console.log("delete item", item.product_id)}
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
