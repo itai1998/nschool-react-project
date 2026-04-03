@@ -5,3 +5,10 @@ export const getProducts = async () => {
   const response = await axios.get<Product[]>("http://localhost:3000/products");
   return response;
 };
+
+export const getProduct = async (id: number) => {
+  const response = await axios.get<Product>(
+    `http://localhost:3000/products/${id}`
+  );
+  return response;
+};
