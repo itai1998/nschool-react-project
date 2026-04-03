@@ -1,4 +1,5 @@
 import { useQueries } from "@tanstack/react-query";
+import { useState } from "react";
 import { getProduct } from "../../../api/productApi";
 import styles from "../../../scss/ShippingCartItem.module.scss";
 import { filter, map } from "lodash";
@@ -13,13 +14,13 @@ interface SelectedProduct {
 }
 
 export default function ShippingCartItem() {
-  const localData: LocalData[] = JSON.parse(
-    localStorage.getItem("shoppingCart") || "[]"
+  const [localData, setLocalData] = useState<LocalData[]>(() =>
+    JSON.parse(localStorage.getItem("shoppingCart") || "[]")
   );
 
   const products = useQueries({
     queries: localData?.map((data) => ({
-      queryKey: ["product", data.product_id],
+      queryKey: ["localStorageProduct", data.product_id],
       queryFn: async () => {
         const response = await getProduct(data.product_id);
         return response.data;
@@ -48,6 +49,14 @@ export default function ShippingCartItem() {
     };
   });
 
+  const handleDeleteItem = (product_id: number) => {
+    const newLocalData = localData.filter(
+      (item) => item.product_id !== product_id
+    );
+    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
+    setLocalData(newLocalData);
+  };
+
   return (
     <div className={styles.shippingCartItemContainer}>
       <div className={styles.cartHeader}>
@@ -73,7 +82,7 @@ export default function ShippingCartItem() {
             <div className={styles.gridItem}>
               <button
                 className={styles.deleteButton}
-                onClick={() => console.log("delete item", item.product_id)}
+                onClick={() => handleDeleteItem(item.product_id)}
               >
                 Delete
               </button>
