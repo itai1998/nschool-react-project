@@ -3,42 +3,17 @@
   height: 100%;
   border: 1px solid red;
   min-width: 1000px; // adjust the width of the container
-}
 
-/* One column definition for the whole “table”; rows use subgrid so header and
-   body tracks stay aligned at any width (separate grids per row caused drift). */
-.cartGrid {
-  display: grid;
-  grid-template-columns:
-    2.5fr
-    1fr
-    1fr
-    1fr
-    1fr
-    1fr;
-  width: 100%;
-  border: 1px solid black;
-}
+  table {
+    width: 100%;
+    border: 1px solid black;
 
-.gridRow {
-  display: grid;
-  grid-column: 1 / -1;
-  grid-template-columns: subgrid;
-  border-bottom: 1px solid black;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.cell {
-  min-width: 0;
-  border-right: 1px solid black;
-  padding: 0.5rem 0.75rem;
-  text-align: center;
-  overflow-wrap: break-word;
-
-  &:last-child {
-    border-right: none;
+    th,
+    td {
+      border: 1px solid black;
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+      overflow-wrap: break-word;
+    }
   }
 }
