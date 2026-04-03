@@ -1,24 +1,15 @@
-import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import Cookies from "js-cookie";
 import styles from "../scss/ShoppingCart.module.scss";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
-import arrowRightIcon from "../img/icons/arrow-right.png";
-import loadingIcon from "../img/icons/load.png";
 import {
   signInWithEmailAndPassword,
-  // onAuthStateChanged,
   signOut,
 } from "firebase/auth";
 import { setLogin, setLogout, setToken } from "../store/userSlice";
 import ShippingCartItem from "../features/shoppingCart/components/ShippingCartItem";
-
-interface LoginData {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-}
+import LoginForm, { type LoginData } from "../features/shoppingCart/components/LoginForm";
 
 export default function ShoppingCart() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,18 +18,9 @@ export default function ShoppingCart() {
   const [emailDisplay, setEmailDisplay] = useState<string | undefined>(
     undefined
   );
-  const [isEmailExists, setIsEmailExists] = useState(false);
 
   const dispatch = useAppDispatch();
   const tokenRedux = useAppSelector((state) => state.user.profile.token);
-
-  const { register, handleSubmit, watch } = useForm<LoginData>({
-    defaultValues: {
-      email: "",
-      password: "",
-      rememberMe: false,
-    },
-  });
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -128,86 +110,14 @@ export default function ShoppingCart() {
     <div className={styles.shoppingCartContainer}>
       <h1>登入以加快結帳速度。</h1>
 
-      {!isLoggedIn && (
-        <div className={styles.loginContainer}>
-          <h2>登入 Apple Store</h2>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.inputContainer}>
-              <div className={styles.inputWrapper}>
-                <input
-                  {...register("email")}
-                  type="email"
-                  placeholder="電子郵件地址"
-                  autoComplete="username"
-                  onKeyDown={(e) => {
-                    if (
-                      e.key === "Enter" &&
-                      !isEmailExists &&
-                      watch("email").length > 0
-                    ) {
-                      e.preventDefault();
-                      setIsEmailExists(true);
-                    }
-                  }}
-                />
-                {!isEmailExists && (
-                  <button type="button" onClick={() => setIsEmailExists(true)}>
-                    <img src={arrowRightIcon} alt="submitArrow" />
-                  </button>
-                )}
-              </div>
-
-              {isEmailExists && <div className={styles.inputDivider} />}
-              {isEmailExists && (
-                <div className={styles.inputWrapper}>
-                  <input
-                    {...register("password")}
-                    type="password"
-                    placeholder="密碼"
-                    autoComplete="current-password"
-                  />
-                  <button type="submit" disabled={loading}>
-                    {loading ? (
-                      <img src={loadingIcon} alt="loading" />
-                    ) : (
-                      <img src={arrowRightIcon} alt="submitArrow" />
-                    )}
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <div className={styles.checkboxContainer}>
-              <input
-                id="remember"
-                {...register("rememberMe")}
-                type="checkbox"
-              />
-              <label htmlFor="remember">
-                <h4>記住我的帳號</h4>
-              </label>
-            </div>
-
-            {errorMsg && <p className={styles.error}>{errorMsg}</p>}
-          </form>
-        </div>
-      )}
-
-      {isLoggedIn && (
-        <div className={styles.loggedInContainer}>
-          <h2>已登入</h2>
-          {emailDisplay && <p>{emailDisplay}</p>}
-          <button
-            type="button"
-            className={styles.logoutButton}
-            onClick={handleLogout}
-            disabled={loading}
-          >
-            {loading ? "處理中…" : "登出"}
-          </button>
-        </div>
-      )}
+      <LoginForm
+        isLoggedIn={isLoggedIn}
+        errorMsg={errorMsg}
+        loading={loading}
+        emailDisplay={emailDisplay}
+        onSubmit={onSubmit}
+        onLogout={handleLogout}
+      />
       <ShippingCartItem />
     </div>
   );

@@ -33,6 +33,7 @@ export default function ShippingCartItem() {
     (result) => result.data
   );
 
+  // put this in a state and make it outside the component
   const shippingCartProducts: SelectedProduct[] = map(productsData, (item) => {
     const quantity =
       localData.find((data) => data.product_id === item?.product_id)
