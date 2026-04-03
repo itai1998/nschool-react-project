@@ -1,19 +1,34 @@
 .shippingCartItemContainer {
   width: 100%;
-  height: 100%;
-  border: 1px solid red;
   min-width: 1000px; // adjust the width of the container
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 
-  table {
-    width: 100%;
-    border: 1px solid black;
-
-    th,
-    td {
-      border: 1px solid black;
-      padding: 0.5rem 0.75rem;
+  .gridContainer {
+    display: grid;
+    grid-template-columns: 3fr repeat(5, 2.5fr);
+    gap: 10px;
+    .gridItem {
       text-align: center;
       overflow-wrap: break-word;
+      padding: 15px 0;
+    }
+  }
+
+  .cartHeader,
+  .cartBody {
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  .cartBody {
+    .gridContainer {
+      border-bottom: 1px solid #e5e5e7;
+      padding: 10px 0;
+    }
+    .gridContainer:last-child {
+      border-bottom: none;
     }
   }
 }

@@ -1,11 +1,6 @@
 import styles from "../../../scss/ShippingCartItem.module.scss";
 
 export default function ShippingCartItem() {
-  const data = [
-    { name: "John Doe", age: 28, role: "Developer" },
-    { name: "Mary Jane", age: 32, role: "Designer" },
-  ];
-
   const shippingCartItems = [
     {
       productName: 1,
@@ -30,40 +25,28 @@ export default function ShippingCartItem() {
 
   return (
     <div className={styles.shippingCartItemContainer}>
-      <table>
-        <colgroup>
-          <col style={{ width: "50%" }} />
-          <col style={{ width: "25%" }} />
-          <col style={{ width: "25%" }} />
-          <col style={{ width: "25%" }} />
-          <col style={{ width: "25%" }} />
-          <col style={{ width: "25%" }} />
-        </colgroup>
-
-        <thead>
-          <tr>
-            <th>Product Name</th>
-            <th></th>
-            <th>Product Price</th>
-            <th>Product Quantity</th>
-            <th>Product Total</th>
-            <th>Product Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {shippingCartItems.map((item, index) => (
-            <tr key={index}>
-              <td>{item.productName}</td>
-              <td></td>
-              <td>{item.price}</td>
-              <td>{item.quantity}</td>
-              <td>{item.total}</td>
-              <td>{item.actions}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className={styles.cartHeader}>
+        <div className={styles.gridContainer}>
+          <div className={styles.gridItem}>Product Name</div>
+          <div className={styles.gridItem}></div>
+          <div className={styles.gridItem}>Product Price</div>
+          <div className={styles.gridItem}>Product Quantity</div>
+          <div className={styles.gridItem}>Product Total</div>
+          <div className={styles.gridItem}>Product Actions</div>
+        </div>
+      </div>
+      <div className={styles.cartBody}>
+        {shippingCartItems.map((item, index) => (
+          <div className={styles.gridContainer} key={index}>
+            <div className={styles.gridItem}>{item.productName}</div>
+            <div className={styles.gridItem}></div>
+            <div className={styles.gridItem}>{item.price}</div>
+            <div className={styles.gridItem}>{item.quantity}</div>
+            <div className={styles.gridItem}>{item.total}</div>
+            <div className={styles.gridItem}>{item.actions}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

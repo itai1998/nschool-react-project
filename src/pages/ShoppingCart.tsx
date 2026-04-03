@@ -208,6 +208,7 @@ export default function ShoppingCart() {
           </button>
         </div>
       )}
+      <br />
       <ShippingCartItem />
     </div>
   );
