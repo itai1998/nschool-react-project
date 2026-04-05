@@ -55,3 +55,29 @@
     }
   }
 }
+
+.productQuantityContainer {
+  .productQuantity {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .productQuantityOperation {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgb(184, 184, 184);
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(184, 184, 184, 0.4);
+      }
+    }
+
+    .productQuantityNumber {
+      width: 60px;
+      height: 32px;
+      border: 1px solid rgb(184, 184, 184);
+      text-align: center;
+      padding: 0 10px;
+    }
+  }
+}

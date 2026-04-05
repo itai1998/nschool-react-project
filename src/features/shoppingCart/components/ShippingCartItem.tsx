@@ -57,6 +57,35 @@ export default function ShippingCartItem() {
     setLocalData(newLocalData);
   };
 
+  const handleQuantityChange = (product_id: number, quantity: number) => {
+    const clamped = Math.max(1, quantity);
+    const newLocalData = localData.map((item) =>
+      item.product_id === product_id ? { ...item, quantity: clamped } : item
+    );
+    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
+    setLocalData(newLocalData);
+  };
+
+  const handleQuantityIncrease = (product_id: number) => {
+    const newLocalData = localData.map((item) =>
+      item.product_id === product_id
+        ? { ...item, quantity: item.quantity + 1 }
+        : item
+    );
+    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
+    setLocalData(newLocalData);
+  };
+
+  const handleQuantityDecrease = (product_id: number) => {
+    const newLocalData = localData.map((item) =>
+      item.product_id === product_id
+        ? { ...item, quantity: Math.max(1, item.quantity - 1) }
+        : item
+    );
+    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
+    setLocalData(newLocalData);
+  };
+
   return (
     <div className={styles.shippingCartItemContainer}>
       <div className={styles.cartHeader}>
@@ -77,7 +106,38 @@ export default function ShippingCartItem() {
               <span className={styles.cellEllipsis}>{item.name}</span>
             </div>
             <div className={styles.gridItem}>{item.price}</div>
-            <div className={styles.gridItem}>{item.quantity}</div>
+            <div className={styles.gridItem}>
+              <div className={styles.productQuantityContainer}>
+                <div className={styles.productQuantity}>
+                  <button
+                    className={styles.productQuantityOperation}
+                    onClick={() => handleQuantityDecrease(item.product_id)}
+                  >
+                    -
+                  </button>
+
+                  <input
+                    className={styles.productQuantityNumber}
+                    value={item.quantity}
+                    onChange={(e) => {
+                      if (isNaN(Number(e.target.value))) {
+                        return;
+                      }
+                      handleQuantityChange(
+                        item.product_id,
+                        Number(e.target.value)
+                      );
+                    }}
+                  />
+                  <button
+                    className={styles.productQuantityOperation}
+                    onClick={() => handleQuantityIncrease(item.product_id)}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className={styles.gridItem}>{item.total}</div>
             <div className={styles.gridItem}>
               <button
