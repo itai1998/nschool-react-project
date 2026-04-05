@@ -86,6 +86,10 @@ export default function ShippingCartItem() {
     setLocalData(newLocalData);
   };
 
+  const handleCheckout = () => {
+    console.log("Checkout", shippingCartProducts);
+  };
+
   return (
     <div className={styles.shippingCartItemContainer}>
       <div className={styles.cartHeader}>
@@ -150,6 +154,7 @@ export default function ShippingCartItem() {
           </div>
         ))}
       </div>
+      <button onClick={handleCheckout}>Checkout</button>
     </div>
   );
 }
