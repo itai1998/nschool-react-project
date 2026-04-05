@@ -1,9 +1,11 @@
-import { useQueries } from "@tanstack/react-query";
+import { useMutation, useQueries } from "@tanstack/react-query";
 import { useState } from "react";
 import { getProduct } from "../../../api/productApi";
 import styles from "../../../scss/ShippingCartItem.module.scss";
 import { filter, map } from "lodash";
 import type { LocalData } from "../types";
+import { OrderItem } from "../../../model/orderItem";
+import { addOrderItem } from "../../../api/orderItemApi";
 
 interface SelectedProduct {
   product_id: number;
@@ -28,6 +30,20 @@ export default function ShippingCartItem() {
       enabled: !!data.product_id,
     })),
   });
+
+  const { mutate: addOrderItemMutation, isPending: isAddingOrderItem } =
+    useMutation({
+      mutationFn: async (orderItems: OrderItem) => {
+        const response = await addOrderItem(orderItems);
+        return response.data;
+      },
+      onSuccess: () => {
+        console.log("Order item added successfully");
+      },
+      onError: (error) => {
+        console.error("Error adding order item:", error);
+      },
+    });
 
   const productsData = map(
     filter(products, (result) => result.isSuccess),
@@ -87,8 +103,20 @@ export default function ShippingCartItem() {
   };
 
   const handleCheckout = () => {
-    console.log("Checkout", shippingCartProducts);
+    const orderItem = new OrderItem({
+      order_id: 1,
+      product_id: shippingCartProducts[0].product_id,
+      quantity: shippingCartProducts[0].quantity,
+      unit_price: shippingCartProducts[0].price.toString(),
+    });
+    addOrderItemMutation(orderItem);
+
+    console.log("Checkout", orderItem);
   };
+
+  if (isAddingOrderItem) {
+    return <div>Adding order item...</div>;
+  }
 
   return (
     <div className={styles.shippingCartItemContainer}>
