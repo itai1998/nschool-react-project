@@ -37,8 +37,9 @@ export default function ShippingCartItem() {
         const response = await createOrderItems(orderItems);
         return response.data;
       },
-      onSuccess: (data) => {
+      onSuccess: (data, variables) => {
         console.log("Order items created successfully", data);
+        removeProductsFromCart(variables.map((item) => item.product_id));
       },
       onError: (error) => {
         console.error("Error adding order item:", error);
@@ -106,13 +107,24 @@ export default function ShippingCartItem() {
     const orderItems = shippingCartProducts.map(
       (item) =>
         new OrderItem({
-          order_id: 1,
+          order_id: 1, // TODO: get order id from backend
           product_id: item.product_id,
           quantity: item.quantity,
           unit_price: item.price.toString(),
         })
     );
     createOrderItemsMutation(orderItems);
+  };
+
+  const removeProductsFromCart = (productIdsArray: number[]) => {
+    const cart = JSON.parse(localStorage.getItem("shoppingCart") || "[]");
+
+    const updatedCart = cart.filter(
+      (item: LocalData) => !productIdsArray.includes(item.product_id)
+    );
+
+    localStorage.setItem("shoppingCart", JSON.stringify(updatedCart));
+    setLocalData(updatedCart);
   };
 
   if (isCreatingOrderItems) {
