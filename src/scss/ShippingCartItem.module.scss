@@ -19,13 +19,16 @@
       padding: 15px 0;
     }
 
-    .cellEllipsis {
+    .ellipsisContainer {
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       padding: 0 15px;
       text-align: left;
+      .productName {
+        padding: 0 15px;
+      }
     }
   }
   .cartHeader,

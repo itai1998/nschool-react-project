@@ -136,7 +136,10 @@ export default function ShippingCartItem() {
       <div className={styles.cartHeader}>
         <div className={styles.gridContainer}>
           <div className={styles.gridItem}>
-            <span className={styles.cellEllipsis}>Product Name</span>
+            <div className={styles.ellipsisContainer}>
+              <input type="checkbox" />
+              <span className={styles.productName}>Product Name</span>
+            </div>
           </div>
           <div className={styles.gridItem}>Product Price</div>
           <div className={styles.gridItem}>Product Quantity</div>
@@ -148,7 +151,16 @@ export default function ShippingCartItem() {
         {shippingCartProducts.map((item, index) => (
           <div className={styles.gridContainer} key={index}>
             <div className={styles.gridItem} title={item.name}>
-              <span className={styles.cellEllipsis}>{item.name}</span>
+              <div className={styles.ellipsisContainer}>
+                <input
+                  type="checkbox"
+                  onClick={() =>
+                    // TODO: handle checkbox click
+                    console.log(`${item.product_id} checkbox clicked`)
+                  }
+                />
+                <span className={styles.productName}>{item.name}</span>
+              </div>
             </div>
             <div className={styles.gridItem}>{item.price}</div>
             <div className={styles.gridItem}>
