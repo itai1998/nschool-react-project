@@ -5,7 +5,7 @@ import styles from "../../../scss/ShippingCartItem.module.scss";
 import { filter, map } from "lodash";
 import type { LocalData } from "../types";
 import { OrderItem } from "../../../model/orderItem";
-import { addOrderItem } from "../../../api/orderItemApi";
+import { createOrderItems } from "../../../api/orderItemApi";
 
 interface SelectedProduct {
   product_id: number;
@@ -31,14 +31,14 @@ export default function ShippingCartItem() {
     })),
   });
 
-  const { mutate: addOrderItemMutation, isPending: isAddingOrderItem } =
+  const { mutate: createOrderItemsMutation, isPending: isCreatingOrderItems } =
     useMutation({
-      mutationFn: async (orderItems: OrderItem) => {
-        const response = await addOrderItem(orderItems);
+      mutationFn: async (orderItems: OrderItem[]) => {
+        const response = await createOrderItems(orderItems);
         return response.data;
       },
-      onSuccess: () => {
-        console.log("Order item added successfully");
+      onSuccess: (data) => {
+        console.log("Order items created successfully", data);
       },
       onError: (error) => {
         console.error("Error adding order item:", error);
@@ -103,18 +103,19 @@ export default function ShippingCartItem() {
   };
 
   const handleCheckout = () => {
-    const orderItem = new OrderItem({
-      order_id: 1,
-      product_id: shippingCartProducts[0].product_id,
-      quantity: shippingCartProducts[0].quantity,
-      unit_price: shippingCartProducts[0].price.toString(),
-    });
-    addOrderItemMutation(orderItem);
-
-    console.log("Checkout", orderItem);
+    const orderItems = shippingCartProducts.map(
+      (item) =>
+        new OrderItem({
+          order_id: 1,
+          product_id: item.product_id,
+          quantity: item.quantity,
+          unit_price: item.price.toString(),
+        })
+    );
+    createOrderItemsMutation(orderItems);
   };
 
-  if (isAddingOrderItem) {
+  if (isCreatingOrderItems) {
     return <div>Adding order item...</div>;
   }
 
