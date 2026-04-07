@@ -78,6 +78,18 @@ export default function ShippingCartItem() {
     };
   });
 
+  const toggleAllSelection = () => {
+    setSelectedProductIds((prev) => {
+      const next = new Set(prev);
+      if (next.size === shippingCartProducts.length) {
+        next.clear();
+      } else {
+        shippingCartProducts.forEach((p) => next.add(p.product_id));
+      }
+      return next;
+    });
+  };
+
   const selectedProducts = shippingCartProducts.filter((p) =>
     selectedProductIds.has(p.product_id)
   );
@@ -156,7 +168,13 @@ export default function ShippingCartItem() {
         <div className={styles.gridContainer}>
           <div className={styles.gridItem}>
             <div className={styles.ellipsisContainer}>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={
+                  selectedProductIds.size === shippingCartProducts.length
+                }
+                onChange={toggleAllSelection}
+              />
               <span className={styles.productName}>Product Name</span>
             </div>
           </div>
