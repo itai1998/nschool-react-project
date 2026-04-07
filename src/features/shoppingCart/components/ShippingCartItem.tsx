@@ -20,6 +20,19 @@ export default function ShippingCartItem() {
     JSON.parse(localStorage.getItem("shoppingCart") || "[]")
   );
 
+  const [selectedProductIds, setSelectedProductIds] = useState<Set<number>>(
+    new Set()
+  );
+
+  const toggleSelection = (productId: number, checked: boolean) => {
+    setSelectedProductIds((prev) => {
+      const next = new Set(prev);
+      if (checked) next.add(productId);
+      else next.delete(productId);
+      return next;
+    });
+  };
+
   const products = useQueries({
     queries: localData?.map((data) => ({
       queryKey: ["localStorageProduct", data.product_id],
@@ -37,9 +50,8 @@ export default function ShippingCartItem() {
         const response = await createOrderItems(orderItems);
         return response.data;
       },
-      onSuccess: (data, variables) => {
-        console.log("Order items created successfully", data);
-        removeProductsFromCart(variables.map((item) => item.product_id));
+      onSuccess: () => {
+        removeProductsFromCart(getOrderItems().map((item) => item.product_id));
       },
       onError: (error) => {
         console.error("Error adding order item:", error);
@@ -65,6 +77,10 @@ export default function ShippingCartItem() {
       total: price * quantity,
     };
   });
+
+  const selectedProducts = shippingCartProducts.filter((p) =>
+    selectedProductIds.has(p.product_id)
+  );
 
   const handleDeleteItem = (product_id: number) => {
     const newLocalData = localData.filter(
@@ -103,16 +119,19 @@ export default function ShippingCartItem() {
     setLocalData(newLocalData);
   };
 
-  const handleCheckout = () => {
-    const orderItems = shippingCartProducts.map(
+  const getOrderItems = () =>
+    selectedProducts.map(
       (item) =>
         new OrderItem({
-          order_id: 1, // TODO: get order id from backend
+          order_id: 1,
           product_id: item.product_id,
           quantity: item.quantity,
           unit_price: item.price.toString(),
         })
     );
+
+  const handleCheckout = () => {
+    const orderItems = getOrderItems();
     createOrderItemsMutation(orderItems);
   };
 
@@ -154,9 +173,9 @@ export default function ShippingCartItem() {
               <div className={styles.ellipsisContainer}>
                 <input
                   type="checkbox"
-                  onClick={() =>
-                    // TODO: handle checkbox click
-                    console.log(`${item.product_id} checkbox clicked`)
+                  checked={selectedProductIds.has(item.product_id)}
+                  onChange={(e) =>
+                    toggleSelection(item.product_id, e.target.checked)
                   }
                 />
                 <span className={styles.productName}>{item.name}</span>
