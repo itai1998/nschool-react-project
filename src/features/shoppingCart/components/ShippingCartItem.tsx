@@ -1,5 +1,5 @@
 import { useMutation, useQueries } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getProduct } from "../../../api/productApi";
 import styles from "../../../scss/ShippingCartItem.module.scss";
 import { filter, map } from "lodash";
@@ -23,6 +23,16 @@ export default function ShippingCartItem() {
   const [selectedProductIds, setSelectedProductIds] = useState<Set<number>>(
     new Set()
   );
+
+  useEffect(() => {
+    setSelectedProductIds((prev) => {
+      const validProductIds = new Set(localData.map((item) => item.product_id));
+      const next = new Set(
+        [...prev].filter((productId) => validProductIds.has(productId))
+      );
+      return next.size === prev.size ? prev : next;
+    });
+  }, [localData]);
 
   const toggleSelection = (productId: number, checked: boolean) => {
     setSelectedProductIds((prev) => {
@@ -100,6 +110,12 @@ export default function ShippingCartItem() {
     );
     localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
     setLocalData(newLocalData);
+    setSelectedProductIds((prev) => {
+      if (!prev.has(product_id)) return prev;
+      const next = new Set(prev);
+      next.delete(product_id);
+      return next;
+    });
   };
 
   const handleQuantityChange = (product_id: number, quantity: number) => {
@@ -156,6 +172,11 @@ export default function ShippingCartItem() {
 
     localStorage.setItem("shoppingCart", JSON.stringify(updatedCart));
     setLocalData(updatedCart);
+    setSelectedProductIds((prev) => {
+      const next = new Set(prev);
+      productIdsArray.forEach((productId) => next.delete(productId));
+      return next.size === prev.size ? prev : next;
+    });
   };
 
   if (isCreatingOrderItems) {
@@ -171,6 +192,7 @@ export default function ShippingCartItem() {
               <input
                 type="checkbox"
                 checked={
+                  selectedProductIds.size > 0 &&
                   selectedProductIds.size === shippingCartProducts.length
                 }
                 onChange={toggleAllSelection}
@@ -244,7 +266,9 @@ export default function ShippingCartItem() {
           </div>
         ))}
       </div>
-      <button onClick={handleCheckout}>Checkout</button>
+      <button disabled={selectedProductIds.size === 0} onClick={handleCheckout}>
+        Checkout
+      </button>
     </div>
   );
 }
