@@ -23,7 +23,6 @@ export default function ShippingCartItem() {
   const [selectedProductIds, setSelectedProductIds] = useState<Set<number>>(
     new Set()
   );
-
   useEffect(() => {
     setSelectedProductIds((prev) => {
       const validProductIds = new Set(localData.map((item) => item.product_id));
@@ -103,6 +102,12 @@ export default function ShippingCartItem() {
   const selectedProducts = shippingCartProducts.filter((p) =>
     selectedProductIds.has(p.product_id)
   );
+
+  const totalQuantity = selectedProducts.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+  const totalPrice = selectedProducts.reduce((sum, item) => sum + item.total, 0);
 
   const handleDeleteItem = (product_id: number) => {
     const newLocalData = localData.filter(
@@ -195,7 +200,7 @@ export default function ShippingCartItem() {
           <div className={styles.gridItem}>Product Price</div>
           <div className={styles.gridItem}>Product Quantity</div>
           <div className={styles.gridItem}>Product Total</div>
-          <div className={styles.gridItem}>Product Actions</div>
+          <div className={styles.gridItem}></div>
         </div>
       </div>
       <div className={styles.cartBody}>
@@ -268,10 +273,12 @@ export default function ShippingCartItem() {
             }
             onChange={toggleAllSelection}
           />
-          <span className={styles.productName}>全選 (0)</span>
+          <span className={styles.productName}>全選 ({selectedProductIds.size})</span>
         </div>
         <div className={styles.checkoutInfoContainer}>
-          <div>總金額 (0 件商品)： $ 0</div>
+          <div>
+            總金額 ({totalQuantity} 件商品)： $ {totalPrice}
+          </div>
           <div className={styles.checkoutButtonContainer}>
             <button
               disabled={selectedProductIds.size === 0}
