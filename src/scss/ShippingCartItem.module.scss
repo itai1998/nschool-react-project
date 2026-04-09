@@ -84,3 +84,49 @@
     }
   }
 }
+
+.checkoutContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 10px;
+  padding: 12px 0;
+  .checkoutButtonContainer {
+    button {
+      height: 2.5rem;
+      width: 13.125rem;
+      margin: 0 22px 0 15px;
+      padding: 13px 36px;
+      background-color: rgb(0, 113, 227);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      &:disabled {
+        background-color: rgba(0, 113, 227, 0.5);
+        cursor: not-allowed;
+      }
+      &:hover {
+        background-color: rgba(0, 113, 227, 0.5);
+      }
+    }
+  }
+  .checkoutInfoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .selectAllContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 15px;
+  }
+  span {
+    padding: 0 15px;
+  }
+}

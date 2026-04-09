@@ -189,14 +189,6 @@ export default function ShippingCartItem() {
         <div className={styles.gridContainer}>
           <div className={styles.gridItem}>
             <div className={styles.ellipsisContainer}>
-              <input
-                type="checkbox"
-                checked={
-                  selectedProductIds.size > 0 &&
-                  selectedProductIds.size === shippingCartProducts.length
-                }
-                onChange={toggleAllSelection}
-              />
               <span className={styles.productName}>Product Name</span>
             </div>
           </div>
@@ -266,9 +258,30 @@ export default function ShippingCartItem() {
           </div>
         ))}
       </div>
-      <button disabled={selectedProductIds.size === 0} onClick={handleCheckout}>
-        Checkout
-      </button>
+      <div className={styles.checkoutContainer}>
+        <div className={styles.selectAllContainer}>
+          <input
+            type="checkbox"
+            checked={
+              selectedProductIds.size > 0 &&
+              selectedProductIds.size === shippingCartProducts.length
+            }
+            onChange={toggleAllSelection}
+          />
+          <span className={styles.productName}>全選 (0)</span>
+        </div>
+        <div className={styles.checkoutInfoContainer}>
+          <div>總金額 (0 件商品)： $ 0</div>
+          <div className={styles.checkoutButtonContainer}>
+            <button
+              disabled={selectedProductIds.size === 0}
+              onClick={handleCheckout}
+            >
+              Checkout
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
