@@ -1,188 +1,21 @@
-import { useMutation, useQueries } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { getProduct } from "../../../api/productApi";
 import styles from "../../../scss/ShippingCartItem.module.scss";
-import { filter, map } from "lodash";
-import type { LocalData } from "../types";
-import { OrderItem } from "../../../model/orderItem";
-import { createOrderItems } from "../../../api/orderItemApi";
-
-interface SelectedProduct {
-  product_id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  total: number;
-}
+import { useShoppingCart } from "../../../hooks/useShoppingCart";
 
 export default function ShippingCartItem() {
-  const [localData, setLocalData] = useState<LocalData[]>(() =>
-    JSON.parse(localStorage.getItem("shoppingCart") || "[]")
-  );
-
-  const [selectedProductIds, setSelectedProductIds] = useState<Set<number>>(
-    new Set()
-  );
-  useEffect(() => {
-    setSelectedProductIds((prev) => {
-      const validProductIds = new Set(localData.map((item) => item.product_id));
-      const next = new Set(
-        [...prev].filter((productId) => validProductIds.has(productId))
-      );
-      return next.size === prev.size ? prev : next;
-    });
-  }, [localData]);
-
-  const toggleSelection = (productId: number, checked: boolean) => {
-    setSelectedProductIds((prev) => {
-      const next = new Set(prev);
-      if (checked) next.add(productId);
-      else next.delete(productId);
-      return next;
-    });
-  };
-
-  const products = useQueries({
-    queries: localData?.map((data) => ({
-      queryKey: ["localStorageProduct", data.product_id],
-      queryFn: async () => {
-        const response = await getProduct(data.product_id);
-        return response.data;
-      },
-      enabled: !!data.product_id,
-    })),
-  });
-
-  const { mutate: createOrderItemsMutation, isPending: isCreatingOrderItems } =
-    useMutation({
-      mutationFn: async (orderItems: OrderItem[]) => {
-        const response = await createOrderItems(orderItems);
-        return response.data;
-      },
-      onSuccess: () => {
-        removeProductsFromCart(getOrderItems().map((item) => item.product_id));
-      },
-      onError: (error) => {
-        console.error("Error adding order item:", error);
-      },
-    });
-
-  const productsData = map(
-    filter(products, (result) => result.isSuccess),
-    (result) => result.data
-  );
-
-  // put this in a state and make it outside the component
-  const shippingCartProducts: SelectedProduct[] = map(productsData, (item) => {
-    const quantity =
-      localData.find((data) => data.product_id === item?.product_id)
-        ?.quantity ?? 0;
-    const price = Number(item?.price ?? 0);
-    return {
-      product_id: item?.product_id ?? 0,
-      name: item?.name ?? "",
-      price,
-      quantity,
-      total: price * quantity,
-    };
-  });
-
-  const toggleAllSelection = () => {
-    setSelectedProductIds((prev) => {
-      const next = new Set(prev);
-      if (next.size === shippingCartProducts.length) {
-        next.clear();
-      } else {
-        shippingCartProducts.forEach((p) => next.add(p.product_id));
-      }
-      return next;
-    });
-  };
-
-  const selectedProducts = shippingCartProducts.filter((p) =>
-    selectedProductIds.has(p.product_id)
-  );
-
-  const totalQuantity = selectedProducts.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
-  const totalPrice = selectedProducts.reduce((sum, item) => sum + item.total, 0);
-
-  const handleDeleteItem = (product_id: number) => {
-    const newLocalData = localData.filter(
-      (item) => item.product_id !== product_id
-    );
-    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
-    setLocalData(newLocalData);
-    setSelectedProductIds((prev) => {
-      if (!prev.has(product_id)) return prev;
-      const next = new Set(prev);
-      next.delete(product_id);
-      return next;
-    });
-  };
-
-  const handleQuantityChange = (product_id: number, quantity: number) => {
-    const clamped = Math.max(1, quantity);
-    const newLocalData = localData.map((item) =>
-      item.product_id === product_id ? { ...item, quantity: clamped } : item
-    );
-    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
-    setLocalData(newLocalData);
-  };
-
-  const handleQuantityIncrease = (product_id: number) => {
-    const newLocalData = localData.map((item) =>
-      item.product_id === product_id
-        ? { ...item, quantity: item.quantity + 1 }
-        : item
-    );
-    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
-    setLocalData(newLocalData);
-  };
-
-  const handleQuantityDecrease = (product_id: number) => {
-    const newLocalData = localData.map((item) =>
-      item.product_id === product_id
-        ? { ...item, quantity: Math.max(1, item.quantity - 1) }
-        : item
-    );
-    localStorage.setItem("shoppingCart", JSON.stringify(newLocalData));
-    setLocalData(newLocalData);
-  };
-
-  const getOrderItems = () =>
-    selectedProducts.map(
-      (item) =>
-        new OrderItem({
-          order_id: 1,
-          product_id: item.product_id,
-          quantity: item.quantity,
-          unit_price: item.price.toString(),
-        })
-    );
-
-  const handleCheckout = () => {
-    const orderItems = getOrderItems();
-    createOrderItemsMutation(orderItems);
-  };
-
-  const removeProductsFromCart = (productIdsArray: number[]) => {
-    const cart = JSON.parse(localStorage.getItem("shoppingCart") || "[]");
-
-    const updatedCart = cart.filter(
-      (item: LocalData) => !productIdsArray.includes(item.product_id)
-    );
-
-    localStorage.setItem("shoppingCart", JSON.stringify(updatedCart));
-    setLocalData(updatedCart);
-    setSelectedProductIds((prev) => {
-      const next = new Set(prev);
-      productIdsArray.forEach((productId) => next.delete(productId));
-      return next.size === prev.size ? prev : next;
-    });
-  };
+  const {
+    shippingCartProducts,
+    selectedProductIds,
+    totalQuantity,
+    totalPrice,
+    isCreatingOrderItems,
+    toggleSelection,
+    toggleAllSelection,
+    handleDeleteItem,
+    handleQuantityChange,
+    handleQuantityIncrease,
+    handleQuantityDecrease,
+    handleCheckout,
+  } = useShoppingCart();
 
   if (isCreatingOrderItems) {
     return <div>Adding order item...</div>;
@@ -273,7 +106,9 @@ export default function ShippingCartItem() {
             }
             onChange={toggleAllSelection}
           />
-          <span className={styles.productName}>全選 ({selectedProductIds.size})</span>
+          <span className={styles.productName}>
+            全選 ({selectedProductIds.size})
+          </span>
         </div>
         <div className={styles.checkoutInfoContainer}>
           <div>
