@@ -104,9 +104,8 @@ export default function LoginForm({
       )}
 
       {isLoggedIn && (
-        <div className={styles.loggedInContainer}>
-          <h2>已登入</h2>
-          {emailDisplay && <p>{emailDisplay}</p>}
+        <div className={styles.logoutContainer}>
+          {emailDisplay && <p>Hi, {emailDisplay}</p>}
           <button
             type="button"
             className={styles.logoutButton}

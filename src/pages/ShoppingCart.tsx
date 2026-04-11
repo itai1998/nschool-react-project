@@ -3,13 +3,12 @@ import Cookies from "js-cookie";
 import styles from "../scss/ShoppingCart.module.scss";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebase";
-import {
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { setLogin, setLogout, setToken } from "../store/userSlice";
 import ShippingCartItem from "../features/shoppingCart/components/ShippingCartItem";
-import LoginForm, { type LoginData } from "../features/shoppingCart/components/LoginForm";
+import LoginForm, {
+  type LoginData,
+} from "../features/shoppingCart/components/LoginForm";
 
 export default function ShoppingCart() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -108,7 +107,7 @@ export default function ShoppingCart() {
 
   return (
     <div className={styles.shoppingCartContainer}>
-      <h1>登入以加快結帳速度。</h1>
+      {!isLoggedIn && <h1>登入以加快結帳速度。</h1>}
 
       <LoginForm
         isLoggedIn={isLoggedIn}
@@ -118,7 +117,8 @@ export default function ShoppingCart() {
         onSubmit={onSubmit}
         onLogout={handleLogout}
       />
-      <ShippingCartItem />
+
+      {isLoggedIn && <ShippingCartItem />}
     </div>
   );
 }
