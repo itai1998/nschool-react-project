@@ -93,7 +93,7 @@ export default function ShippingCartItem() {
                 className={styles.deleteButton}
                 onClick={() => handleDeleteItem(item.product_id)}
               >
-                Delete
+                移除購物車
               </button>
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function ShippingCartItem() {
               disabled={selectedProductIds.size === 0}
               onClick={handleCheckout}
             >
-              Checkout
+              去買單
             </button>
           </div>
         </div>
