@@ -1,0 +1,21 @@
+.successModalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  img {
+    width: 75px;
+    height: 75px;
+  }
+  button {
+    width: 100px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #007aff;
+    background-color: transparent;
+    color: #007aff;
+    cursor: pointer;
+  }
+}

@@ -1,5 +1,6 @@
 import styles from "../../../scss/ShippingCartItem.module.scss";
 import { useShoppingCart } from "../../../hooks/useShoppingCart";
+import SuccessModal from "../../../components/SuccessModal";
 
 export default function ShippingCartItem() {
   const {
@@ -15,6 +16,8 @@ export default function ShippingCartItem() {
     handleQuantityIncrease,
     handleQuantityDecrease,
     handleCheckout,
+    isSuccessModalOpen,
+    handleCloseSuccessModal,
   } = useShoppingCart();
 
   if (isCreatingOrderItems) {
@@ -124,6 +127,10 @@ export default function ShippingCartItem() {
           </div>
         </div>
       </div>
+      <SuccessModal
+        isOpen={isSuccessModalOpen}
+        onClose={handleCloseSuccessModal}
+      />
     </div>
   );
 }

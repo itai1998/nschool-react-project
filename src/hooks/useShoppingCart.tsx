@@ -11,6 +11,11 @@ import { createOrder, type CheckoutData } from "../api/orderApi";
 const CART_KEY = "shoppingCart";
 
 export const useShoppingCart = () => {
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+  const handleCloseSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+  };
   const [localData, setLocalData] = useState<LocalData[]>(() =>
     JSON.parse(localStorage.getItem(CART_KEY) || "[]")
   );
@@ -173,6 +178,7 @@ export const useShoppingCart = () => {
         removeProductsFromCart(
           checkoutData.items.map((item) => item.product_id)
         );
+        setIsSuccessModalOpen(true);
       },
       onError: (error) => {
         console.error("Error adding order item:", error);
@@ -197,5 +203,7 @@ export const useShoppingCart = () => {
     handleQuantityIncrease,
     handleQuantityDecrease,
     handleCheckout,
+    isSuccessModalOpen,
+    handleCloseSuccessModal,
   };
 };
