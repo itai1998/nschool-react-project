@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import type { LocalData, SelectedProduct } from "../features/shoppingCart/types";
+import type {
+  LocalData,
+  SelectedProduct,
+} from "../features/shoppingCart/types";
 import { useMutation, useQueries } from "@tanstack/react-query";
 import { getProduct } from "../api/productApi";
 import { OrderItem } from "../model/orderItem";
-import { createOrderItems } from "../api/orderItemApi";
+import { createOrder, type CheckoutData } from "../api/orderApi";
 
 const CART_KEY = "shoppingCart";
 
@@ -51,9 +54,7 @@ export const useShoppingCart = () => {
       enabled: !!data.product_id,
     })),
     combine: (results) =>
-      results
-        .filter((result) => result.isSuccess)
-        .map((result) => result.data),
+      results.filter((result) => result.isSuccess).map((result) => result.data),
   });
 
   const shippingCartProducts: SelectedProduct[] = productsData.map((item) => {
@@ -149,21 +150,29 @@ export const useShoppingCart = () => {
     selectedProducts.map(
       (item) =>
         new OrderItem({
-          order_id: 1,
           product_id: item.product_id,
           quantity: item.quantity,
-          unit_price: item.price.toString(),
+          unit_price: item.price,
         })
     );
 
+  const getCheckoutData = () => ({
+    user_id: 1,
+    shipping_address: "123 Main St, Anytown, USA",
+    total_amount: totalPrice,
+    items: getOrderItems(),
+  });
+
   const { mutate: createOrderItemsMutation, isPending: isCreatingOrderItems } =
     useMutation({
-      mutationFn: async (orderItems: OrderItem[]) => {
-        const response = await createOrderItems(orderItems);
+      mutationFn: async (checkoutData: CheckoutData) => {
+        const response = await createOrder(checkoutData);
         return response.data;
       },
-      onSuccess: (_, orderItems) => {
-        removeProductsFromCart(orderItems.map((item) => item.product_id));
+      onSuccess: (_, checkoutData) => {
+        removeProductsFromCart(
+          checkoutData.items.map((item) => item.product_id)
+        );
       },
       onError: (error) => {
         console.error("Error adding order item:", error);
@@ -171,7 +180,8 @@ export const useShoppingCart = () => {
     });
 
   const handleCheckout = () => {
-    createOrderItemsMutation(getOrderItems());
+    createOrderItemsMutation(getCheckoutData());
+    console.log("getCheckoutData", getCheckoutData());
   };
 
   return {
