@@ -99,6 +99,29 @@
     cursor: pointer;
     padding: 0 20px;
   }
+  .cartContainer {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+
+    .badge {
+      position: absolute;
+      top: 6px;
+      right: 12px;
+      background-color: black;
+      color: white;
+      font-size: 8px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 50%;
+      min-width: 1em;
+      min-height: 2.5em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid white;
+    }
+  }
 }
 
 // Responsive design for mobile

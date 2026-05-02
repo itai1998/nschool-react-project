@@ -130,13 +130,17 @@ function MegaMenu() {
               onMouseEnter={() => handleMouseLeave()}
             />
           )}
-          <img
-            src={marketIcon}
-            alt={"market"}
+          <div
+            className={styles.cartContainer}
             onClick={() => navigate("/shopping-cart")}
-            onMouseEnter={() => handleMouseLeave()}
-          />
-
+          >
+            <img
+              src={marketIcon}
+              alt={"market"}
+              onMouseEnter={() => handleMouseLeave()}
+            />
+            <span className={styles.badge}>1</span>
+          </div>
           {open && hoveredProduct && (
             <div
               className={styles.megaMenu}
