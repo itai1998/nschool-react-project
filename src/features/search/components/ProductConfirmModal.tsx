@@ -74,7 +74,7 @@ export default function ProductConfirmModal({
           }}
           className={styles.addToCartButton}
         >
-          加入購物車
+          加入購物袋
         </button>
       </div>
     </Modal>
