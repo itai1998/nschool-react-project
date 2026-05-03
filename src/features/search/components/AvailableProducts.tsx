@@ -1,5 +1,6 @@
 import type { Product } from "../../../model/product";
 import styles from "../../../scss/Search.module.scss";
+import { formatTWD } from "../../../utils";
 
 interface AvailableProductsProps {
   products: Product[];
@@ -17,7 +18,7 @@ export default function AvailableProducts({
           <div key={item.name} className={styles.productBox}>
             <div className={styles.productInfo}>
               <h2>{item.name}</h2>
-              <h3>{item.price}</h3>
+              <h3>{formatTWD(item.price)}</h3>
               <h4>{item.category}</h4>
             </div>
             <div className={styles.productAction}>

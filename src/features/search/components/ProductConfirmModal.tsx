@@ -1,6 +1,7 @@
 import Modal from "../../../components/Modal";
 import styles from "../../../scss/ProductConfirmModal.module.scss";
 import { useState } from "react";
+import { formatTWD } from "../../../utils";
 
 interface ProductConfirmModalProps {
   isOpen: boolean;
@@ -37,7 +38,7 @@ export default function ProductConfirmModal({
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.container}>
         <h1>{productName}</h1>
-        <h4>產品價格: NT$ {productPrice}</h4>
+        <h4>產品價格: {formatTWD(productPrice)}</h4>
         <div className={styles.productQuantityContainer}>
           <h4>數量:</h4>
           <div className={styles.productQuantity}>

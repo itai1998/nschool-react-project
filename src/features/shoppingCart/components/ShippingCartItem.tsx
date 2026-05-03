@@ -1,6 +1,7 @@
 import styles from "../../../scss/ShippingCartItem.module.scss";
 import { useShoppingCart } from "../../../hooks/useShoppingCart";
 import SuccessModal from "../../../components/SuccessModal";
+import { formatTWD } from "../../../utils";
 
 export default function ShippingCartItem() {
   const {
@@ -30,12 +31,12 @@ export default function ShippingCartItem() {
         <div className={styles.gridContainer}>
           <div className={styles.gridItem}>
             <div className={styles.ellipsisContainer}>
-              <span className={styles.productName}>Product Name</span>
+              <span className={styles.productName}>商品</span>
             </div>
           </div>
-          <div className={styles.gridItem}>Product Price</div>
-          <div className={styles.gridItem}>Product Quantity</div>
-          <div className={styles.gridItem}>Product Total</div>
+          <div className={styles.gridItem}>價格</div>
+          <div className={styles.gridItem}>數量</div>
+          <div className={styles.gridItem}>總價</div>
           <div className={styles.gridItem}></div>
         </div>
       </div>
@@ -54,7 +55,7 @@ export default function ShippingCartItem() {
                 <span className={styles.productName}>{item.name}</span>
               </div>
             </div>
-            <div className={styles.gridItem}>{item.price}</div>
+            <div className={styles.gridItem}>{formatTWD(item.price)}</div>
             <div className={styles.gridItem}>
               <div className={styles.productQuantityContainer}>
                 <div className={styles.productQuantity}>
@@ -87,7 +88,7 @@ export default function ShippingCartItem() {
                 </div>
               </div>
             </div>
-            <div className={styles.gridItem}>{item.total}</div>
+            <div className={styles.gridItem}>{formatTWD(item.total)}</div>
             <div className={styles.gridItem}>
               <button
                 className={styles.deleteButton}
