@@ -6,8 +6,8 @@ export default function ShippingCartItem() {
   const {
     shippingCartProducts,
     selectedProductIds,
-    totalQuantity,
-    totalPrice,
+    totalSelectedQuantity,
+    totalSelectedPrice,
     isCreatingOrderItems,
     toggleSelection,
     toggleAllSelection,
@@ -115,7 +115,7 @@ export default function ShippingCartItem() {
         </div>
         <div className={styles.checkoutInfoContainer}>
           <div>
-            總金額 ({totalQuantity} 件商品)： $ {totalPrice}
+            總金額 ({totalSelectedQuantity} 件商品)： $ {totalSelectedPrice}
           </div>
           <div className={styles.checkoutButtonContainer}>
             <button

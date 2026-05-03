@@ -34,6 +34,7 @@ export default function Search() {
 
   useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(shoppingCart));
+    window.dispatchEvent(new Event("cartUpdated"));
   }, [shoppingCart]);
 
   const { data: products, isLoading } = useQuery({

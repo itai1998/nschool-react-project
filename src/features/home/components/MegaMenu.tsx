@@ -6,6 +6,8 @@ import searchIcon from "../../../img/search-interface-symbol.png";
 import marketIcon from "../../../img/market.png";
 import appleLogo from "../../../img/apple-logo.png";
 import SearchBar from "./SearchBar";
+import type { LocalData } from "../../shoppingCart/types";
+
 interface LinkGroup {
   [key: string]: string;
 }
@@ -22,6 +24,26 @@ function MegaMenu() {
   const menuRef = useRef<HTMLLIElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [cartQuantity, setCartQuantity] = useState(() => {
+    const items: LocalData[] = JSON.parse(
+      localStorage.getItem("shoppingCart") || "[]"
+    );
+    return items.reduce((acc, item) => acc + item.quantity, 0);
+  });
+
+  // TODO: refactor to context approach
+  useEffect(() => {
+    const handleCartUpdate = () => {
+      const items: LocalData[] = JSON.parse(
+        localStorage.getItem("shoppingCart") || "[]"
+      );
+      setCartQuantity(items.reduce((acc, item) => acc + item.quantity, 0));
+    };
+
+    window.addEventListener("cartUpdated", handleCartUpdate);
+    return () => window.removeEventListener("cartUpdated", handleCartUpdate);
+  }, []);
 
   // Handle search route - open search when on search page
   useEffect(() => {
@@ -139,7 +161,9 @@ function MegaMenu() {
               alt={"market"}
               onMouseEnter={() => handleMouseLeave()}
             />
-            <span className={styles.badge}>1</span>
+            {cartQuantity > 0 && (
+              <span className={styles.badge}>{cartQuantity}</span>
+            )}
           </div>
           {open && hoveredProduct && (
             <div

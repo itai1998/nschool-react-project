@@ -27,6 +27,7 @@ export const useShoppingCart = () => {
   const persistCart = (newData: LocalData[]) => {
     localStorage.setItem(CART_KEY, JSON.stringify(newData));
     setLocalData(newData);
+    window.dispatchEvent(new Event("cartUpdated"));
   };
 
   // Remove stale selections when items are deleted from the cart
@@ -92,12 +93,14 @@ export const useShoppingCart = () => {
     selectedProductIds.has(p.product_id)
   );
 
-  const { totalQuantity, totalPrice } = selectedProducts.reduce(
+  const totalQuantity = localData.reduce((acc, item) => acc + item.quantity, 0);
+
+  const { totalSelectedQuantity, totalSelectedPrice } = selectedProducts.reduce(
     (acc, item) => ({
-      totalQuantity: acc.totalQuantity + item.quantity,
-      totalPrice: acc.totalPrice + item.total,
+      totalSelectedQuantity: acc.totalSelectedQuantity + item.quantity,
+      totalSelectedPrice: acc.totalSelectedPrice + item.total,
     }),
-    { totalQuantity: 0, totalPrice: 0 }
+    { totalSelectedQuantity: 0, totalSelectedPrice: 0 }
   );
 
   const handleDeleteItem = (product_id: number) => {
@@ -164,7 +167,7 @@ export const useShoppingCart = () => {
   const getCheckoutData = () => ({
     user_id: 1,
     shipping_address: "123 Main St, Anytown, USA",
-    total_amount: totalPrice,
+    total_amount: totalSelectedPrice,
     items: getOrderItems(),
   });
 
@@ -187,14 +190,13 @@ export const useShoppingCart = () => {
 
   const handleCheckout = () => {
     createOrderItemsMutation(getCheckoutData());
-    console.log("getCheckoutData", getCheckoutData());
   };
 
   return {
     shippingCartProducts,
     selectedProductIds,
-    totalQuantity,
-    totalPrice,
+    totalSelectedQuantity,
+    totalSelectedPrice,
     isCreatingOrderItems,
     toggleSelection,
     toggleAllSelection,
@@ -205,5 +207,6 @@ export const useShoppingCart = () => {
     handleCheckout,
     isSuccessModalOpen,
     handleCloseSuccessModal,
+    totalQuantity,
   };
 };
