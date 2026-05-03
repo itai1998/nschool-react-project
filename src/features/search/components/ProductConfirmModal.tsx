@@ -36,8 +36,6 @@ export default function ProductConfirmModal({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={styles.container}>
-        {/* 產品ID will be remove from UI after testing */}
-        <h3>Product ID: {productId}</h3>
         <h1>{productName}</h1>
         <h4>產品價格: NT$ {productPrice}</h4>
         <div className={styles.productQuantityContainer}>
@@ -69,7 +67,10 @@ export default function ProductConfirmModal({
           </div>
         </div>
         <button
-          onClick={() => onAddToCart(productId, quantity)}
+          onClick={() => {
+            onAddToCart(productId, quantity);
+            setQuantity(1);
+          }}
           className={styles.addToCartButton}
         >
           加入購物車
